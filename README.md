@@ -66,50 +66,44 @@ selfstudy-platform/
 └── docs/                 # 文档
 ```
 
-## 安装和运行
+## 快速开始
 
-### 1. 安装依赖
+详细安装和运行说明请查看 [QUICK_START.md](./QUICK_START.md)
+
+### 前置要求
+- Node.js 18+
+- MongoDB 7+
+- Redis 7+
+
+### 一键启动
 
 ```bash
+# 1. 安装依赖
 npm install
-```
+cd client && npm install && cd ..
 
-### 2. 配置环境变量
-
-```bash
-cp .env.example .env
-# 编辑 .env 文件，填入实际配置
-```
-
-### 3. 启动数据库
-
-确保MongoDB和Redis服务已启动：
-
-```bash
-# MongoDB
+# 2. 启动数据库
 brew services start mongodb-community
-
-# Redis
 brew services start redis
-```
 
-### 4. 运行项目
-
-```bash
-# 开发模式
+# 3. 启动后端
 npm run dev
 
-# 生产模式
-npm start
+# 4. 启动前端 (新终端)
+cd client && npm run dev
 ```
 
-### 5. 前端开发
+访问:
+- 前端: http://localhost:5173
+- 后端API: http://localhost:3000
 
-```bash
-cd client
-npm install
-npm run dev
-```
+## 详细文档
+
+- 📖 [快速开始指南](./QUICK_START.md) - 5分钟快速上手
+- 📘 [完整API文档](./docs/API.md) - 所有API端点详细说明
+- 📦 [部署指南](./docs/DEPLOYMENT.md) - Docker、云服务部署
+- 🔧 [GitHub配置](./docs/GITHUB_SETUP.md) - 推送代码到GitHub
+- 📊 [项目总结](./docs/PROJECT_SUMMARY.md) - 功能、技术栈、统计
 
 ## API文档
 
