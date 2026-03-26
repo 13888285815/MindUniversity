@@ -1,69 +1,117 @@
-# 意念科技在线学习平台
+# 智慧证券分析平台 (Stock Smart Platform)
 
-意念科技是一个专业的在线学习平台，集成Crunchbase式的订阅机制与AI API Tokens精确计费系统。
+> 类银河证券智慧星 + 同花顺的智能证券分析平台，集成订阅体系与 AI API Tokens 精确计费系统。
 
 ## 功能特性
 
-### 核心功能 (来自51zxw.net)
-- 多领域课程分类：办公软件、平面设计、室内设计、机械设计、影视动画、程序开发等
-- 视频课程在线播放
-- 学习进度跟踪
-- 课程评价和问答系统
-- 教师入驻平台
-- 移动端支持
+### 实时行情
+- **实时报价推送** — 基于 Socket.io 的毫秒级行情推送
+- **K 线图表** — 支持 1m/5m/15m/30m/60m/日/周/月多周期 K 线
+- **分时图** — 个股分时走势，叠加均价线
+- **五档盘口** — 买一到买五 / 卖一到卖五实时数据
+- **大盘指数** — 上证指数、深证成指、创业板指等实时数据
+- **板块行情** — 行业板块涨幅排行与资金流向
 
-### 订阅系统 (参考Crunchbase)
-- 分层定价模式 (Free/Pro/Enterprise)
-- API访问权限管理
-- 使用量和配额限制
-- 自动订阅续费
-- 免费试用
+### 智能分析
+- **AI 个股诊断** — 多维度评分（技术面/基本面/风险/情绪），综合评分 0-100
+- **技术指标** — MA(5/10/20/60/120/250)、MACD、KDJ、RSI、BOLL 自动计算
+- **涨幅/跌幅/成交量** 排行榜
+- **个股搜索** — 按代码、名称、拼音首字母快速检索
 
-### AI API Tokens计费
-- 精确的API调用追踪
-- Token消耗统计
-- 实时余额查询
-- 用量预警
-- 详细账单生成
-- API Key管理
+### 自选股管理
+- 添加/移除自选股（订阅等级限制数量）
+- 自选股实时行情刷新
+- 分组管理
+
+### 预警系统
+- 价格上穿/下穿预警
+- 涨跌幅预警
+- 成交量异动预警
+- 实时监控触发通知
+
+### 订阅系统
+- **四档分层定价**: Free / Starter / Pro / Enterprise
+- 功能权限按等级自动控制
+- 邮箱验证注册流程
+- Stripe 在线支付集成
+
+### AI API Tokens 计费
+- OpenAI 兼容的 `/v1/chat/completions` 接口
+- API Key 认证 + Token 级别余额管理
+- 精确的 Token 消耗统计与追踪
+- 用量预警 & 详细账单生成
 
 ## 技术栈
 
-### 后端
-- **Node.js + Express** - Web框架
-- **MongoDB + Mongoose** - 数据库
-- **Redis** - 缓存和会话管理
-- **JWT** - 身份认证
-- **Stripe** - 支付处理
-- **Socket.io** - 实时通信
-
-### 前端
-- **Vue.js 3** - 用户界面
-- **Element Plus** - UI组件库
-- **Axios** - HTTP客户端
-- **Video.js** - 视频播放器
+| 层级 | 技术 |
+|------|------|
+| **前端** | Vue 3 + Vite + Element Plus + ECharts + Pinia |
+| **后端** | Node.js + Express + Socket.io |
+| **数据库** | MongoDB (Mongoose) + Redis |
+| **认证** | JWT + API Key + 邮箱验证 |
+| **支付** | Stripe |
+| **AI** | OpenAI 兼容 API |
+| **安全** | Helmet + CORS + Rate Limiting + Bcrypt |
 
 ## 项目结构
 
 ```
-selfstudy-platform/
-├── client/                 # 前端代码
+stock-smart-platform/
+├── client/                     # Vue 3 前端
 │   ├── src/
-│   │   ├── components/    # Vue组件
-│   │   ├── views/         # 页面视图
-│   │   ├── router/        # 路由配置
-│   │   ├── store/         # 状态管理
-│   │   └── api/           # API调用
-├── server/                # 后端代码
-│   ├── config/           # 配置文件
-│   ├── controllers/     # 控制器
-│   ├── models/           # 数据模型
-│   ├── routes/           # 路由
-│   ├── middleware/       # 中间件
-│   ├── services/         # 业务逻辑
-│   └── utils/            # 工具函数
-├── uploads/              # 上传文件
-└── docs/                 # 文档
+│   │   ├── views/              # 页面视图 (14个)
+│   │   │   ├── Dashboard.vue   # 市场仪表盘
+│   │   │   ├── Stock.vue       # 个股详情(K线/分时/盘口)
+│   │   │   ├── Watchlist.vue   # 自选股管理
+│   │   │   ├── AIAnalysis.vue  # AI 智能分析
+│   │   │   ├── Alerts.vue      # 预警管理
+│   │   │   ├── Subscription.vue# 订阅计划
+│   │   │   ├── Billing.vue     # 账单明细
+│   │   │   ├── APIKeys.vue     # API Key 管理
+│   │   │   ├── Profile.vue     # 个人中心
+│   │   │   ├── Login.vue       # 登录
+│   │   │   ├── Register.vue    # 注册
+│   │   │   ├── VerifyEmail.vue # 邮箱验证
+│   │   │   └── Home.vue        # 首页
+│   │   ├── router/             # 路由配置
+│   │   ├── store/              # Pinia 状态管理
+│   │   └── App.vue             # 根组件(暗色主题)
+│   └── package.json
+├── server/                     # Express 后端
+│   ├── models/                 # Mongoose 数据模型
+│   │   ├── Stock.js            # 证券数据 (OHLCV + 基本面)
+│   │   ├── Kline.js            # K 线时序 + 技术指标
+│   │   ├── User.js             # 用户 + 订阅配置
+│   │   ├── Watchlist.js        # 自选股
+│   │   ├── AIAnalysis.js       # AI 分析记录
+│   │   ├── Alert.js            # 价格预警
+│   │   ├── SubscriptionPlan.js # 订阅计划
+│   │   ├── Invoice.js          # 账单
+│   │   └── APILog.js           # API 调用日志
+│   ├── routes/                 # API 路由
+│   │   ├── stocks.js           # 证券搜索/排行/自选
+│   │   ├── market.js           # 行情数据(K线/分时/盘口)
+│   │   ├── ai.js               # AI 分析 + OpenAI 兼容接口
+│   │   ├── alerts.js           # 预警 CRUD
+│   │   ├── auth.js             # 注册/登录/验证
+│   │   ├── subscription.js     # 订阅管理
+│   │   └── billing.js          # 计费/账单
+│   ├── services/               # 业务逻辑层
+│   │   ├── marketDataService.js    # 行情数据生成与推送
+│   │   ├── stockService.js         # 证券业务逻辑
+│   │   ├── aiAnalysisService.js    # AI 分析 + Token 计费
+│   │   ├── alertService.js         # 预警业务逻辑
+│   │   ├── authService.js          # 认证 + API Key
+│   │   ├── subscriptionService.js  # 订阅等级管理
+│   │   └── billingService.js       # 计费统计
+│   ├── middleware/             # 中间件
+│   ├── config/                 # 配置
+│   └── app.js                  # Express 应用入口
+├── public/                     # 静态资源
+├── docs/                       # 文档
+├── .env.example                # 环境变量模板
+├── package.json
+└── server.js                   # 主入口 (Socket.io)
 ```
 
 ## 快速开始
@@ -78,129 +126,166 @@ selfstudy-platform/
 ### 一键启动
 
 ```bash
-# 1. 安装依赖
+# 1. 克隆仓库
+git clone https://github.com/13888285815/stock.git
+cd stock
+
+# 2. 安装依赖
 npm install
 cd client && npm install && cd ..
 
-# 2. 启动数据库
+# 3. 配置环境变量
+cp .env.example .env
+# 编辑 .env 填入实际配置
+
+# 4. 启动数据库
 brew services start mongodb-community
 brew services start redis
 
-# 3. 启动后端
-npm run dev
-
-# 4. 启动前端 (新终端)
-cd client && npm run dev
+# 5. 启动后端 + 前端
+npm run dev:all
 ```
 
 访问:
 - 前端: http://localhost:5173
-- 后端API: http://localhost:3000
+- 后端 API: http://localhost:3000
 
-## 详细文档
+## API 文档
 
-- 📖 [快速开始指南](./QUICK_START.md) - 5分钟快速上手
-- 📘 [完整API文档](./docs/API.md) - 所有API端点详细说明
-- 📦 [部署指南](./docs/DEPLOYMENT.md) - Docker、云服务部署
-- 🔧 [GitHub配置](./docs/GITHUB_SETUP.md) - 推送代码到GitHub
-- 📊 [项目总结](./docs/PROJECT_SUMMARY.md) - 功能、技术栈、统计
+### 认证
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| POST | `/api/auth/register` | 用户注册 |
+| POST | `/api/auth/login` | 用户登录 |
+| POST | `/api/auth/verify-email` | 邮箱验证 |
+| POST | `/api/auth/refresh` | 刷新 Token |
 
-## API文档
+### 证券行情
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/stocks/search?q=` | 搜索证券 |
+| GET | `/api/stocks/:symbol` | 个股详情 |
+| GET | `/api/stocks/rank/gainers` | 涨幅排行 |
+| GET | `/api/stocks/rank/losers` | 跌幅排行 |
+| GET | `/api/stocks/rank/volume` | 成交量排行 |
+| GET | `/api/market/quote/:symbol` | 实时报价 |
+| GET | `/api/market/kline/:symbol` | K 线数据 |
+| GET | `/api/market/intraday/:symbol` | 分时数据 |
+| GET | `/api/market/indices` | 大盘指数 |
+| GET | `/api/market/sectors` | 板块行情 |
 
-### 认证相关
-- `POST /api/auth/register` - 用户注册
-- `POST /api/auth/login` - 用户登录
-- `POST /api/auth/refresh` - 刷新Token
-- `POST /api/auth/logout` - 用户登出
+### 自选股
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/stocks/watchlist` | 获取自选股 |
+| POST | `/api/stocks/watchlist` | 添加自选股 |
+| DELETE | `/api/stocks/watchlist/:symbol` | 移除自选股 |
 
-### 用户管理
-- `GET /api/user/profile` - 获取用户信息
-- `PUT /api/user/profile` - 更新用户信息
-- `GET /api/user/subscription` - 获取订阅状态
-- `POST /api/user/subscription/upgrade` - 升级订阅
+### AI 分析
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| POST | `/api/ai/analyze` | 请求 AI 分析 |
+| GET | `/api/ai/history` | 分析历史 |
+| GET | `/api/ai/:id` | 分析详情 |
+| POST | `/api/v1/chat/completions` | OpenAI 兼容接口 (API Key) |
 
-### API Key管理
-- `POST /api/keys/create` - 创建API Key
-- `GET /api/keys` - 获取API Key列表
-- `DELETE /api/keys/:id` - 删除API Key
-- `GET /api/keys/:id/usage` - 查询使用量
+### 预警
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/alerts` | 预警列表 |
+| POST | `/api/alerts` | 创建预警 |
+| PUT | `/api/alerts/:id` | 更新预警 |
+| DELETE | `/api/alerts/:id` | 删除预警 |
 
-### 计费系统
-- `GET /api/billing/balance` - 查询余额
-- `GET /api/billing/usage` - 查询使用量统计
-- `GET /api/billing/invoices` - 获取账单列表
-- `GET /api/billing/invoices/:id` - 获取账单详情
-
-### 课程管理
-- `GET /api/courses` - 获取课程列表
-- `GET /api/courses/:id` - 获取课程详情
-- `GET /api/courses/:id/lessons` - 获取课程章节
-- `POST /api/courses/:id/progress` - 更新学习进度
-
-### AI API (需要API Key认证)
-- `POST /api/v1/chat/completions` - AI对话完成
-- `POST /api/v1/embeddings` - 向量嵌入
-- `GET /api/v1/models` - 获取模型列表
+### 订阅 & 计费
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| GET | `/api/subscription/plans` | 订阅计划列表 |
+| POST | `/api/subscription/subscribe` | 订阅/升级 |
+| GET | `/api/billing/balance` | Token 余额 |
+| GET | `/api/billing/usage` | 使用量统计 |
+| GET | `/api/billing/invoices` | 账单列表 |
+| POST | `/api/keys/create` | 创建 API Key |
+| GET | `/api/keys` | API Key 列表 |
+| DELETE | `/api/keys/:id` | 删除 API Key |
 
 ## 订阅计划
 
-### Free Plan (免费)
-- 每月 50,000 Tokens
-- 访问基础课程
-- 标准API响应速度
-- 社区支持
-
-### Pro Plan ($29/月)
-- 每月 500,000 Tokens
-- 访问所有课程
-- 优先API响应
-- 邮件支持
-- 高级分析
-
-### Enterprise Plan ($99/月)
-- 无限Tokens
-- 定制化解决方案
-- 专属客户经理
-- SLA保证
-- 私有化部署
+| 功能 | Free | Starter | Pro | Enterprise |
+|------|------|---------|-----|------------|
+| 价格 | 免费 | ¥49/月 | ¥199/月 | ¥999/月 |
+| 自选股数量 | 20 | 50 | 200 | 无限 |
+| 预警数量 | 5 | 20 | 100 | 无限 |
+| AI 分析/天 | 3 | 20 | 100 | 无限 |
+| 实时行情 | 延迟15分钟 | 实时 | 实时 | 实时 |
+| AI 模型 | 基础 | 标准 | 高级 | 全部 |
+| API 调用 | - | 1,000/天 | 10,000/天 | 无限 |
+| 数据导出 | - | CSV | CSV/Excel | 全格式 |
+| 技术支持 | 社区 | 邮件 | 优先 | 专属 |
 
 ## 安全特性
 
-- JWT Token认证
-- API Key机制
-- Rate Limiting
-- CORS配置
-- 密码加密 (bcrypt)
-- SQL注入防护
-- XSS防护
+- JWT Token 认证 + 自动续期
+- API Key 机制（OpenAI 兼容格式）
+- Rate Limiting 请求限流
+- CORS 跨域配置
+- Bcrypt 密码加密
+- Helmet 安全头
+- 邮箱验证注册
+- HTTPS 就绪
+
+## 文档
+
+- [快速开始指南](./QUICK_START.md) — 5 分钟快速上手
+- [API 接口文档](./docs/API.md) — 所有 API 端点详细说明
+- [订阅与计费](./docs/SUBSCRIPTION_BILLING.md) — 订阅机制与计费模式
+- [部署指南](./docs/DEPLOYMENT.md) — Docker / 云服务部署
+- [安全审计报告](./docs/SECURITY_AUDIT_REPORT.md) — 安全评估
 
 ## 开发指南
 
-### 添加新课程类别
+### 环境变量
 
-1. 在 `server/models/Category.js` 中添加类别模型
-2. 更新前端路由配置
-3. 添加相应的API端点
+复制 `.env.example` 到 `.env` 并配置：
 
-### 实现新的API计费规则
+```bash
+# 必填
+MONGODB_URI=mongodb://localhost:27017/stock_smart
+JWT_SECRET=your_jwt_secret_key
 
-在 `server/services/billingService.js` 中添加新的计费规则：
-
-```javascript
-async calculateTokensUsage(endpoint, model, input, output) {
-  // 实现你的计费逻辑
-}
+# 可选 (启用完整功能)
+REDIS_URL=redis://localhost:6379
+SMTP_HOST=smtp.qq.com
+STRIPE_SECRET_KEY=sk_test_...
+OPENAI_API_KEY=sk-...
+MARKET_DATA_API_KEY=your_key
 ```
 
-## 贡献
+### 开发模式
 
-欢迎提交Issue和Pull Request！
+```bash
+# 后端热重载
+npm run dev
 
-## 许可证
+# 前端热重载 (新终端)
+cd client && npm run dev
 
-MIT License
+# 同时启动前后端
+npm run dev:all
+```
+
+### 生产构建
+
+```bash
+npm run build:client
+npm start
+```
+
+## License
+
+MIT
 
 ## 联系方式
 
 - Email: zzx@yndxw.com
-- GitHub: https://github.com/13888285815/SelfStudy
+- GitHub: [13888285815/stock](https://github.com/13888285815/stock)

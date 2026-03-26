@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const billingService = require('../services/billingService');
-const { authenticateJWT, authenticateAPIKey, requireTokenBalance } = require('../middleware/auth');
+const { authenticateJWT, authenticateAPIKey, requireTokenBalance, requireRole } = require('../middleware/auth');
 const { apiLimiter } = require('../middleware/rateLimiter');
 
 // 获取用户余额
@@ -147,10 +147,10 @@ router.get('/api/balance', authenticateAPIKey, async (req, res, next) => {
   }
 });
 
-// 管理员路由 - 获取系统统计
+// 管理员路由 - 获取系统统计 (需要管理员角色)
 router.get('/admin/stats',
   authenticateJWT,
-  requireSubscription('pro'),
+  requireRole('admin'),
   async (req, res, next) => {
     try {
       const stats = await billingService.getSystemStats();

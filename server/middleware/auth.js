@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const { User } = require('../models');
+const database = require('../config/database');
+const authService = require('../services/authService');
 
 // JWT认证中间件
 const authenticateJWT = async (req, res, next) => {
@@ -17,6 +20,18 @@ const authenticateJWT = async (req, res, next) => {
 
     // 验证token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // 检查token是否已被撤销
+    if (decoded.jti) {
+      const revoked = await authService.isTokenRevoked(decoded.jti);
+      if (revoked) {
+        return res.status(401).json({
+          success: false,
+          message: '令牌已失效'
+        });
+      }
+    }
+
     const user = await User.findById(decoded.userId).select('-password');
 
     if (!user || !user.isActive) {
@@ -26,9 +41,10 @@ const authenticateJWT = async (req, res, next) => {
       });
     }
 
-    // 将用户信息附加到请求对象
+    // 将用户信息和token ID附加到请求对象
     req.user = user;
     req.userId = user._id;
+    req.tokenJti = decoded.jti;
     next();
 
   } catch (error) {
@@ -48,8 +64,8 @@ const authenticateJWT = async (req, res, next) => {
 
     res.status(500).json({
       success: false,
-      message: '认证失败',
-      error: error.message
+      message: '认证失败'
+      // 不暴露 error.message
     });
   }
 };
@@ -143,9 +159,12 @@ const authenticateAPIKey = async (req, res, next) => {
 
     const apiKey = authHeader.replace('Bearer ', '');
 
+    // 对输入的API Key进行SHA256哈希后再查找
+    const apiKeyHash = crypto.createHash('sha256').update(apiKey).digest('hex');
+
     // 查找用户
     const user = await User.findOne({
-      'apiKeys.keyHash': apiKey,
+      'apiKeys.keyHash': apiKeyHash,
       'apiKeys.isActive': true,
       isActive: true
     });
@@ -159,7 +178,7 @@ const authenticateAPIKey = async (req, res, next) => {
 
     // 查找具体的API Key
     const apiKeyData = user.apiKeys.find(
-      k => k.keyHash === apiKey && k.isActive
+      k => k.keyHash === apiKeyHash && k.isActive
     );
 
     if (!apiKeyData) {
@@ -177,10 +196,10 @@ const authenticateAPIKey = async (req, res, next) => {
       });
     }
 
-    // 附加信息到请求
+    // 附加信息到请求 (不存储明文apiKey)
     req.user = user;
     req.userId = user._id;
-    req.apiKey = apiKey;
+    req.apiKeyHash = apiKeyHash;
     req.apiKeyId = apiKeyData.keyId;
 
     next();
@@ -188,8 +207,8 @@ const authenticateAPIKey = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'API认证失败',
-      error: error.message
+      message: 'API认证失败'
+      // 不暴露 error.message
     });
   }
 };

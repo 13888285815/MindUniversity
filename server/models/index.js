@@ -1,17 +1,21 @@
+const Stock = require('./Stock');
+const Kline = require('./Kline');
 const User = require('./User');
-const Course = require('./Course');
-const Category = require('./Category');
+const Watchlist = require('./Watchlist');
+const AIAnalysis = require('./AIAnalysis');
+const Alert = require('./Alert');
 const SubscriptionPlan = require('./SubscriptionPlan');
 const APILog = require('./APILog');
 const Invoice = require('./Invoice');
-const Review = require('./Review');
 
 module.exports = {
+  Stock,
+  Kline,
   User,
-  Course,
-  Category,
+  Watchlist,
+  AIAnalysis,
+  Alert,
   SubscriptionPlan,
   APILog,
-  Invoice,
-  Review
+  Invoice
 };

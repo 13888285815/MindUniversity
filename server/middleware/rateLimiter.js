@@ -27,11 +27,19 @@ const apiLimiter = rateLimit({
 // 登录限流器 (防止暴力破解)
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15分钟
-  max: 5, // 最多5次登录尝试
-  skipSuccessfulRequests: true, // 成功的请求不计入限流
+  max: 5, // 最多5次登录尝试（无论成功失败）
+  skipSuccessfulRequests: false,
   message: {
     success: false,
-    message: '登录尝试过多，请15分钟后再试'
+    message: '登录尝试过多，账户已临时锁定，请15分钟后再试'
+  },
+  handler: (req, res) => {
+    // 记录可疑的暴力破解尝试
+    console.warn(`[安全警告] 登录限流触发 IP: ${req.ip} Email: ${req.body?.email}`);
+    res.status(429).json({
+      success: false,
+      message: '登录尝试过多，账户已临时锁定，请15分钟后再试'
+    });
   }
 });
 

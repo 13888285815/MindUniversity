@@ -1,5 +1,21 @@
 const errorHandler = (err, req, res, next) => {
-  console.error('Error:', err);
+  // 安全地记录错误，不暴露敏感信息
+  const errorInfo = {
+    name: err.name,
+    message: err.message,
+    path: req.path,
+    method: req.method,
+    statusCode: err.status || 500,
+    timestamp: new Date().toISOString()
+  };
+
+  // 生产环境不记录完整堆栈到响应，只记录到服务端日志
+  if (process.env.NODE_ENV === 'development') {
+    console.error('Error:', errorInfo, err.stack);
+  } else {
+    console.error('Error:', errorInfo);
+    // 不输出 err.stack 到控制台，避免日志泄露
+  }
 
   // Mongoose验证错误
   if (err.name === 'ValidationError') {
@@ -52,7 +68,7 @@ const errorHandler = (err, req, res, next) => {
     });
   }
 
-  // 默认500错误
+  // 默认500错误 - 生产环境永不暴露错误详情
   res.status(500).json({
     success: false,
     message: process.env.NODE_ENV === 'development' ? err.message : '服务器内部错误',

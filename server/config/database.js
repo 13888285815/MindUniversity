@@ -9,7 +9,7 @@ class Database {
 
   async connectMongoDB() {
     try {
-      const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/selfstudy';
+      const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/stock_smart';
 
       await mongoose.connect(mongoUri, {
         useNewUrlParser: true,

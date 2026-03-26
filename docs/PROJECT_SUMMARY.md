@@ -2,7 +2,7 @@
 
 ## 项目概述
 
-已成功创建意念科技在线学习平台,集成Crunchbase式的订阅机制与AI API Tokens精确计费系统。
+已成功创建意念科技在线学习平台,集成订阅机制与AI API Tokens精确计费系统。
 
 ## 完成的功能模块
 
@@ -17,7 +17,7 @@
 
 #### 订阅管理系统 (`server/services/subscriptionService.js`)
 - 三层订阅计划 (Free/Pro/Enterprise)
-- 分层定价模式 (参考Crunchbase)
+- 分层定价模式
 - Stripe支付集成
 - 订阅升级/取消
 - Webhook处理
@@ -101,7 +101,7 @@
 - Video.js
 - ECharts
 
-## 订阅计划 (参考Crunchbase)
+## 订阅计划
 
 | 计划 | 价格 | 每月Token | 特性 |
 |------|------|----------|------|
@@ -346,7 +346,7 @@ git push -u origin main
 - 教师入驻平台
 - 社区问答
 
-### Crunchbase特点
+### 订阅体系特点
 - 分层定价模式
 - API访问权限
 - 使用量配额

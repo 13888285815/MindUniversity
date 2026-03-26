@@ -43,24 +43,24 @@ class BillingService {
     return log;
   }
 
-  // 扣除用户Token
+  // 扣除用户Token (原子操作，防止并发竞态)
   async deductUserTokens(userId, tokens) {
-    const user = await User.findById(userId);
-    if (!user) {
-      throw new Error('用户不存在');
-    }
+    // 使用原子操作：检查余额+扣除 在一次操作中完成
+    const user = await User.findOneAndUpdate(
+      { _id: userId, tokenBalance: { $gte: tokens } },
+      {
+        $inc: {
+          tokenBalance: -tokens,
+          totalTokensUsed: tokens,
+          monthlyTokensUsed: tokens
+        }
+      },
+      { new: true }
+    );
 
-    // 检查余额
-    if (user.tokenBalance < tokens) {
+    if (!user) {
       throw new Error('Token余额不足');
     }
-
-    // 扣除Token
-    user.tokenBalance -= tokens;
-    user.totalTokensUsed += tokens;
-    user.monthlyTokensUsed += tokens;
-
-    await user.save();
 
     // 检查是否需要发送余额预警
     await this.checkBalanceAlert(user);

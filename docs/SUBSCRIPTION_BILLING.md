@@ -1,8 +1,8 @@
-# 意念科技 - Crunchbase式订阅验证系统
+# 意念科技 - 订阅验证系统
 
 ## 概述
 
-意念科技采用类似Crunchbase的分层订阅机制，提供Free、Pro、Enterprise三个等级的订阅计划，并配备完整的验证系统和AI API Tokens计费模式。
+意念科技采用分层订阅机制，提供Free、Pro、Enterprise三个等级的订阅计划，并配备完整的验证系统和AI API Tokens计费模式。
 
 ## 订阅计划
 

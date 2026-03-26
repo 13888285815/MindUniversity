@@ -40,25 +40,21 @@ const apiLogSchema = new mongoose.Schema({
     }
   },
 
-  // 请求详情
+  // 请求元数据 (不存储body和headers，只存元信息)
   request: {
-    headers: Object,
-    body: Object,
     query: Object
   },
 
-  // 响应详情
+  // 响应元数据 (不存储body)
   response: {
     statusCode: Number,
-    body: mongoose.Schema.Types.Mixed,
     responseTime: Number // 毫秒
   },
 
-  // 错误信息
+  // 错误信息 (不存储stack)
   error: {
     message: String,
-    code: String,
-    stack: String
+    code: String
   },
 
   // 元数据

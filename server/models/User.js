@@ -18,39 +18,65 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     trim: true
   },
+  phone: String,
   password: {
     type: String,
     required: true,
-    minlength: 6
+    minlength: 8,
+    validate: {
+      validator: function(v) {
+        // 至少8字符，包含大小写字母和数字
+        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(v);
+      },
+      message: '密码必须至少8字符，包含大小写字母和数字'
+    }
+  },
+
+  // 邮箱验证
+  emailVerification: {
+    token: String,
+    verified: { type: Boolean, default: false },
+    verifiedAt: Date,
+    expiresAt: Date
   },
 
   // 订阅信息
   subscription: {
     plan: {
       type: String,
-      enum: ['free', 'pro', 'enterprise'],
+      enum: ['free', 'starter', 'pro', 'enterprise'],
       default: 'free'
     },
     status: {
       type: String,
-      enum: ['active', 'expired', 'cancelled', 'trial'],
+      enum: ['active', 'expired', 'cancelled', 'trial', 'past_due'],
       default: 'trial'
     },
-    startDate: {
-      type: Date,
-      default: Date.now
-    },
-    endDate: {
-      type: Date
-    },
+    startDate: { type: Date, default: Date.now },
+    endDate: Date,
+    trialEndsAt: Date,
     stripeCustomerId: String,
-    stripeSubscriptionId: String
+    stripeSubscriptionId: String,
+    // 订阅特性配置
+    features: {
+      maxWatchlist: { type: Number, default: 20 },
+      maxAlerts: { type: Number, default: 5 },
+      aiAnalysisPerDay: { type: Number, default: 3 },
+      realtimeData: { type: Boolean, default: false },
+      advancedChart: { type: Boolean, default: false },
+      portfolioAnalysis: { type: Boolean, default: false },
+      apiAccess: { type: Boolean, default: false },
+      prioritySupport: { type: Boolean, default: false },
+      customIndicators: { type: Boolean, default: false },
+      exportData: { type: Boolean, default: false },
+      historicalData: { type: Number, default: 90 } // 天数
+    }
   },
 
-  // Token配额和余额
+  // AI API Token 计费
   tokenBalance: {
     type: Number,
-    default: 50000 // 免费用户50K tokens
+    default: 10000
   },
   totalTokensUsed: {
     type: Number,
@@ -64,34 +90,30 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-
-  // 学习进度
-  enrolledCourses: [{
-    courseId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Course'
-    },
-    progress: {
-      type: Number,
-      default: 0
-    },
-    lastWatchedAt: {
-      type: Date,
-      default: Date.now
-    },
-    completedLessons: [{
-      type: mongoose.Schema.Types.ObjectId
-    }]
-  }],
+  // 每日AI分析计数
+  dailyAIAnalysisCount: {
+    type: Number,
+    default: 0
+  },
+  lastAIAnalysisDate: Date,
 
   // 个人资料
   profile: {
     fullName: String,
     avatar: String,
-    phone: String,
     country: String,
     city: String,
-    bio: String
+    bio: String,
+    investmentStyle: {
+      type: String,
+      enum: ['conservative', 'balanced', 'aggressive', 'day_trader', 'long_term'],
+      default: 'balanced'
+    },
+    experience: {
+      type: String,
+      enum: ['beginner', 'intermediate', 'advanced', 'professional'],
+      default: 'intermediate'
+    }
   },
 
   // API Keys
@@ -101,46 +123,30 @@ const userSchema = new mongoose.Schema({
     keyHash: String,
     name: String,
     permissions: [String],
+    rateLimit: Number,
     lastUsedAt: Date,
-    createdAt: {
-      type: Date,
-      default: Date.now
-    },
-    isActive: {
-      type: Boolean,
-      default: true
-    }
+    createdAt: { type: Date, default: Date.now },
+    expiresAt: Date,
+    isActive: { type: Boolean, default: true }
   }],
 
   // 账户状态
-  isActive: {
-    type: Boolean,
-    default: true
-  },
-  isEmailVerified: {
-    type: Boolean,
-    default: false
-  },
+  isActive: { type: Boolean, default: true },
   role: {
     type: String,
-    enum: ['student', 'teacher', 'admin'],
-    default: 'student'
-  },
-
-  // 时间戳
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
+    enum: ['user', 'analyst', 'admin'],
+    default: 'user'
   },
 
   // 最后登录
   lastLoginAt: Date,
-  lastLoginIP: String
-});
+  lastLoginIP: String,
+  loginCount: { type: Number, default: 0 },
+
+  // 安全: 账户锁定
+  loginFailures: { type: Number, default: 0 },
+  lockUntil: Date
+}, { timestamps: true });
 
 // 索引
 userSchema.index({ email: 1 });
@@ -148,10 +154,9 @@ userSchema.index({ username: 1 });
 userSchema.index({ 'subscription.plan': 1 });
 userSchema.index({ 'subscription.status': 1 });
 
-// 密码加密中间件
+// 密码加密
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
-
   try {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
@@ -161,27 +166,15 @@ userSchema.pre('save', async function(next) {
   }
 });
 
-// 比较密码方法
+// 比较密码
 userSchema.methods.comparePassword = async function(candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-// 检查是否需要升级订阅
-userSchema.methods.checkTokenLimit = function() {
-  const plans = {
-    free: 50000,
-    pro: 500000,
-    enterprise: Infinity
-  };
-
-  const limit = plans[this.subscription.plan] || plans.free;
-  return this.tokenBalance < limit;
-};
-
-// 扣除Tokens
+// 扣除 Token
 userSchema.methods.deductTokens = function(amount) {
   if (this.tokenBalance < amount) {
-    throw new Error('Insufficient token balance');
+    throw new Error('Token余额不足');
   }
   this.tokenBalance -= amount;
   this.totalTokensUsed += amount;
@@ -189,37 +182,21 @@ userSchema.methods.deductTokens = function(amount) {
   return this.save();
 };
 
-// 获取可用Token数
-userSchema.methods.getAvailableTokens = function() {
-  const plans = {
-    free: 50000,
-    pro: 500000,
-    enterprise: Infinity
-  };
-
-  const limit = plans[this.subscription.plan] || plans.free;
-  return Math.min(this.tokenBalance, limit);
+// 重置每日AI分析计数
+userSchema.methods.resetDailyAIAnalysis = function() {
+  this.dailyAIAnalysisCount = 0;
+  this.lastAIAnalysisDate = new Date();
+  return this.save();
 };
 
-// 更新订阅计划
-userSchema.methods.updateSubscription = function(plan, stripeCustomerId, stripeSubscriptionId) {
-  this.subscription.plan = plan;
-  this.subscription.status = 'active';
-  this.subscription.stripeCustomerId = stripeCustomerId;
-  this.subscription.stripeSubscriptionId = stripeSubscriptionId;
-
-  // 重置每月配额
-  const plans = {
-    free: 50000,
-    pro: 500000,
-    enterprise: Infinity
-  };
-
-  this.tokenBalance = plans[plan];
-  this.monthlyTokensUsed = 0;
-  this.lastBillingDate = new Date();
-
-  return this.save();
+// 检查是否可以进行AI分析
+userSchema.methods.canDoAIAnalysis = function() {
+  const today = new Date().toDateString();
+  if (this.lastAIAnalysisDate?.toDateString() !== today) {
+    this.dailyAIAnalysisCount = 0;
+    this.lastAIAnalysisDate = new Date();
+  }
+  return this.dailyAIAnalysisCount < this.subscription.features.aiAnalysisPerDay;
 };
 
 module.exports = mongoose.model('User', userSchema);
