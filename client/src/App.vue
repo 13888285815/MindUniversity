@@ -13,9 +13,6 @@
             <el-menu-item index="/watchlist">自选股</el-menu-item>
             <el-menu-item index="/ai">AI分析</el-menu-item>
             <el-menu-item index="/alerts">预警</el-menu-item>
-            <el-menu-item index="/customer-service">
-              <el-badge is-dot class="customer-service-badge">智能客服</el-badge>
-            </el-menu-item>
           </el-menu>
           <div class="user-section">
             <el-badge :value="user?.tokenBalance || 0" :max="999999" class="token-badge">
@@ -45,8 +42,8 @@
     </el-container>
     <router-view v-else />
 
-    <!-- 智能客服悬浮按钮 -->
-    <CustomerServiceButton v-if="isAuthenticated" />
+    <!-- 智能客服 (全局可见) -->
+    <ChatBot />
   </div>
 </template>
 
@@ -54,7 +51,7 @@
 import { computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from './store/user'
-import CustomerServiceButton from './components/CustomerServiceButton.vue'
+import ChatBot from './components/ChatBot.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -98,8 +95,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .user-section { display: flex; align-items: center; gap: 15px; }
 .user-name { cursor: pointer; color: #a0aec0; font-size: 14px; display: flex; align-items: center; gap: 4px; }
 .token-badge { cursor: pointer; }
-.customer-service-badge { position: relative; }
-.customer-service-badge :deep(.el-badge__content) { right: 0; }
 .app-main { max-width: 1600px; margin: 0 auto; padding: 20px; width: 100%; }
 .el-card { background: #1a1a2e; border: 1px solid #2d2d44; color: #e2e8f0; }
 .el-card__header { border-bottom: 1px solid #2d2d44; color: #e2e8f0; }
