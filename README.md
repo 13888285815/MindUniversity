@@ -35,6 +35,12 @@
 - 邮箱验证注册流程
 - Stripe 在线支付集成
 
+### 智能客服
+- **AI 驱动**: 基于 AI 的智能对话系统
+- **快速回复**: 常见问题秒级回复
+- **FAQ 知识库**: 结构化的问题分类浏览
+- **24/7 在线**: 全天候自动客服支持
+
 ### AI API Tokens 计费
 - OpenAI 兼容的 `/v1/chat/completions` 接口
 - API Key 认证 + Token 级别余额管理
@@ -209,6 +215,14 @@ npm run dev:all
 | GET | `/api/keys` | API Key 列表 |
 | DELETE | `/api/keys/:id` | 删除 API Key |
 
+### 智能客服
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| POST | `/api/customer-service/chat` | 发送客服消息 |
+| GET | `/api/customer-service/faq` | 获取常见问题 |
+| GET | `/api/customer-service/categories` | 获取分类列表 |
+| GET | `/api/customer-service/faq/:category` | 根据分类获取问题 |
+
 ## 订阅计划
 
 | 功能 | Free | Starter | Pro | Enterprise |
@@ -239,6 +253,7 @@ npm run dev:all
 - [快速开始指南](./QUICK_START.md) — 5 分钟快速上手
 - [API 接口文档](./docs/API.md) — 所有 API 端点详细说明
 - [订阅与计费](./docs/SUBSCRIPTION_BILLING.md) — 订阅机制与计费模式
+- [智能客服指南](./docs/CUSTOMER_SERVICE.md) — 智能客服使用说明
 - [部署指南](./docs/DEPLOYMENT.md) — Docker / 云服务部署
 - [安全审计报告](./docs/SECURITY_AUDIT_REPORT.md) — 安全评估
 
@@ -287,5 +302,5 @@ MIT
 
 ## 联系方式
 
-- Email: zzx@yndxw.com
+
 - GitHub: [13888285815/stock](https://github.com/13888285815/stock)

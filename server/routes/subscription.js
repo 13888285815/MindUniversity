@@ -129,7 +129,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         process.env.STRIPE_WEBHOOK_SECRET
       );
     } catch (err) {
-      return res.status(400).send(`Webhook Error: ${err.message}`);
+      return res.status(400).send('Webhook signature verification failed');
     }
 
     await subscriptionService.handleStripeWebhook(event);

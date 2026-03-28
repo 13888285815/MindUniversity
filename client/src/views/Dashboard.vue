@@ -25,7 +25,7 @@
       <el-col :span="12">
         <el-card class="rank-card">
           <template #header><span class="card-title up">📈 涨幅榜</span></template>
-          <el-table :data="gainers" size="small" :show-header="true" class="dark-table" :row-class-name="tableRowClass">
+          <el-table :data="gainers" size="small" :show-header="true" class="dark-table" :row-class-name="tableRowClass" v-loading="loading" empty-text="数据加载中，请稍候...">
             <el-table-column prop="symbol" label="代码" width="80" />
             <el-table-column prop="name" label="名称" width="100" />
             <el-table-column prop="quote.price" label="最新价" width="80">
@@ -49,7 +49,7 @@
       <el-col :span="12">
         <el-card class="rank-card">
           <template #header><span class="card-title down">📉 跌幅榜</span></template>
-          <el-table :data="losers" size="small" class="dark-table" :row-class-name="tableRowClass">
+          <el-table :data="losers" size="small" class="dark-table" :row-class-name="tableRowClass" v-loading="loading" empty-text="数据加载中，请稍候...">
             <el-table-column prop="symbol" label="代码" width="80" />
             <el-table-column prop="name" label="名称" width="100" />
             <el-table-column prop="quote.price" label="最新价" width="80">
@@ -87,7 +87,7 @@
       <el-col :span="12">
         <el-card>
           <template #header><span class="card-title">💰 成交额排行</span></template>
-          <el-table :data="topVolume" size="small" class="dark-table">
+          <el-table :data="topVolume" size="small" class="dark-table" v-loading="loading" empty-text="数据加载中，请稍候...">
             <el-table-column type="index" width="40" />
             <el-table-column prop="symbol" label="代码" width="80" />
             <el-table-column prop="name" label="名称" width="100" />
@@ -111,8 +111,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
+import { ElMessage } from 'element-plus'
 
-const API = 'http://localhost:3000/api'
+import { API_BASE as API } from '../utils/config'
+
+const loading = ref(true)
 
 const indices = ref([
   { symbol: '000001', market: 'SH', name: '上证指数', price: 3285.67, changePercent: 0.85 },
@@ -137,20 +140,33 @@ const tableRowClass = ({ row }) => (row.quote?.changePercent > 0 ? 'row-up' : ro
 
 onMounted(async () => {
   try {
+    // Try to load real market indices
+    const idxRes = await axios.get(`${API}/market/indices`)
+    if (idxRes.data.data?.indices) indices.value = idxRes.data.data.indices
+  } catch (e) { /* use fallback data */ }
+
+  try {
+    const s = await axios.get(`${API}/market/stats`)
+    stats.value = s.data.data
+  } catch (e) { /* use fallback data */ }
+
+  try {
+    const secRes = await axios.get(`${API}/market/sectors`)
+    if (secRes.data.data?.sectors) sectors.value = secRes.data.data.sectors
+  } catch (e) { /* use fallback data */ }
+
+  try {
     const [g, l, v] = await Promise.all([
       axios.get(`${API}/stocks/rank/gainers?limit=15`),
       axios.get(`${API}/stocks/rank/losers?limit=15`),
       axios.get(`${API}/stocks/rank/volume?limit=15`)
     ])
-    gainers.value = g.data.data.stocks
-    losers.value = l.data.data.stocks
-    topVolume.value = v.data.data.stocks
-  } catch (e) { console.error('加载行情数据失败:', e) }
-
-  try {
-    const s = await axios.get(`${API}/market/stats`)
-    stats.value = s.data.data
-  } catch (e) { /* 使用模拟数据 */ }
+    gainers.value = g.data.data.stocks || []
+    losers.value = l.data.data.stocks || []
+    topVolume.value = v.data.data.stocks || []
+  } catch (e) {
+    ElMessage.warning('排行榜数据加载失败，当前为示例数据')
+  } finally { loading.value = false }
 })
 </script>
 

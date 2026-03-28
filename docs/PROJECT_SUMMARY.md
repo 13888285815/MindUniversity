@@ -371,7 +371,7 @@ git push -u origin main
 ## 联系方式
 
 - GitHub: https://github.com/13888285815/SelfStudy
-- Email: zzx@yndxw.com
+
 
 ## 许可证
 

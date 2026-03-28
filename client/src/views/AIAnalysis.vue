@@ -100,7 +100,7 @@ import axios from 'axios'
 import { useUserStore } from '../store/user'
 import { ElMessage } from 'element-plus'
 
-const API = 'http://localhost:3000/api'
+import { API_BASE as API } from '../utils/config'
 const userStore = useUserStore()
 const symbol = ref('600519')
 const market = ref('SH')
@@ -108,11 +108,19 @@ const type = ref('comprehensive')
 const loading = ref(false)
 const result = ref(null)
 const history = ref([])
-const remaining = ref(3)
+const remaining = ref(0)
 
 const signalLabels = { strong_buy: '强烈买入', buy: '买入', neutral: '中性', sell: '卖出', strong_sell: '强烈卖出' }
 const scoreLabels = { overall: '综合评分', technical: '技术面', fundamental: '基本面', risk: '风险', sentiment: '情绪' }
 const getScoreClass = (v) => v >= 70 ? 'high' : v >= 40 ? 'mid' : 'low'
+
+// Load remaining quota from user subscription
+const loadQuota = () => {
+  const plan = userStore.user?.subscription?.plan
+  const quotas = { free: 3, starter: 20, pro: Infinity, enterprise: Infinity }
+  // Default to free if no plan info
+  remaining.value = quotas[plan] ?? 3
+}
 
 const analyze = async () => {
   loading.value = true
@@ -133,7 +141,10 @@ const loadHistory = async () => {
 }
 
 const viewAnalysis = (item) => { result.value = item }
-onMounted(loadHistory)
+onMounted(() => {
+  loadQuota()
+  loadHistory()
+})
 </script>
 
 <style scoped>

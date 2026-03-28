@@ -16,7 +16,7 @@ const stockRoutes = require('./routes/stocks');
 const marketRoutes = require('./routes/market');
 const aiRoutes = require('./routes/ai');
 const alertRoutes = require('./routes/alerts');
-const apiRoutes = require('./routes/api');
+const customerServiceRoutes = require('./routes/customerService');
 
 const app = express();
 
@@ -51,7 +51,21 @@ app.use(helmet({
   originAgentCluster: true,
   permittedCrossDomainPolicies: { permittedPolicies: 'none' },
   referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
-  xssFilter: true
+  xssFilter: true,
+  // Permissions-Policy: restrict browser features
+  permissionsPolicy: {
+    features: {
+      camera: [],
+      microphone: [],
+      geolocation: [],
+      payment: [],
+      usb: [],
+      magnetometer: [],
+      gyroscope: [],
+      speaker: [],
+      vibrate: []
+    }
+  }
 }));
 
 // CORS - 严格化配置
@@ -76,12 +90,13 @@ if (process.env.NODE_ENV === 'production') {
     }
   };
 } else {
-  // 开发环境允许 localhost
+  // 开发环境仅允许 localhost
   corsOptions.origin = function(origin, callback) {
-    if (!origin || origin.includes('localhost') || origin.includes('127.0.0.1')) {
+    if (!origin || /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
       callback(null, true);
     } else {
-      callback(null, true); // 开发环境宽容处理
+      console.warn(`[CORS] 开发环境被拒绝的来源: ${origin}`);
+      callback(new Error('不允许的CORS来源'));
     }
   };
 }
@@ -93,8 +108,8 @@ app.use(compression());
 app.use(morgan('combined'));
 
 // 解析
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
 // 静态文件 - 安全配置
 app.use('/uploads', express.static('uploads', {
@@ -122,7 +137,7 @@ app.use('/api/stocks', stockRoutes);
 app.use('/api/market', marketRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/alerts', alertRoutes);
-app.use('/api', apiRoutes);
+app.use('/api/customer-service', customerServiceRoutes);
 
 // API 信息
 app.get('/api', (req, res) => {
@@ -150,9 +165,11 @@ app.use(notFound);
 // 错误处理
 app.use(errorHandler);
 
-// 数据库
-database.connectMongoDB();
-database.connectRedis();
+// 数据库 - 在 Vercel serverless 环境中由 api/index.js 按需连接
+if (!process.env.VERCEL) {
+  database.connectMongoDB();
+  database.connectRedis();
+}
 
 // 优雅关闭
 process.on('SIGTERM', async () => {

@@ -1,0 +1,11 @@
+node_modules/
+.git/
+.workbuddy/
+*.log
+*.md
+docs/
+.env
+.env.*
+!client/.env.production
+uploads/
+tmp/

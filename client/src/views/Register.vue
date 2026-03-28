@@ -10,7 +10,7 @@
           <el-input v-model="form.email" placeholder="邮箱地址" prefix-icon="Message" size="large" />
         </el-form-item>
         <el-form-item>
-          <el-input v-model="form.password" type="password" placeholder="密码 (至少6位)" prefix-icon="Lock" size="large" show-password />
+          <el-input v-model="form.password" type="password" placeholder="密码 (至少8位，含大小写字母和数字)" prefix-icon="Lock" size="large" show-password />
         </el-form-item>
         <el-button type="primary" size="large" round style="width:100%;" :loading="loading" @click="handleRegister">注册</el-button>
       </el-form>
@@ -35,8 +35,8 @@ const handleRegister = async () => {
   loading.value = true
   try {
     await userStore.register(form)
-    ElMessage.success('注册成功！验证邮件已发送')
-    router.push('/dashboard')
+    ElMessage.success('注册成功！验证邮件已发送，请查收邮箱')
+    router.push('/login')
   } catch (e) {
     ElMessage.error(e.response?.data?.message || '注册失败')
   } finally { loading.value = false }

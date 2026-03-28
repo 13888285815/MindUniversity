@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
-
-const API_BASE = 'http://localhost:3000/api'
+import { API_BASE } from '../utils/config'
 
 export const useUserStore = defineStore('user', {
   state: () => ({

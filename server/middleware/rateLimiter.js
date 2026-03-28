@@ -34,8 +34,8 @@ const authLimiter = rateLimit({
     message: '登录尝试过多，账户已临时锁定，请15分钟后再试'
   },
   handler: (req, res) => {
-    // 记录可疑的暴力破解尝试
-    console.warn(`[安全警告] 登录限流触发 IP: ${req.ip} Email: ${req.body?.email}`);
+    // 记录可疑的暴力破解尝试（不记录邮箱等敏感信息）
+    console.warn(`[安全警告] 登录限流触发 IP: ${req.ip}`);
     res.status(429).json({
       success: false,
       message: '登录尝试过多，账户已临时锁定，请15分钟后再试'

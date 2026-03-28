@@ -17,6 +17,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
+import { API_BASE } from '../utils/config'
 
 const route = useRoute()
 const verified = ref(false)
@@ -27,7 +28,7 @@ onMounted(async () => {
   try {
     const { token, email } = route.query
     if (!token || !email) { error.value = true; message.value = '验证链接无效'; return }
-    const res = await axios.post('http://localhost:3000/api/auth/verify-email', { token, email })
+    const res = await axios.post(`${API_BASE}/auth/verify-email`, { token, email })
     verified.value = true
   } catch (e) {
     error.value = true

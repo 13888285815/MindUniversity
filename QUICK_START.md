@@ -227,4 +227,4 @@ git push            # 推送到 GitHub
 ## 支持
 
 - GitHub: [13888285815/stock](https://github.com/13888285815/stock)
-- Email: zzx@yndxw.com
+

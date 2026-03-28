@@ -21,7 +21,7 @@ import axios from 'axios'
 import { useUserStore } from '../store/user'
 import { ElMessage } from 'element-plus'
 
-const API = 'http://localhost:3000/api'
+import { API_BASE as API } from '../utils/config'
 const userStore = useUserStore()
 const keys = ref([])
 const newKey = ref(null)

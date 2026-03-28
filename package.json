@@ -1,18 +1,11 @@
 {
   "name": "stock-smart-platform",
   "version": "2.0.0",
-  "description": "智慧证券分析平台 - 集成银河证券智慧星/同花顺行情 + 订阅体系 + AI API Tokens计费",
-  "main": "server.js",
+  "private": true,
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "build:client": "cd client && npm run build",
-    "dev:all": "concurrently \"npm run dev\" \"cd client && npm run dev\"",
-    "test": "jest"
+    "build:client": "cd client && npm install && npm run build",
+    "vercel-build": "cd client && npm install && npm run build"
   },
-  "keywords": ["stock", "securities", "trading", "ai-analysis", "subscription", "api-billing", "kline", "realtime"],
-  "author": "zzx",
-  "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
     "mongoose": "^8.0.3",
@@ -24,18 +17,13 @@
     "stripe": "^14.10.0",
     "uuid": "^9.0.1",
     "multer": "^1.4.5-lts.1",
-    "socket.io": "^4.6.1",
     "redis": "^4.6.11",
     "node-cron": "^3.0.3",
     "axios": "^1.6.2",
     "nodemailer": "^6.9.7",
     "helmet": "^7.1.0",
     "morgan": "^1.10.0",
-    "compression": "^1.7.4"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.2",
-    "concurrently": "^8.2.2",
-    "jest": "^29.7.0"
+    "compression": "^1.7.4",
+    "socket.io": "^4.6.1"
   }
 }

@@ -4,13 +4,23 @@
       <template #header>
         <div style="display:flex;justify-content:space-between;align-items:center;">
           <span style="font-weight:600;font-size:18px;">⭐ 我的自选股</span>
-          <el-input v-model="searchQuery" placeholder="搜索添加股票..." prefix-icon="Search" style="width:260px;" clearable @keyup.enter="searchAndAdd" />
+          <div style="display:flex;gap:8px;">
+            <el-input v-model="searchQuery" placeholder="输入股票代码" prefix-icon="Search" style="width:200px;" clearable @keyup.enter="searchAndAdd" />
+            <el-select v-model="addMarket" style="width:90px;">
+              <el-option label="SH" value="SH" />
+              <el-option label="SZ" value="SZ" />
+              <el-option label="HK" value="HK" />
+              <el-option label="US" value="US" />
+            </el-select>
+            <el-button type="primary" @click="searchAndAdd">添加</el-button>
+          </div>
         </div>
       </template>
       <el-table :data="stocks" style="width:100%" class="dark-table" empty-text="暂无自选股">
         <el-table-column type="index" width="50" />
         <el-table-column prop="symbol" label="代码" width="100" />
         <el-table-column prop="name" label="名称" width="120" />
+        <el-table-column prop="market" label="市场" width="70" />
         <el-table-column label="最新价" width="100">
           <template #default="{ row }">{{ row.quote?.price?.toFixed(2) || '-' }}</template>
         </el-table-column>
@@ -41,22 +51,25 @@ import axios from 'axios'
 import { useUserStore } from '../store/user'
 import { ElMessage } from 'element-plus'
 
-const API = 'http://localhost:3000/api'
+import { API_BASE as API } from '../utils/config'
 const userStore = useUserStore()
 const stocks = ref([])
 const searchQuery = ref('')
+const addMarket = ref('SH')
+
+const authHeaders = { headers: { Authorization: `Bearer ${userStore.token}` } }
 
 const loadWatchlist = async () => {
   try {
-    const res = await axios.get(`${API}/stocks/watchlist/my`, { headers: { Authorization: `Bearer ${userStore.token}` } })
+    const res = await axios.get(`${API}/stocks/watchlist/my`, authHeaders)
     stocks.value = res.data.data.stocks || []
   } catch (e) { console.error(e) }
 }
 
 const searchAndAdd = async () => {
-  if (!searchQuery.value) return
+  if (!searchQuery.value) return ElMessage.warning('请输入股票代码')
   try {
-    const res = await axios.post(`${API}/stocks/watchlist/add`, { symbol: searchQuery.value.toUpperCase(), market: 'SH' }, { headers: { Authorization: `Bearer ${userStore.token}` } })
+    await axios.post(`${API}/stocks/watchlist/add`, { symbol: searchQuery.value.toUpperCase(), market: addMarket.value }, authHeaders)
     ElMessage.success('已添加到自选')
     searchQuery.value = ''
     loadWatchlist()
@@ -65,7 +78,7 @@ const searchAndAdd = async () => {
 
 const removeStock = async (symbol, market) => {
   try {
-    await axios.delete(`${API}/stocks/watchlist/remove`, { headers: { Authorization: `Bearer ${userStore.token}` }, data: { symbol, market } })
+    await axios.delete(`${API}/stocks/watchlist/remove`, { ...authHeaders, data: { symbol, market } })
     ElMessage.success('已移除')
     loadWatchlist()
   } catch (e) { ElMessage.error('移除失败') }

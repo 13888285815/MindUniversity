@@ -8,6 +8,7 @@
           <span class="brand-text">智慧证券</span>
         </div>
         <div class="header-actions">
+          <el-button @click="$router.push('/market')" round>行情</el-button>
           <el-button @click="$router.push('/login')" round>登录</el-button>
           <el-button type="primary" @click="$router.push('/register')" round>免费注册</el-button>
         </div>
@@ -56,6 +57,74 @@
         </div>
       </section>
 
+      <!-- 实时行情预览 -->
+      <section class="market-preview" id="market">
+        <h2 class="section-title">实时行情</h2>
+        <p class="section-subtitle">注册登录即可解锁完整功能</p>
+        <el-tabs v-model="marketTab" class="dark-tabs">
+          <el-tab-pane label="涨幅榜" name="gainers">
+            <el-table :data="gainers" size="small" class="dark-table" v-loading="marketLoading" empty-text="暂无数据">
+              <el-table-column prop="symbol" label="代码" width="80" />
+              <el-table-column prop="name" label="名称" width="100" />
+              <el-table-column label="最新价" width="80">
+                <template #default="{ row }">{{ row.quote?.price?.toFixed(2) }}</template>
+              </el-table-column>
+              <el-table-column label="涨跌幅" width="100">
+                <template #default="{ row }">
+                  <span :class="row.quote?.changePercent > 0 ? 'text-up' : 'text-down'">
+                    {{ row.quote?.changePercent > 0 ? '+' : '' }}{{ row.quote?.changePercent?.toFixed(2) }}%
+                  </span>
+                </template>
+              </el-table-column>
+              <el-table-column label="成交额(万)">
+                <template #default="{ row }">{{ row.quote?.amount?.toFixed(0) }}</template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+          <el-tab-pane label="跌幅榜" name="losers">
+            <el-table :data="losers" size="small" class="dark-table" v-loading="marketLoading" empty-text="暂无数据">
+              <el-table-column prop="symbol" label="代码" width="80" />
+              <el-table-column prop="name" label="名称" width="100" />
+              <el-table-column label="最新价" width="80">
+                <template #default="{ row }">{{ row.quote?.price?.toFixed(2) }}</template>
+              </el-table-column>
+              <el-table-column label="涨跌幅" width="100">
+                <template #default="{ row }">
+                  <span :class="row.quote?.changePercent > 0 ? 'text-up' : 'text-down'">
+                    {{ row.quote?.changePercent > 0 ? '+' : '' }}{{ row.quote?.changePercent?.toFixed(2) }}%
+                  </span>
+                </template>
+              </el-table-column>
+              <el-table-column label="成交额(万)">
+                <template #default="{ row }">{{ row.quote?.amount?.toFixed(0) }}</template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+          <el-tab-pane label="成交额榜" name="volume">
+            <el-table :data="topVolume" size="small" class="dark-table" v-loading="marketLoading" empty-text="暂无数据">
+              <el-table-column prop="symbol" label="代码" width="80" />
+              <el-table-column prop="name" label="名称" width="100" />
+              <el-table-column label="最新价" width="80">
+                <template #default="{ row }">{{ row.quote?.price?.toFixed(2) }}</template>
+              </el-table-column>
+              <el-table-column label="涨跌幅" width="100">
+                <template #default="{ row }">
+                  <span :class="row.quote?.changePercent > 0 ? 'text-up' : 'text-down'">
+                    {{ row.quote?.changePercent > 0 ? '+' : '' }}{{ row.quote?.changePercent?.toFixed(2) }}%
+                  </span>
+                </template>
+              </el-table-column>
+              <el-table-column label="成交额(万)">
+                <template #default="{ row }">{{ row.quote?.amount?.toFixed(0) }}</template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+        </el-tabs>
+        <div class="market-cta">
+          <el-button type="primary" size="large" round @click="$router.push('/market')">查看完整行情 →</el-button>
+        </div>
+      </section>
+
       <section class="pricing-section">
         <h2 class="section-title">选择适合你的计划</h2>
         <p class="section-subtitle">从免费体验到企业级服务，按需升级</p>
@@ -86,7 +155,7 @@
             <span class="brand-icon">📈</span> <span>智慧证券分析平台</span>
           </div>
           <div class="footer-links">
-            <span>zzx@yndxw.com</span>
+            <span>云南意念科技有限责任公司</span>
           </div>
           <p class="footer-copy">Copyright © 2026 云南意念科技有限责任公司 滇ICP备10000001号-1 | 网站版本 v2026.03.26</p>
         </div>
@@ -105,9 +174,33 @@
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../store/user'
+import axios from 'axios'
+import { API_BASE } from '../utils/config'
 
 const router = useRouter()
 const userStore = useUserStore()
+
+// Market data for landing page
+const marketTab = ref('gainers')
+const marketLoading = ref(false)
+const gainers = ref([])
+const losers = ref([])
+const topVolume = ref([])
+
+const loadMarketData = async () => {
+  marketLoading.value = true
+  try {
+    const [g, l, v] = await Promise.all([
+      axios.get(`${API_BASE}/stocks/rank/gainers?limit=10`),
+      axios.get(`${API_BASE}/stocks/rank/losers?limit=10`),
+      axios.get(`${API_BASE}/stocks/rank/volume?limit=10`)
+    ])
+    gainers.value = g.data.data?.stocks || []
+    losers.value = l.data.data?.stocks || []
+    topVolume.value = v.data.data?.stocks || []
+  } catch (e) { /* market data load failed, show empty */ }
+  finally { marketLoading.value = false }
+}
 
 const features = [
   { icon: '📊', title: '专业行情', desc: '实时K线、分时图、五档盘口，涵盖A股、港股、美股全市场' },
@@ -142,6 +235,7 @@ const scrollToFeatures = () => {
 }
 
 onMounted(() => {
+  loadMarketData()
   if (userStore.isAuthenticated) router.push('/dashboard')
 })
 </script>
@@ -191,6 +285,22 @@ onMounted(() => {
 .feature-icon { font-size: 44px; margin-bottom: 18px; }
 .feature-card h3 { font-size: 18px; margin-bottom: 10px; color: #f7fafc; font-weight: 600; }
 .feature-card p { color: #718096; font-size: 14px; line-height: 1.7; }
+
+/* 行情预览 */
+.market-preview { padding: 80px 20px; max-width: 1000px; margin: 0 auto; }
+.market-preview .dark-tabs { margin-top: 30px; }
+.market-preview :deep(.el-tabs__nav-wrap::after) { background: #2d2d44; }
+.market-preview :deep(.el-tabs__item) { color: #718096; font-size: 15px; }
+.market-preview :deep(.el-tabs__item.is-active) { color: #e94560; }
+.dark-table { background: transparent; }
+.dark-table :deep(.el-table__header th) { background: #16213e !important; color: #a0aec0; border-bottom: 1px solid #2d2d44; }
+.dark-table :deep(.el-table__row) { background: transparent; }
+.dark-table :deep(.el-table__row:hover > td) { background: rgba(233,69,96,0.06) !important; }
+.dark-table :deep(.el-table__body td) { border-bottom: 1px solid rgba(45,45,68,0.4); color: #e2e8f0; }
+.dark-table :deep(.el-table__empty-text) { color: #4a5568; }
+.text-up { color: #ef4444; font-weight: 600; }
+.text-down { color: #22c55e; font-weight: 600; }
+.market-cta { text-align: center; margin-top: 30px; }
 
 /* 定价区域 */
 .pricing-section { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }

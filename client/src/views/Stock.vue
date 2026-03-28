@@ -1,5 +1,19 @@
 <template>
   <div class="stock-page">
+    <!-- 搜索栏 -->
+    <div class="search-bar">
+      <el-input v-model="searchInput" placeholder="输入股票代码或名称搜索（如：600519 贵州茅台）" size="large" clearable style="width:400px;" @keyup.enter="doSearch">
+        <template #append><el-button @click="doSearch" :icon="Search">搜索</el-button></template>
+      </el-input>
+      <div v-if="searchResults.length > 0" class="search-dropdown">
+        <div v-for="item in searchResults" :key="item.symbol" class="search-item" @click="goToStock(item)">
+          <span class="search-symbol">{{ item.symbol }}</span>
+          <span class="search-name">{{ item.name }}</span>
+          <span class="search-market">{{ item.market }}</span>
+        </div>
+      </div>
+    </div>
+
     <el-row :gutter="20">
       <!-- 左侧：K线图和分时图 -->
       <el-col :span="16">
@@ -28,7 +42,7 @@
           <div class="stock-actions">
             <el-button type="primary" @click="addWatchlist" :icon="Star" round>自选</el-button>
             <el-button type="success" @click="requestAI" :icon="MagicStick" round>AI分析</el-button>
-            <el-button @click="createAlert" :icon="Bell" round>预警</el-button>
+            <el-button @click="showAlertDialog = true" :icon="Bell" round>预警</el-button>
           </div>
         </div>
 
@@ -44,7 +58,12 @@
               </el-radio-group>
             </div>
           </template>
-          <div ref="chartRef" style="height: 450px;"></div>
+          <div ref="chartRef" style="height: 450px;">
+            <div v-if="loading" class="chart-loading">
+              <el-icon class="is-loading" :size="32" color="#e94560"><Loading /></el-icon>
+              <span>加载行情数据中...</span>
+            </div>
+          </div>
         </el-card>
       </el-col>
 
@@ -114,19 +133,53 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <!-- 预警弹窗 -->
+    <el-dialog v-model="showAlertDialog" title="创建价格预警" width="450px">
+      <el-form :model="alertForm" label-width="80px">
+        <el-form-item label="股票代码">
+          <el-input :model-value="symbol" disabled />
+        </el-form-item>
+        <el-form-item label="预警条件">
+          <el-select v-model="alertForm.condition.type" style="width:120px;margin-right:10px;">
+            <el-option label="价格高于" value="price_above" />
+            <el-option label="价格低于" value="price_below" />
+            <el-option label="涨幅超过" value="change_above" />
+            <el-option label="跌幅超过" value="change_below" />
+          </el-select>
+          <el-input-number v-model="alertForm.condition.value" :precision="2" />
+        </el-form-item>
+        <el-form-item label="备注">
+          <el-input v-model="alertForm.note" placeholder="可选备注" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="showAlertDialog = false">取消</el-button>
+        <el-button type="primary" @click="createAlert">创建预警</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 import * as echarts from 'echarts'
 import { ElMessage } from 'element-plus'
-import { Star, MagicStick, Bell } from '@element-plus/icons-vue'
+import { Star, MagicStick, Bell, Search, Loading } from '@element-plus/icons-vue'
+import { useUserStore } from '../store/user'
 
-const API = 'http://localhost:3000/api'
+import { API_BASE as API } from '../utils/config'
 const route = useRoute()
+const router = useRouter()
+const userStore = useUserStore()
+
+const searchInput = ref('')
+const searchResults = ref([])
+const loading = ref(false)
+const showAlertDialog = ref(false)
+const alertForm = reactive({ condition: { type: 'price_above', value: 0 }, note: '' })
 
 const symbol = computed(() => route.query.symbol || '600519')
 const market = computed(() => route.query.market || 'SH')
@@ -157,14 +210,30 @@ const signalLabel = computed(() => {
 })
 
 const scoreLabels = { overall: '综合', technical: '技术', fundamental: '基本面', risk: '风险', sentiment: '情绪' }
-
 const getScoreColor = (val) => val >= 70 ? '#2ed573' : val >= 40 ? '#ffa502' : '#ff4757'
-
 const getBarWidth = (vol) => Math.min(100, (vol / 600) * 100)
+
+const authHeaders = computed(() => ({ headers: { Authorization: `Bearer ${userStore.token}` } }))
+
+const doSearch = async () => {
+  if (!searchInput.value) return
+  try {
+    const res = await axios.get(`${API}/stocks/search?q=${encodeURIComponent(searchInput.value)}`)
+    searchResults.value = res.data.data.stocks || []
+  } catch (e) {
+    ElMessage.error('搜索失败')
+  }
+}
+
+const goToStock = (item) => {
+  searchResults.value = []
+  searchInput.value = ''
+  router.push({ path: '/stock', query: { symbol: item.symbol, market: item.market || 'SH' } })
+}
 
 const addWatchlist = async () => {
   try {
-    await axios.post(`${API}/stocks/watchlist/add`, { symbol: symbol.value, market: market.value })
+    await axios.post(`${API}/stocks/watchlist/add`, { symbol: symbol.value, market: market.value }, authHeaders.value)
     ElMessage.success('已添加到自选股')
   } catch (e) { ElMessage.error(e.response?.data?.message || '添加失败') }
 }
@@ -172,17 +241,24 @@ const addWatchlist = async () => {
 const requestAI = async () => {
   try {
     ElMessage.info('AI正在分析中...')
-    const res = await axios.post(`${API}/ai/analyze`, { symbol: symbol.value, market: market.value, type: 'comprehensive' })
+    const res = await axios.post(`${API}/ai/analyze`, { symbol: symbol.value, market: market.value, type: 'comprehensive' }, authHeaders.value)
     analysis.value = res.data.data
     ElMessage.success('分析完成')
   } catch (e) { ElMessage.error(e.response?.data?.message || '分析失败') }
 }
 
-const createAlert = () => {
-  ElMessage.info('预警设置功能开发中')
+const createAlert = async () => {
+  try {
+    await axios.post(`${API}/alerts`, { symbol: symbol.value, market: market.value, name: `${symbol.value} 预警`, ...alertForm }, authHeaders.value)
+    ElMessage.success('预警创建成功')
+    showAlertDialog.value = false
+    alertForm.condition.value = 0
+    alertForm.note = ''
+  } catch (e) { ElMessage.error(e.response?.data?.message || '创建失败') }
 }
 
 const loadData = async () => {
+  loading.value = true
   try {
     const [stockRes, klineRes] = await Promise.all([
       axios.get(`${API}/stocks/${symbol.value}?market=${market.value}`),
@@ -195,15 +271,12 @@ const loadData = async () => {
     renderChart(chartType.value === 'intraday' ? klineRes.data.data : klineRes.data.data.klines)
   } catch (e) {
     console.error('加载数据失败:', e)
-    // 生成模拟K线渲染
-    stock.value = { symbol: symbol.value, name: '贵州茅台', market: market.value, quote: { price: 1688.50, change: 12.30, changePercent: 0.73, open: 1675.00, high: 1695.00, low: 1670.00, close: 1676.20, volume: 35000, amount: 589000, turnover: 2.78, bidPrice: [1688.49,1688.48,1688.47,1688.46,1688.45], bidVolume: [120,200,350,180,90], askPrice: [1688.51,1688.52,1688.53,1688.54,1688.55], askVolume: [150,220,180,300,160] }, fundamentals: { pe: 33.2, pb: 10.5, eps: 50.86, roe: 31.5, marketCap: 21200, dividendYield: 1.56, grossMargin: 91.2, revenueGrowth: 16.5 } }
-    await nextTick()
-    renderMockChart()
-  }
+    ElMessage.error('行情数据加载失败，请稍后重试')
+  } finally { loading.value = false }
 }
 
 const renderChart = (data) => {
-  if (!chartRef.value) return
+  if (!chartRef.value || !data) return
   chart = echarts.init(chartRef.value, 'dark')
 
   if (chartType.value === 'intraday') {
@@ -241,26 +314,18 @@ const renderChart = (data) => {
   }
 }
 
-const renderMockChart = () => {
-  const data = []
-  let base = 1680
-  for (let i = 100; i >= 0; i--) {
-    const d = new Date(); d.setDate(d.getDate() - i)
-    const dateStr = d.toISOString().slice(0, 10).replace(/-/g, '')
-    const change = (Math.random() - 0.48) * 30
-    const open = base; const close = base + change
-    const high = Math.max(open, close) * 1.005; const low = Math.min(open, close) * 0.995
-    data.push({ date: dateStr, open: +open.toFixed(2), close: +close.toFixed(2), high: +high.toFixed(2), low: +low.toFixed(2), volume: Math.floor(Math.random() * 50000 + 10000), ma5: +(base - 5 + Math.random() * 10).toFixed(2), ma20: +(base - 15 + Math.random() * 20).toFixed(2) })
-    base = close
-  }
-  renderChart(data)
-}
-
 onMounted(loadData)
 watch([symbol, chartType], loadData)
 </script>
 
 <style scoped>
+.search-bar { position: relative; margin-bottom: 20px; }
+.search-dropdown { position: absolute; top: 100%; left: 0; width: 400px; background: #1a1a2e; border: 1px solid #2d2d44; border-radius: 8px; z-index: 50; max-height: 300px; overflow-y: auto; }
+.search-item { display: flex; justify-content: space-between; padding: 10px 16px; cursor: pointer; border-bottom: 1px solid #2d2d44; }
+.search-item:hover { background: #1f2b47; }
+.search-symbol { font-weight: 600; color: #e2e8f0; }
+.search-name { color: #a0aec0; flex: 1; margin-left: 12px; }
+.search-market { color: #718096; font-size: 12px; }
 .stock-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; padding: 16px; background: #1a1a2e; border-radius: 12px; border: 1px solid #2d2d44; }
 .stock-info h2 { font-size: 22px; color: #f7fafc; margin-bottom: 8px; }
 .stock-symbol { font-size: 14px; color: #718096; font-weight: 400; }
@@ -272,6 +337,7 @@ watch([symbol, chartType], loadData)
 .stock-actions { display: flex; gap: 10px; }
 .chart-card { border-radius: 12px; }
 .chart-header { display: flex; justify-content: space-between; align-items: center; }
+.chart-loading { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: #718096; }
 .info-card { border-radius: 12px; }
 .card-title { font-weight: 600; }
 .fundamentals { display: flex; flex-direction: column; gap: 8px; }
@@ -290,7 +356,6 @@ watch([symbol, chartType], loadData)
 .order-price.down { color: #2ed573; }
 .current-price-bar { text-align: center; padding: 8px; margin: 4px 0; background: rgba(233,69,96,0.1); border-radius: 6px; }
 .current-val { font-size: 22px; font-weight: 800; }
-.ai-result { }
 .signal-badge { display: inline-block; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 14px; margin-bottom: 16px; }
 .signal-badge.strong_buy, .signal-badge.buy { background: rgba(255,71,87,0.2); color: #ff4757; }
 .signal-badge.neutral { background: rgba(255,165,2,0.2); color: #ffa502; }
