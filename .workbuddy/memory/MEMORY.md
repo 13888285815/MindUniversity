@@ -19,6 +19,14 @@
 - SPA 路由已配置 (vercel.json rewrites)
 - 后端 API 尚未部署到 Vercel (需要 MongoDB Atlas + 改造 Serverless)
 
+## 智能客服系统 (2026-03-28)
+- AI 驱动的智能对话系统，支持 24/7 自动客服
+- 快速回复系统：13 个关键词秒级回复
+- FAQ 知识库：5 个分类共 15 个常见问题
+- 悬浮按钮组件：右下角客服入口，支持迷你聊天窗口
+- 文档：docs/CUSTOMER_SERVICE.md
+- 后端路由：/api/customer-service/*
+
 ## 用户偏好
 - zzx: 独立开发者/创业者, 技术栈 Node.js + Vue.js
 - 全功能需求不要阉割版
