@@ -1,442 +1,285 @@
 # 部署指南
 
-## 本地开发环境配置
+本文档说明如何将 Mind University 部署到 GitHub 和 Vercel。
 
-### 1. 安装依赖
+## 📋 部署检查清单
+
+- [ ] 环境变量已配置
+- [ ] MongoDB Atlas 连接已建立
+- [ ] Stripe 密钥已获取（用于支付）
+- [ ] GitHub 仓库已创建
+- [ ] Vercel 项目已创建
+- [ ] 域名已配置（可选）
+
+## 🚀 步骤 1: 推送到 GitHub
+
+### 1.1 创建 GitHub 仓库
+
+访问 https://github.com/new 创建新仓库：
+- 仓库名: `MindUniversity`
+- 可见性: Private 或 Public
+- 初始化: 不要添加 README, .gitignore, license
+
+### 1.2 推送代码
 
 ```bash
-# 安装后端依赖
-npm install
+# 确保当前目录在项目根目录
+cd /Users/zzx/WorkBuddy/20260324102029
 
-# 安装前端依赖
-cd client
-npm install
+# 如果已经远程仓库，先删除
+git remote remove origin
+
+# 添加新的远程仓库
+git remote add origin https://github.com/13888285815/MindUniversity.git
+
+# 推送到 main 分支
+git push -u origin main
+
+# 如果遇到认证问题，使用 GitHub Token
+# 1. 生成 Personal Access Token: https://github.com/settings/tokens
+# 2. 使用 Token 作为密码:
+git push https://<TOKEN>@github.com/13888285815/MindUniversity.git main
 ```
 
-### 2. 配置环境变量
+## 🌐 步骤 2: 部署到 Vercel
 
-```bash
-cp .env.example .env
-```
+### 2.1 创建 Vercel 项目
 
-编辑 `.env` 文件，配置以下内容：
+1. 访问 https://vercel.com/new
+2. 点击 "Import Git Repository"
+3. 选择 `MindUniversity` 仓库
+4. 配置项目：
+   - **Project Name**: `minduniversity`
+   - **Framework Preset**: Vite
+   - **Root Directory**: `.` (保持默认)
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `public`
 
+### 2.2 配置环境变量
+
+在 Vercel 项目设置中添加以下环境变量：
+
+#### 必需变量
 ```env
-NODE_ENV=development
-PORT=3000
-
-# 数据库配置
-MONGODB_URI=mongodb://localhost:27017/selfstudy
-REDIS_URL=redis://localhost:6379
-
-# JWT密钥
-JWT_SECRET=your-super-secret-jwt-key
-JWT_EXPIRES_IN=7d
-
-# API密钥前缀
-API_KEY_PREFIX=sk_
-
-# Stripe支付配置 (可选)
-STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
-STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
-
-# AI API配置 (可选)
-AI_API_ENDPOINT=https://api.openai.com/v1
-OPENAI_API_KEY=sk-your-openai-api-key
-
-# 管理员账户
-ADMIN_EMAIL=admin@yndxw.com
-ADMIN_PASSWORD=admin123
+NODE_ENV=production
+MONGODB_URI=mongodb+srv://...
+JWT_SECRET=your-super-secret-key
 ```
 
-### 3. 启动数据库
+#### 可选变量
+```env
+STRIPE_SECRET_KEY=sk_live_...
+OPENAI_API_KEY=sk-...
+VERCEL_TOKEN=...
+VERCEL_ORG_ID=...
+VERCEL_PROJECT_ID=...
+```
 
-确保MongoDB和Redis已安装并启动：
+### 2.3 部署
+
+点击 "Deploy" 按钮开始部署。
+
+Vercel 会自动：
+1. 检出代码
+2. 安装依赖
+3. 运行测试
+4. 构建项目
+5. 部署到全球 CDN
+
+### 2.4 获取部署 URL
+
+部署完成后，Vercel 会提供一个 URL，例如：
+- `https://minduniversity.vercel.app`
+- 或自定义域名: `https://minduniversity.com`
+
+## ⚙️ 步骤 3: 配置 GitHub Actions 自动部署
+
+### 3.1 获取 Vercel 凭证
+
+1. 安装 Vercel CLI:
+   ```bash
+   npm install -g vercel
+   ```
+
+2. 登录 Vercel:
+   ```bash
+   vercel login
+   ```
+
+3. 获取项目信息:
+   ```bash
+   vercel link
+   
+   # 查看项目 ID
+   cat .vercel/project.json
+   ```
+
+4. 获取 Token:
+   - 访问 https://vercel.com/account/tokens
+   - 创建新 Token
+   - 保存 Token
+
+### 3.2 添加 GitHub Secrets
+
+访问 GitHub 仓库设置:
+1. 进入 Settings → Secrets and variables → Actions
+2. 添加以下 secrets:
+
+| Secret Name | Value |
+|------------|-------|
+| `VERCEL_TOKEN` | Vercel Token |
+| `VERCEL_ORG_ID` | 组织 ID (从 project.json) |
+| `VERCEL_PROJECT_ID` | 项目 ID (从 project.json) |
+| `MONGODB_URI` | MongoDB 连接字符串 |
+| `JWT_SECRET` | JWT 密钥 |
+
+### 3.3 触发自动部署
+
+推送代码到 `main` 分支时，GitHub Actions 会自动：
+1. 运行测试
+2. 构建项目
+3. 部署到 Vercel
+
+## 🗄️ 步骤 4: 配置数据库
+
+### 4.1 创建 MongoDB Atlas 集群
+
+1. 访问 https://www.mongodb.com/cloud/atlas/register
+2. 创建免费账户
+3. 创建新集群 (Free Tier)
+4. 获取连接字符串
+
+### 4.2 配置数据库访问
+
+1. 在 Atlas 中创建数据库用户
+2. 设置 IP 白名单 (允许 0.0.0.0/0)
+3. 复制连接字符串到 Vercel 环境变量
+
+## 💳 步骤 5: 配置支付 (可选)
+
+### 5.1 Stripe
+
+1. 注册 Stripe 账户: https://dashboard.stripe.com/register
+2. 获取 API Keys:
+   - Publishable Key (`pk_live_...`)
+   - Secret Key (`sk_live_...`)
+3. 配置 Webhook:
+   - 创建 Endpoint: `https://your-domain.com/api/subscription/webhook`
+   - 获取 Webhook Secret
+
+### 5.2 支付宝
+
+1. 注册支付宝开放平台: https://open.alipay.com
+2. 创建应用
+3. 获取 App ID, 密钥等
+
+### 5.3 微信支付
+
+1. 注册微信支付商户平台
+2. 获取商户号, API 密钥等
+
+## 🎯 步骤 6: 配置域名 (可选)
+
+### 6.1 在 Vercel 中添加域名
+
+1. 进入 Vercel 项目设置 → Domains
+2. 添加域名: `minduniversity.com`
+3. 配置 DNS 记录
+
+### 6.2 配置 DNS
+
+在域名注册商处添加记录:
+
+```
+Type    Name        Value
+A       www         76.76.21.21
+CNAME   (empty)    cname.vercel-dns.com
+```
+
+## ✅ 步骤 7: 验证部署
+
+### 7.1 检查清单
+
+- [ ] 网站可以访问
+- [ ] HTTPS 正常工作
+- [ ] 多语言切换正常
+- [ ] 响应式设计在不同设备正常
+- [ ] 用户注册/登录功能正常
+- [ ] 订阅功能正常
+- [ ] API 端点可以访问
+- [ ] 数据库连接正常
+
+### 7.2 测试命令
 
 ```bash
-# macOS (使用Homebrew)
-brew services start mongodb-community
-brew services start redis
+# 健康检查
+curl https://minduniversity.com/health
 
-# Linux
-sudo systemctl start mongod
-sudo systemctl start redis
+# API 测试
+curl https://minduniversity.com/api/subscription/plans
 
-# Windows
-# 使用MongoDB和Redis的Windows服务
+# 安全头检查
+curl -I https://minduniversity.com
 ```
 
-### 4. 启动后端服务
+## 🔍 监控和日志
 
+### Vercel 日志
+- 访问 Vercel Dashboard → Logs
+- 实时查看错误和警告
+
+### MongoDB Atlas
+- 访问 Atlas Dashboard → Metrics
+- 监控数据库性能
+
+### GitHub Actions
+- 访问 GitHub 仓库 → Actions
+- 查看部署历史和日志
+
+## 🔄 更新部署
+
+### 更新代码
 ```bash
-npm run dev
+git add .
+git commit -m "Your commit message"
+git push origin main
 ```
 
-后端服务将在 `http://localhost:3000` 启动
-
-### 5. 启动前端服务
-
-```bash
-cd client
-npm run dev
-```
-
-前端服务将在 `http://localhost:5173` 启动
-
-## 部署到GitHub
-
-项目已配置Git仓库,可以推送到GitHub:
-
-```bash
-# 查看远程仓库
-git remote -v
-
-# 推送到GitHub (需要配置GitHub认证)
-git push -u origin main
-```
-
-### GitHub认证配置
-
-#### 方法1: 使用SSH密钥
-
-```bash
-# 生成SSH密钥 (如果还没有)
-ssh-keygen -t ed25519 -C "your_email@example.com"
-
-# 添加SSH密钥到ssh-agent
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-
-# 复制公钥到GitHub
-cat ~/.ssh/id_ed25519.pub
-
-# 在GitHub设置中添加SSH密钥
-# https://github.com/settings/keys
-
-# 更换远程仓库地址为SSH
-git remote set-url origin git@github.com:13888285815/SelfStudy.git
-
-# 推送代码
-git push -u origin main
-```
-
-#### 方法2: 使用Personal Access Token
-
-```bash
-# 在GitHub创建Personal Access Token
-# Settings -> Developer settings -> Personal access tokens -> Tokens (classic)
-# 权限: repo, workflow
-
-# 使用token推送
-git remote set-url origin https://YOUR_TOKEN@github.com/13888285815/SelfStudy.git
-git push -u origin main
-```
-
-## 生产环境部署
-
-### 使用Docker部署
-
-#### 1. 创建Dockerfile
-
-后端Dockerfile (`Dockerfile.backend`):
-
-```dockerfile
-FROM node:18-alpine
-
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm ci --only=production
-
-COPY server ./server
-COPY server.js ./
-COPY .env ./
-
-EXPOSE 3000
-
-CMD ["node", "server.js"]
-```
-
-前端Dockerfile (`Dockerfile.frontend`):
-
-```dockerfile
-FROM node:18-alpine as build
-
-WORKDIR /app
-
-COPY client/package*.json ./
-RUN npm ci
-
-COPY client ./
-RUN npm run build
-
-FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
-```
-
-#### 2. 创建Docker Compose文件
-
-```yaml
-version: '3.8'
-
-services:
-  mongodb:
-    image: mongo:7
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-
-  backend:
-    build:
-      context: .
-      dockerfile: Dockerfile.backend
-    ports:
-      - "3000:3000"
-    depends_on:
-      - mongodb
-      - redis
-    environment:
-      - MONGODB_URI=mongodb://mongodb:27017/selfstudy
-      - REDIS_URL=redis://redis:6379
-
-  frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
-
-volumes:
-  mongodb_data:
-  redis_data:
-```
-
-#### 3. 启动服务
-
-```bash
-docker-compose up -d
-```
-
-### 使用云服务部署
-
-#### 1. 后端部署 (使用Railway/Render/Heroku)
-
-部署到Railway:
-```bash
-# 安装Railway CLI
-npm install -g @railway/cli
-
-# 登录Railway
-railway login
-
-# 初始化项目
-railway init
-
-# 配置环境变量
-railway variables set MONGODB_URI=your_mongodb_uri
-railway variables set JWT_SECRET=your_jwt_secret
-
-# 部署
-railway up
-```
-
-部署到Render:
-- 创建新服务
-- 连接GitHub仓库
-- 配置环境变量
-- 部署
-
-#### 2. 前端部署 (使用Vercel/Netlify)
-
-部署到Vercel:
-```bash
-# 安装Vercel CLI
-npm install -g vercel
-
-# 部署
-cd client
-vercel
-```
-
-部署到Netlify:
-```bash
-# 构建命令: npm run build
-# 发布目录: dist
-```
-
-## 数据库迁移
-
-### MongoDB备份
-
-```bash
-# 备份数据库
-mongodump --uri="mongodb://localhost:27017/selfstudy" --out=backup/
-
-# 恢复数据库
-mongorestore --uri="mongodb://localhost:27017/selfstudy" backup/
-```
-
-### Redis持久化
-
-Redis已配置RDB和AOF持久化,无需手动备份
-
-## 监控和日志
-
-### 使用PM2管理进程
-
-```bash
-# 安装PM2
-npm install -g pm2
-
-# 启动后端
-pm2 start server.js --name selfstudy-api
-
-# 启动前端 (如果需要)
-cd client
-pm2 start "npm run dev" --name selfstudy-frontend
-
-# 查看日志
-pm2 logs
-
-# 重启服务
-pm2 restart selfstudy-api
-```
-
-### 日志管理
-
-- 应用日志: `logs/` 目录
-- Nginx日志: `/var/log/nginx/`
-- MongoDB日志: `/var/log/mongodb/`
-
-## 安全配置
-
-### 1. 环境变量安全
-
-- 不要将 `.env` 文件提交到Git
-- 在生产环境使用强密码
-- 定期更换JWT密钥
-
-### 2. HTTPS配置
-
-使用Let's Encrypt免费证书:
-
-```bash
-# 安装certbot
-sudo apt-get install certbot python3-certbot-nginx
-
-# 获取证书
-sudo certbot --nginx -d yourdomain.com
-
-# 自动续期
-sudo certbot renew --dry-run
-```
-
-### 3. 防火墙配置
-
-```bash
-# 只开放必要端口
-sudo ufw allow 22/tcp    # SSH
-sudo ufw allow 80/tcp    # HTTP
-sudo ufw allow 443/tcp   # HTTPS
-sudo ufw enable
-```
-
-## 常见问题
-
-### 1. 数据库连接失败
-
-检查MongoDB和Redis是否启动:
-
-```bash
-# 检查MongoDB
-sudo systemctl status mongod
-
-# 检查Redis
-sudo systemctl status redis
-
-# 查看日志
-sudo journalctl -u mongod -f
-sudo journalctl -u redis -f
-```
-
-### 2. API密钥认证失败
-
-确保:
-- API Key格式正确 (sk_xxx)
-- 用户订阅状态为active
-- Token余额充足
-
-### 3. Stripe支付失败
-
-检查:
-- Stripe密钥配置正确
-- Webhook端点可访问
-- 金额和货币格式正确
-
-## 性能优化
-
-### 1. 数据库优化
-
-- 添加合适的索引
-- 使用连接池
-- 启用查询缓存
-
-### 2. 应用优化
-
-- 启用Gzip压缩
-- 使用CDN加速静态资源
-- 实现API响应缓存
-
-### 3. 负载均衡
-
-使用Nginx负载均衡:
-
-```nginx
-upstream backend {
-    server backend1:3000;
-    server backend2:3000;
-    server backend3:3000;
-}
-
-server {
-    location /api {
-        proxy_pass http://backend;
-    }
-}
-```
-
-## 备份策略
-
-### 数据备份
-
-```bash
-# 每日自动备份脚本
-#!/bin/bash
-DATE=$(date +%Y%m%d)
-mongodump --uri="mongodb://localhost:27017/selfstudy" --out=/backup/mongodb/$DATE
-
-# 保留最近7天的备份
-find /backup/mongodb/ -type d -mtime +7 -exec rm -rf {} \;
-```
-
-### 配置cron任务
-
-```bash
-# 每天凌晨2点执行备份
-0 2 * * * /path/to/backup-script.sh
-```
+GitHub Actions 会自动触发部署。
+
+### 更新环境变量
+1. 在 Vercel 项目设置中更新
+2. 重新部署项目
+
+## 🚨 故障排查
+
+### 问题: 部署失败
+**解决方案**:
+1. 检查 Vercel 日志
+2. 确认所有依赖已安装
+3. 检查环境变量配置
+
+### 问题: 数据库连接失败
+**解决方案**:
+1. 检查 MongoDB 连接字符串
+2. 确认 IP 白名单配置
+3. 验证数据库用户权限
+
+### 问题: API 返回 403/401
+**解决方案**:
+1. 检查 JWT Secret 配置
+2. 验证 Token 生成和验证逻辑
+3. 检查 CORS 配置
+
+### 问题: 支付失败
+**解决方案**:
+1. 验证 API Keys
+2. 检查 Webhook 配置
+3. 查看支付平台日志
+
+## 📞 联系支持
+
+如果遇到问题：
+- Email: support@minduniversity.com
+- GitHub Issues: https://github.com/13888285815/MindUniversity/issues
+- Vercel 文档: https://vercel.com/docs
