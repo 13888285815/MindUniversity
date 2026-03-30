@@ -2,21 +2,10 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="csrf-token" content="csrf_token_here">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: http:; font-src 'self' data: https:; connect-src 'self' https://api.github.com https://*.vercel.app">
-<meta name="description" content="Mind University - Professional Online Learning Platform">
-<meta name="keywords" content="Mind University, online learning, video tutorials, Python, AI, programming">
-<meta name="robots" content="index, follow">
-<meta name="author" content="Mind University">
-<meta property="og:title" content="Mind University - Professional Online Learning Platform">
-<meta property="og:description" content="Quality video tutorials for programming, design, and more">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:site_name" content="Mind University">
-<link rel="canonical" href="https://minduniversity.com">
-<title>Mind University - Video Tutorials | Free Learning | 3D Tutorials | Design Tutorials | Animation Tutorials | Office Tutorials | Mechanical Design | Web Development - Mind University</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>意念大学 - 每天必上的意念大学网站 | 免费视频教程 | 职业技能学习平台</title>
+<meta name="description" content="意念大学 - 每天必上的意念大学网站，提供优质的职业技能视频教程，包括电脑办公、平面设计、室内设计、机械设计、影视动画、程序开发等课程">
+<meta name="keywords" content="意念大学,意念大学网站,每天必上,视频教程,免费教程,职业技能学习,在线教育">
 <style>
 /* ==================== CSS Reset & Variables ==================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,37 +27,14 @@
   --shadow: 0 2px 8px rgba(0,0,0,0.08);
   --radius: 4px;
 }
-html { font-size: 14px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-body { 
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-  color: var(--text-dark); 
-  background: var(--bg-gray); 
-  min-width: 320px;
-  overflow-x: hidden;
-  line-height: 1.6;
-}
-a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+html { font-size: 14px; }
+body { font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif; color: var(--text-dark); background: var(--bg-gray); min-width: 1200px; }
+a { color: inherit; text-decoration: none; }
 a:hover { color: var(--blue-primary); }
 ul { list-style: none; }
-img { display: block; max-width: 100%; height: auto; }
-button, input, select, textarea { font-family: inherit; font-size: inherit; }
-.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+img { display: block; max-width: 100%; }
+.container { width: 1200px; margin: 0 auto; }
 .clearfix::after { content: ''; display: table; clear: both; }
-
-/* ==================== Mobile First Responsive ==================== */
-@media (min-width: 576px) { html { font-size: 15px; } }
-@media (min-width: 768px) { html { font-size: 16px; } }
-@media (min-width: 992px) { html { font-size: 16px; } }
-@media (min-width: 1200px) { html { font-size: 16px; } }
-
-/* Mobile Navigation Toggle */
-.mobile-menu-btn { 
-  display: none; 
-  font-size: 24px; 
-  cursor: pointer; 
-  padding: 8px; 
-  -webkit-tap-highlight-color: transparent;
-}
 
 /* ==================== Top Bar ==================== */
 .top-bar {
@@ -83,20 +49,6 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
 .top-bar a:hover { color: #fff; }
 .top-bar-left span { margin-right: 15px; }
 .top-bar-left .hot { color: #ff9900; }
-.lang-selector { 
-  display: inline-flex; 
-  gap: 8px; 
-  align-items: center;
-}
-.lang-selector select {
-  background: rgba(255,255,255,0.1);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 4px;
-  padding: 3px 8px;
-  font-size: 12px;
-  cursor: pointer;
-}
 
 /* ==================== Header ==================== */
 .header {
@@ -117,7 +69,6 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
   display: flex;
   align-items: center;
   gap: 8px;
-  cursor: pointer;
 }
 .logo-icon {
   width: 48px;
@@ -189,7 +140,6 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s;
-  white-space: nowrap;
 }
 .btn-login { border: 1px solid var(--blue-primary); color: var(--blue-primary); background: #fff; }
 .btn-login:hover { background: var(--blue-bg); }
@@ -206,24 +156,19 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
   font-size: 13px;
   font-weight: bold;
   cursor: pointer;
-  white-space: nowrap;
 }
 .btn-vip:hover { opacity: 0.9; }
 
 /* ==================== Main Nav ==================== */
 .main-nav {
   background: var(--blue-primary);
-  position: relative;
 }
 .main-nav ul {
   display: flex;
   height: 44px;
   align-items: center;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
-.main-nav ul::-webkit-scrollbar { display: none; }
-.main-nav li { position: relative; flex-shrink: 0; }
+.main-nav li { position: relative; }
 .main-nav > ul > li > a {
   display: flex;
   align-items: center;
@@ -266,38 +211,6 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
 }
 .dropdown li a:hover { background: var(--blue-bg); color: var(--blue-primary); }
 
-/* Mobile Navigation */
-@media (max-width: 992px) {
-  .mobile-menu-btn { display: block; }
-  .main-nav { display: none; }
-  .main-nav.mobile-active { 
-    display: block; 
-    position: fixed;
-    top: 104px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #fff;
-    overflow-y: auto;
-    z-index: 998;
-  }
-  .main-nav.mobile-active ul {
-    flex-direction: column;
-    height: auto;
-    padding: 10px 0;
-  }
-  .main-nav.mobile-active > ul > li > a {
-    padding: 15px 20px;
-    border-bottom: 1px solid #f5f5f5;
-  }
-  .main-nav.mobile-active li:hover .dropdown { 
-    display: block; 
-    position: static;
-    box-shadow: none;
-    background: #f8f8f8;
-  }
-}
-
 /* ==================== Category Bar ==================== */
 .category-bar {
   background: #fff;
@@ -309,7 +222,6 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
   align-items: center;
   gap: 4px;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 .category-bar ul::-webkit-scrollbar { display: none; }
 .category-bar li a {
@@ -331,27 +243,229 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
   color: #fff;
 }
 
-/* ==================== Course Card ==================== */
+/* ==================== Banner / Carousel ==================== */
+.main-banner {
+  background: #fff;
+  margin-top: 12px;
+}
+.banner-area {
+  display: flex;
+  gap: 12px;
+  height: 380px;
+}
+/* Carousel */
+.carousel {
+  flex: 1;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.carousel-slides { height: 100%; position: relative; }
+.carousel-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.carousel-slide.active { opacity: 1; }
+.carousel-slide img { width: 100%; height: 100%; object-fit: cover; }
+.carousel-slide-bg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+}
+.slide-1 { background: linear-gradient(135deg, #1964bf, #00c6ff); }
+.slide-2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
+.slide-3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+.slide-4 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+.slide-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px 30px 30px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.6));
+  color: #fff;
+}
+.slide-caption h2 { font-size: 24px; margin-bottom: 8px; }
+.slide-caption p { font-size: 14px; opacity: 0.9; }
+.slide-caption .btn-slide {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 20px;
+  background: #fff;
+  color: var(--blue-primary);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+}
+.carousel-dots {
+  position: absolute;
+  bottom: 12px;
+  right: 20px;
+  display: flex;
+  gap: 6px;
+}
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.carousel-dot.active { background: #fff; width: 20px; border-radius: 4px; }
+.carousel-prev, .carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  background: rgba(0,0,0,0.3);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 10;
+}
+.carousel-prev { left: 10px; }
+.carousel-next { right: 10px; }
+.carousel-prev:hover, .carousel-next:hover { background: rgba(0,0,0,0.6); }
+
+/* Banner Right Panel */
+.banner-right {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.banner-ad {
+  border-radius: 6px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.banner-vip {
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+  padding: 20px;
+  border-radius: 8px;
+  color: #fff;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.banner-vip h3 { 
+  font-size: 18px; 
+  background: linear-gradient(135deg, #f6d365, #fda085);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+}
+.vip-features { margin: 12px 0; }
+.vip-feature { 
+  display: flex; align-items: center; gap: 8px; 
+  padding: 6px 0; font-size: 13px; 
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.vip-feature .check { color: #f6d365; }
+.btn-vip-join {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, #f6d365, #fda085);
+  color: #7a3500;
+  text-align: center;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 12px;
+}
+.btn-vip-join:hover { opacity: 0.9; color: #7a3500; }
+
+.banner-mini-ad {
+  height: 70px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.banner-mini-ad:hover { opacity: 0.9; }
+.mini-ad-1 { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+.mini-ad-2 { background: linear-gradient(135deg, #f093fb, #f5576c); color: #fff; }
+.mini-ad-icon { font-size: 28px; }
+.mini-ad-text strong { display: block; font-size: 15px; }
+.mini-ad-text span { font-size: 12px; opacity: 0.9; }
+
+/* ==================== Section Common ==================== */
+.section { margin-top: 20px; }
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border);
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text-dark);
+}
+.section-title::before {
+  content: '';
+  width: 4px;
+  height: 22px;
+  background: var(--blue-primary);
+  border-radius: 2px;
+}
+.section-title .sub-nav {
+  display: flex;
+  gap: 15px;
+  margin-left: 15px;
+}
+.section-title .sub-nav a {
+  font-size: 14px;
+  font-weight: normal;
+  color: #666;
+}
+.section-title .sub-nav a:hover,
+.section-title .sub-nav a.active { color: var(--blue-primary); }
+.section-more {
+  font-size: 13px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.section-more:hover { color: var(--blue-primary); }
+
+/* ==================== Course Cards ==================== */
 .course-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(6, 1fr);
   gap: 15px;
 }
-@media (min-width: 576px) {
-  .course-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
-}
-@media (min-width: 768px) {
-  .course-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
-}
-@media (min-width: 992px) {
-  .course-grid { grid-template-columns: repeat(6, 1fr); }
-}
-.course-grid-5 { grid-template-columns: repeat(4, 1fr); }
-.course-grid-4 { grid-template-columns: repeat(3, 1fr); }
-@media (min-width: 768px) {
-  .course-grid-5 { grid-template-columns: repeat(5, 1fr); }
-  .course-grid-4 { grid-template-columns: repeat(4, 1fr); }
-}
+.course-grid-5 { grid-template-columns: repeat(5, 1fr); }
+.course-grid-4 { grid-template-columns: repeat(4, 1fr); }
 
 .course-card {
   background: #fff;
@@ -439,6 +553,335 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
 }
 .course-author { font-size: 12px; color: #999; margin-top: 4px; }
 
+/* Gradient backgrounds for course thumbnails */
+.bg-1 { background: linear-gradient(135deg, #667eea, #764ba2); }
+.bg-2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
+.bg-3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+.bg-4 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+.bg-5 { background: linear-gradient(135deg, #fa709a, #fee140); }
+.bg-6 { background: linear-gradient(135deg, #30cfd0, #330867); }
+.bg-7 { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+.bg-8 { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
+.bg-9 { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+.bg-10 { background: linear-gradient(135deg, #ffd89b, #19547b); }
+.bg-11 { background: linear-gradient(135deg, #fddb92, #d1fdff); }
+.bg-12 { background: linear-gradient(135deg, #96fbc4, #f9f586); }
+
+/* ==================== Category Grid ==================== */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+.cat-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 18px 16px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 4px solid transparent;
+}
+.cat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  border-left-color: var(--blue-primary);
+}
+.cat-header { display: flex; align-items: center; gap: 10px; }
+.cat-icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.cat-name { font-size: 15px; font-weight: bold; }
+.cat-count { font-size: 12px; color: #999; margin-top: 2px; }
+.cat-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.cat-tag {
+  background: var(--bg-gray);
+  color: #666;
+  font-size: 12px;
+  padding: 3px 9px;
+  border-radius: 12px;
+  transition: all 0.15s;
+}
+.cat-tag:hover { background: var(--blue-bg); color: var(--blue-primary); }
+
+/* ==================== Hot Courses Section ==================== */
+.hot-list {
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.hot-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  border-bottom: 1px solid #f5f5f5;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.hot-item:last-child { border-bottom: none; }
+.hot-item:hover { background: var(--blue-bg); }
+.hot-rank {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+.hot-rank.top1 { background: #e63a2e; color: #fff; }
+.hot-rank.top2 { background: #ff6600; color: #fff; }
+.hot-rank.top3 { background: #ff9900; color: #fff; }
+.hot-thumb {
+  width: 60px;
+  height: 45px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.hot-info { flex: 1; min-width: 0; }
+.hot-title {
+  font-size: 13px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hot-item:hover .hot-title { color: var(--blue-primary); }
+.hot-meta { font-size: 12px; color: #999; margin-top: 3px; }
+
+/* ==================== Teacher Section ==================== */
+.teacher-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+}
+.teacher-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px 15px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.teacher-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+.teacher-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  background: var(--blue-bg);
+  border: 3px solid var(--blue-light);
+}
+.teacher-name { font-size: 14px; font-weight: bold; margin-bottom: 4px; }
+.teacher-title { font-size: 12px; color: #999; margin-bottom: 8px; }
+.teacher-stats { display: flex; justify-content: space-around; font-size: 12px; color: #666; }
+.teacher-stats .stat-num { font-size: 15px; font-weight: bold; color: var(--blue-primary); display: block; }
+
+/* ==================== Two Column Layout ==================== */
+.two-col { display: flex; gap: 20px; }
+.two-col-main { flex: 1; min-width: 0; }
+.two-col-side { width: 300px; flex-shrink: 0; }
+
+/* ==================== Side Panel ==================== */
+.side-panel {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+.side-panel-header {
+  background: var(--blue-primary);
+  color: #fff;
+  padding: 12px 15px;
+  font-size: 15px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.side-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  border-bottom: 1px solid #f5f5f5;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.side-item:last-child { border-bottom: none; }
+.side-item:hover { background: var(--blue-bg); }
+.side-item-rank {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #888;
+  flex-shrink: 0;
+}
+.side-item-rank.r1 { background: #e63a2e; color: #fff; }
+.side-item-rank.r2 { background: #ff6600; color: #fff; }
+.side-item-rank.r3 { background: #ff9900; color: #fff; }
+.side-item-info { flex: 1; min-width: 0; }
+.side-item-title { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.side-item:hover .side-item-title { color: var(--blue-primary); }
+.side-item-meta { font-size: 11px; color: #bbb; margin-top: 2px; }
+
+/* ==================== Notice/News ==================== */
+.news-list {}
+.news-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border);
+  cursor: pointer;
+}
+.news-item:last-child { border-bottom: none; }
+.news-date {
+  flex-shrink: 0;
+  background: var(--blue-primary);
+  color: #fff;
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.news-date .day { font-size: 20px; font-weight: bold; line-height: 1; }
+.news-date .month { font-size: 11px; opacity: 0.85; }
+.news-content { flex: 1; min-width: 0; }
+.news-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.news-item:hover .news-title { color: var(--blue-primary); }
+.news-desc { font-size: 12px; color: #999; line-height: 1.6; }
+
+/* ==================== Study Data ==================== */
+.data-bar {
+  background: linear-gradient(135deg, var(--blue-primary), var(--blue-dark));
+  padding: 20px 0;
+  margin-top: 20px;
+}
+.data-bar .container { display: flex; justify-content: space-around; align-items: center; }
+.data-item { text-align: center; color: #fff; }
+.data-num { font-size: 32px; font-weight: 900; line-height: 1; margin-bottom: 6px; }
+.data-num span { font-size: 18px; }
+.data-label { font-size: 13px; opacity: 0.8; }
+
+/* ==================== Partner / Links ==================== */
+.partners {
+  background: #fff;
+  padding: 20px 0;
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.partner-logos { display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 20px; }
+.partner-logo {
+  height: 40px;
+  padding: 6px 16px;
+  background: #f8f8f8;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #888;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.partner-logo:hover { border-color: var(--blue-primary); color: var(--blue-primary); }
+
+/* ==================== Footer ==================== */
+.footer {
+  background: #2d2d2d;
+  color: #bbb;
+  padding: 40px 0 0;
+  margin-top: 30px;
+}
+.footer-main { display: flex; gap: 40px; padding-bottom: 30px; }
+.footer-brand { width: 260px; flex-shrink: 0; }
+.footer-brand .logo-area { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+.footer-brand .brand-icon {
+  width: 44px; height: 44px;
+  background: var(--blue-primary);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 20px; font-weight: bold;
+}
+.footer-brand .brand-name { font-size: 18px; color: #fff; font-weight: bold; }
+.footer-brand p { font-size: 13px; line-height: 1.8; margin-bottom: 15px; }
+.footer-qr { display: flex; gap: 12px; }
+.footer-qr-item { text-align: center; }
+.qr-box {
+  width: 80px;
+  height: 80px;
+  background: #fff;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+.footer-qr-item span { font-size: 11px; color: #888; }
+.footer-links { flex: 1; display: flex; gap: 30px; }
+.footer-col h4 { color: #fff; font-size: 15px; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #444; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a { font-size: 13px; color: #999; }
+.footer-col ul li a:hover { color: var(--blue-light); }
+.footer-bottom {
+  border-top: 1px solid #444;
+  padding: 16px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+}
+.footer-bottom a { color: #888; margin: 0 8px; }
+.footer-bottom a:hover { color: var(--blue-light); }
+
 /* ==================== Back to Top ==================== */
 .back-top {
   position: fixed;
@@ -463,196 +906,1426 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
 .back-top.show { opacity: 1; transform: translateY(0); }
 .back-top:hover { background: var(--blue-dark); }
 
-/* ==================== Loading ==================== */
-.loading {
+/* Customer service */
+.cs-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 130px;
+  width: 44px;
+  height: 44px;
+  background: #ff6600;
+  color: #fff;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
-  font-size: 16px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+.cs-btn:hover { background: #e55a00; }
+
+/* ==================== Modal ==================== */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 420px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  animation: modalIn 0.3s ease;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.9) translateY(-20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.modal-header {
+  background: var(--blue-primary);
+  color: #fff;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header h3 { font-size: 18px; }
+.modal-close { cursor: pointer; font-size: 20px; opacity: 0.8; }
+.modal-close:hover { opacity: 1; }
+.modal-body { padding: 24px; }
+.modal-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--border);
+}
+.modal-tab {
+  padding: 10px 24px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #888;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+}
+.modal-tab.active { color: var(--blue-primary); border-bottom-color: var(--blue-primary); font-weight: bold; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 13px; color: #666; margin-bottom: 6px; }
+.form-group input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+.form-group input:focus { outline: none; border-color: var(--blue-primary); }
+.form-group .input-wrapper { position: relative; }
+.form-group .send-code {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--blue-primary);
+  font-size: 13px;
+  cursor: pointer;
+}
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 16px;
+}
+.form-check input { width: auto; }
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background: var(--blue-primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+.btn-submit:hover { background: var(--blue-dark); }
+.login-third {
+  margin-top: 20px;
+  text-align: center;
+}
+.login-third p { font-size: 13px; color: #999; margin-bottom: 12px; position: relative; }
+.login-third p::before,
+.login-third p::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 35%;
+  height: 1px;
+  background: #eee;
+}
+.login-third p::before { left: 0; }
+.login-third p::after { right: 0; }
+.third-btns { display: flex; justify-content: center; gap: 16px; }
+.third-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.third-btn:hover { transform: scale(1.1); }
+.third-wechat { background: #07c160; color: #fff; }
+.third-qq { background: #12b7f5; color: #fff; }
+.third-weibo { background: #e6162d; color: #fff; }
+
+/* ==================== Course Detail Modal ==================== */
+.course-detail-modal { width: 720px; max-height: 85vh; overflow-y: auto; }
+.course-detail-header {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: #fff;
+}
+.course-detail-thumb {
+  width: 200px;
+  height: 140px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+}
+.course-detail-info { flex: 1; }
+.course-detail-info h2 { font-size: 20px; margin-bottom: 10px; line-height: 1.4; }
+.course-detail-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; font-size: 13px; }
+.meta-tag {
+  background: rgba(255,255,255,0.15);
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+.course-detail-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.stars { color: #ffd700; font-size: 16px; }
+.rating-num { font-size: 18px; font-weight: bold; }
+.rating-count { font-size: 13px; opacity: 0.7; }
+.detail-btns { display: flex; gap: 12px; }
+.btn-study {
+  padding: 10px 24px;
+  background: var(--blue-primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn-study:hover { background: var(--blue-dark); }
+.btn-collect {
+  padding: 10px 18px;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.btn-collect:hover { background: rgba(255,255,255,0.25); }
+.course-detail-body { padding: 20px; }
+.chapter-list { }
+.chapter-item { 
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.chapter-title {
+  background: #f8f8f8;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.chapter-title:hover { background: var(--blue-bg); }
+.lesson-list { }
+.lesson-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-top: 1px solid #f5f5f5;
+  cursor: pointer;
+  font-size: 13px;
+}
+.lesson-item:hover { background: var(--blue-bg); color: var(--blue-primary); }
+.lesson-icon { color: var(--blue-primary); font-size: 15px; }
+.lesson-free { 
+  margin-left: auto;
+  background: #e8f5e9;
+  color: #28a745;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+.lesson-lock { margin-left: auto; color: #ccc; }
+
+/* ==================== Page Views Indicator ==================== */
+.page-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--blue-primary);
+  transition: width 0.3s;
+  z-index: 9999;
+}
+
+/* ==================== Notification Toast ==================== */
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  opacity: 0;
+  transition: all 0.3s;
+  z-index: 99999;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ==================== Scroll reveal ==================== */
+.reveal { opacity: 0; transform: translateY(20px); transition: all 0.5s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ==================== Language Switcher & Subscription Styles ==================== */
+.language-switcher select {
+  background: #555;
+  color: #fff;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 3px;
+  margin-right: 15px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.subscription-modal {
+  max-width: 1100px;
+}
+
+.subscription-desc {
+  text-align: center;
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.plans-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.plan-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.plan-card.featured {
+  border: 2px solid var(--orange);
+  background: linear-gradient(to bottom, #fff 0%, #fffaf0 100%);
+}
+
+.plan-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--orange);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.plan-card h3 {
+  color: var(--text-dark);
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.plan-card .price {
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--blue-primary);
+  margin-bottom: 5px;
+}
+
+.plan-card .period {
+  font-size: 14px;
   color: #999;
+  font-weight: normal;
+}
+
+.plan-card .tokens {
+  background: var(--blue-bg);
+  padding: 8px;
+  border-radius: 4px;
+  margin: 15px 0;
+  font-size: 13px;
+  color: var(--blue-primary);
+  font-weight: 500;
+}
+
+.plan-card .features {
+  text-align: left;
+  list-style: none;
+  margin: 20px 0;
+}
+
+.plan-card .features li {
+  padding: 6px 0;
+  color: #666;
+  font-size: 13px;
+}
+
+.plan-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background: var(--blue-primary);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.plan-btn:hover {
+  background: var(--blue-dark);
+}
+
+.plan-card.featured .plan-btn {
+  background: var(--orange);
+}
+
+.plan-card.featured .plan-btn:hover {
+  background: var(--orange-light);
+}
+
+.token-usage {
+  background: var(--blue-bg);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--blue-primary);
+  font-weight: 500;
+}
+
+/* RTL Support for Arabic */
+[dir="rtl"] .top-bar .container,
+[dir="rtl"] .header-inner {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .language-switcher select {
+  margin-right: 0;
+  margin-left: 15px;
+}
+
+[dir="rtl"] .plan-card .features {
+  text-align: right;
+}
+
+[dir="rtl"] .logo-icon {
+  margin-left: 8px;
+  margin-right: 0;
 }
 </style>
 </head>
 <body>
-<div id="app">
-  <!-- Loading State -->
-  <div id="loading" class="loading">Loading... 加载中...</div>
+
+<!-- Progress Bar -->
+<div class="page-indicator" id="progressBar"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Subscription Modal -->
+<div class="modal" id="subscriptionModal"></div>
+
+<!-- ==================== TOP BAR ==================== -->
+<div class="top-bar">
+  <div class="container">
+      <div class="top-bar-left">
+        <span data-i18n="welcome">欢迎来到意念大学！每天必上的学习网站！</span>
+        <a href="#" class="hot">🔥 远骋培训班</a>
+      <a href="#">校园活动</a>
+      <a href="#">企业招聘</a>
+      <a href="#">应聘讲师</a>
+    </div>
+    <div class="top-bar-right">
+      <a href="#" onclick="showModal('loginModal')">登录</a>
+      <a href="#" onclick="showModal('loginModal')">注册</a>
+      <a href="#">APP下载</a>
+      <a href="#">帮助中心</a>
+    </div>
+  </div>
 </div>
 
+<!-- ==================== HEADER ==================== -->
+<div class="header">
+  <div class="container">
+    <div class="header-inner">
+      <!-- Logo -->
+      <a href="#" class="logo">
+        <div class="logo-icon">51</div>
+      <div class="logo-text">
+        <strong>意念大学</strong>
+        <span>每天必上的意念大学网站</span>
+      </div>
+      </a>
+      <!-- Search -->
+      <div class="search-box">
+        <form onsubmit="doSearch(event)">
+          <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="搜索教程，如：PS入门、AutoCAD、Python...">
+          <button type="submit">🔍 <span data-i18n="search">搜索</span></button>
+        </form>
+        <div class="search-hot">
+          <span data-i18n="hotSearch">热搜：</span>
+          <a href="#" onclick="quickSearch('Photoshop')">Photoshop</a>
+          <a href="#" onclick="quickSearch('AutoCAD')">AutoCAD</a>
+          <a href="#" onclick="quickSearch('Python')">Python</a>
+          <a href="#" onclick="quickSearch('3dsMax')">3dsMax</a>
+          <a href="#" onclick="quickSearch('Word')">Word</a>
+        </div>
+      </div>
+      <!-- Right actions -->
+      <div class="header-right">
+        <div class="token-usage" data-remaining="50000">🤖 API: 50K</div>
+        <div class="btn-vip" onclick="showSubscriptionModal()">👑 <span data-i18n="vip">开通VIP</span></div>
+        <button class="btn-login" onclick="showModal('loginModal')"><span data-i18n="login">登录</span></button>
+        <button class="btn-register" onclick="showModal('loginModal')"><span data-i18n="register">免费注册</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MAIN NAV ==================== -->
+<nav class="main-nav">
+  <div class="container">
+    <ul>
+      <li class="home-btn active"><a href="#">🏠 <span data-i18n="home">首页</span></a></li>
+      <li>
+        <a href="#"><span data-i18n="allCourses">所有教程</span> ▾</a>
+        <ul class="dropdown">
+          <li><a href="#" onclick="filterCat('电脑办公')">📊 电脑办公</a></li>
+          <li><a href="#" onclick="filterCat('平面设计')">🎨 平面设计</a></li>
+          <li><a href="#" onclick="filterCat('室内设计')">🏠 室内设计</a></li>
+          <li><a href="#" onclick="filterCat('机械设计')">⚙️ 机械设计</a></li>
+          <li><a href="#" onclick="filterCat('影视动画')">🎬 影视动画</a></li>
+          <li><a href="#" onclick="filterCat('程序开发')">💻 程序开发</a></li>
+          <li><a href="#" onclick="filterCat('人工智能')">🤖 人工智能</a></li>
+        </ul>
+      </li>
+      <li><a href="#"><span data-i18n="training">远骋班</span> <span class="nav-hot">热</span></a></li>
+      <li><a href="#"><span data-i18n="app">手机APP</span></a></li>
+      <li><a href="#"><span data-i18n="activities">校园活动</span> <span class="nav-new">新</span></a></li>
+      <li><a href="#"><span data-i18n="community">问答社区</span></a></li>
+      <li><a href="#">企业招聘</a></li>
+      <li><a href="#">讲师招募</a></li>
+      <li><a href="#" style="margin-left:auto">充值 <span class="nav-badge">优惠</span></a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ==================== CATEGORY BAR ==================== -->
+<div class="category-bar">
+  <div class="container">
+    <ul id="catBar">
+      <li class="active"><a href="#" onclick="filterCat('全部')"><span class="cat-icon">🏠</span> 全部</a></li>
+      <li><a href="#" onclick="filterCat('电脑办公')"><span class="cat-icon">📊</span> 电脑办公</a></li>
+      <li><a href="#" onclick="filterCat('平面设计')"><span class="cat-icon">🎨</span> 平面设计</a></li>
+      <li><a href="#" onclick="filterCat('室内设计')"><span class="cat-icon">🏛️</span> 室内设计</a></li>
+      <li><a href="#" onclick="filterCat('机械设计')"><span class="cat-icon">⚙️</span> 机械设计</a></li>
+      <li><a href="#" onclick="filterCat('工业自动化')"><span class="cat-icon">🤖</span> 工业自动化</a></li>
+      <li><a href="#" onclick="filterCat('影视动画')"><span class="cat-icon">🎬</span> 影视动画</a></li>
+      <li><a href="#" onclick="filterCat('程序开发')"><span class="cat-icon">💻</span> 程序开发</a></li>
+      <li><a href="#" onclick="filterCat('人工智能')"><span class="cat-icon">✨</span> AIGC/人工智能</a></li>
+      <li><a href="#" onclick="filterCat('职业资格')"><span class="cat-icon">📜</span> 职业资格</a></li>
+      <li><a href="#" onclick="filterCat('兴趣成长')"><span class="cat-icon">🎯</span> 兴趣成长</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ==================== MAIN CONTENT ==================== -->
+<div style="background:#fff; padding-top: 15px;">
+<div class="container">
+
+  <!-- Banner / Carousel -->
+  <div class="banner-area">
+    <!-- Carousel -->
+    <div class="carousel">
+      <div class="carousel-slides">
+        <div class="carousel-slide active">
+          <div class="carousel-slide-bg slide-1"></div>
+          <div class="slide-caption">
+            <h2>Excel数据实战速成班</h2>
+            <p>从零基础到职场高手，系统学习Excel数据分析与处理</p>
+            <a href="#" class="btn-slide" onclick="showToast('即将开课，敬请期待！')">立即报名</a>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <div class="carousel-slide-bg slide-2"></div>
+          <div class="slide-caption">
+            <h2>PS+AI人工智能设计实战</h2>
+            <p>拥抱AI时代，掌握最新AI绘图工具与Photoshop融合技巧</p>
+            <a href="#" class="btn-slide" onclick="showToast('报名成功！')">立即报名</a>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <div class="carousel-slide-bg slide-3"></div>
+          <div class="slide-caption">
+            <h2>AutoCAD机械制图全套教程</h2>
+            <p>机械设计从入门到精通，配套实战项目练习</p>
+            <a href="#" class="btn-slide" onclick="showModal('loginModal')">免费学习</a>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <div class="carousel-slide-bg slide-4"></div>
+          <div class="slide-caption">
+            <h2>Python编程零基础入门</h2>
+            <p>全新录制，手把手教你学Python，轻松进入编程世界</p>
+            <a href="#" class="btn-slide" onclick="showModal('loginModal')">免费学习</a>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-prev" onclick="prevSlide()">&#8592;</button>
+      <button class="carousel-next" onclick="nextSlide()">&#8594;</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+    <!-- Right Banner -->
+    <div class="banner-right">
+      <div class="banner-vip">
+        <div>
+          <h3>👑 VIP会员特权</h3>
+          <div class="vip-features">
+            <div class="vip-feature"><span class="check">✓</span> 全站视频无限学习</div>
+            <div class="vip-feature"><span class="check">✓</span> 资料素材打包下载</div>
+            <div class="vip-feature"><span class="check">✓</span> 讲师专属答疑服务</div>
+            <div class="vip-feature"><span class="check">✓</span> 电子证书认证</div>
+          </div>
+        </div>
+        <div>
+          <div style="text-align:center; color:#f6d365; font-size:13px; margin-bottom:8px">
+            年费仅需 <span style="font-size:24px;font-weight:900">¥198</span> 元
+          </div>
+          <a href="#" class="btn-vip-join" onclick="showModal('loginModal')">立即开通VIP →</a>
+        </div>
+      </div>
+      <div class="banner-mini-ad mini-ad-1" onclick="showToast('正在跳转到远骋班页面...')">
+        <div class="mini-ad-icon">🎓</div>
+        <div class="mini-ad-text">
+          <strong>远骋培训班</strong>
+          <span>专业导师，小班授课</span>
+        </div>
+      </div>
+      <div class="banner-mini-ad mini-ad-2" onclick="showToast('正在跳转到APP下载页面...')">
+        <div class="mini-ad-icon">📱</div>
+        <div class="mini-ad-text">
+          <strong>下载手机APP</strong>
+          <span>随时随地移动学习</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ==================== DATA BAR ==================== -->
+<div class="data-bar">
+  <div class="container">
+    <div class="data-item">
+      <div class="data-num">170,958<span>+</span></div>
+      <div class="data-label">🎬 教程数量</div>
+    </div>
+    <div class="data-item">
+      <div class="data-num">8,624<span>万</span></div>
+      <div class="data-label">👥 注册学员</div>
+    </div>
+    <div class="data-item">
+      <div class="data-num">1,283<span>位</span></div>
+      <div class="data-label">👨‍🏫 专业讲师</div>
+    </div>
+    <div class="data-item">
+      <div class="data-num">98<span>%</span></div>
+      <div class="data-label">⭐ 好评率</div>
+    </div>
+    <div class="data-item">
+      <div class="data-num">2007</div>
+      <div class="data-label">🏆 创建年份</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== COURSE CATEGORIES ==================== -->
+<div style="background:#fff; padding: 20px 0;">
+<div class="container">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">📚 课程分类</div>
+      <a href="#" class="section-more">查看全部 →</a>
+    </div>
+    <div class="cat-grid" id="catGrid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== HOT + LATEST ==================== -->
+<div style="background:#f5f5f5; padding: 20px 0;">
+<div class="container">
+
+  <!-- Hot Courses -->
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-title">
+        🔥 精品推荐
+        <div class="sub-nav">
+          <a href="#" class="active" onclick="switchTab(this,'hotCoursesGrid','featured')">推荐</a>
+          <a href="#" onclick="switchTab(this,'hotCoursesGrid','new')">最新</a>
+          <a href="#" onclick="switchTab(this,'hotCoursesGrid','hot')">热门</a>
+          <a href="#" onclick="switchTab(this,'hotCoursesGrid','free')">免费</a>
+        </div>
+      </div>
+      <a href="#" class="section-more">查看更多 →</a>
+    </div>
+    <div class="course-grid" id="hotCoursesGrid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+
+  <!-- Two Column: Recent + Hot Rank -->
+  <div class="two-col section reveal" style="margin-top:20px">
+    <div class="two-col-main">
+      <div class="section-header">
+        <div class="section-title">⚡ 最新上传</div>
+        <a href="#" class="section-more">更多 →</a>
+      </div>
+      <div class="course-grid course-grid-4" id="newCoursesGrid">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+    <div class="two-col-side">
+      <!-- Hot Rank -->
+      <div class="side-panel">
+        <div class="side-panel-header">🏆 热门排行榜</div>
+        <div id="hotRankList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Program Dev -->
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-title">💻 程序开发</div>
+      <a href="#" class="section-more" onclick="filterCat('程序开发')">更多程序课程 →</a>
+    </div>
+    <div class="course-grid" id="devCoursesGrid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+
+  <!-- Design Courses -->
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-title">🎨 设计教程</div>
+      <a href="#" class="section-more" onclick="filterCat('平面设计')">更多设计课程 →</a>
+    </div>
+    <div class="course-grid" id="designCoursesGrid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+
+  <!-- Teachers -->
+  <div class="section reveal">
+    <div class="section-header">
+      <div class="section-title">👨‍🏫 明星讲师</div>
+      <a href="#" class="section-more">全部讲师 →</a>
+    </div>
+    <div class="teacher-grid" id="teacherGrid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+
+  <!-- News + Side -->
+  <div class="two-col section reveal" style="margin-top:20px">
+    <div class="two-col-main" style="background:#fff;padding:20px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.08)">
+      <div class="section-header" style="margin-bottom:15px">
+        <div class="section-title" style="font-size:16px">📰 校园动态</div>
+        <a href="#" class="section-more">更多动态 →</a>
+      </div>
+      <div class="news-list" id="newsList"></div>
+    </div>
+    <div class="two-col-side">
+      <div class="side-panel">
+        <div class="side-panel-header">🔥 本周热门</div>
+        <div id="weeklyHot"></div>
+      </div>
+      <div class="side-panel" style="margin-top:15px">
+        <div class="side-panel-header">🆕 最新教程</div>
+        <div id="latestSide"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ==================== PARTNERS ==================== -->
+<div class="partners">
+  <div class="container">
+    <div style="text-align:center;font-size:16px;font-weight:bold;margin-bottom:20px;color:#555">🤝 合作企业</div>
+    <div class="partner-logos">
+      <div class="partner-logo">Adobe</div>
+      <div class="partner-logo">AutoDesk</div>
+      <div class="partner-logo">Microsoft</div>
+      <div class="partner-logo">Dassault</div>
+      <div class="partner-logo">Siemens</div>
+      <div class="partner-logo">PTC</div>
+      <div class="partner-logo">Unity</div>
+      <div class="partner-logo">NVIDIA</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="logo-area">
+          <div class="brand-icon">51</div>
+          <div class="brand-name">意念大学</div>
+        </div>
+        <p data-i18n="dailyVisit">意念大学 - 每天必上的意念大学网站，自2007年起专注于提供高质量的职业技能视频教程，已累积超过170,000个教程，服务全球华人学习者。</p>
+        <div class="footer-qr">
+          <div class="footer-qr-item">
+            <div class="qr-box">📱</div>
+            <span>微信公众号</span>
+          </div>
+          <div class="footer-qr-item">
+            <div class="qr-box">📲</div>
+            <span>手机APP</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>热门分类</h4>
+          <ul>
+            <li><a href="#" onclick="filterCat('电脑办公')">电脑办公</a></li>
+            <li><a href="#" onclick="filterCat('平面设计')">平面设计</a></li>
+            <li><a href="#" onclick="filterCat('室内设计')">室内设计</a></li>
+            <li><a href="#" onclick="filterCat('机械设计')">机械设计</a></li>
+            <li><a href="#" onclick="filterCat('影视动画')">影视动画</a></li>
+            <li><a href="#" onclick="filterCat('程序开发')">程序开发</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>热门教程</h4>
+          <ul>
+            <li><a href="#">Photoshop教程</a></li>
+            <li><a href="#">AutoCAD教程</a></li>
+            <li><a href="#">3dsMax教程</a></li>
+            <li><a href="#">Excel教程</a></li>
+            <li><a href="#">Python教程</a></li>
+            <li><a href="#">Premiere教程</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>关于我们</h4>
+          <ul>
+            <li><a href="#">关于自学网</a></li>
+            <li><a href="#">讲师招募</a></li>
+            <li><a href="#">企业合作</a></li>
+            <li><a href="#">广告投放</a></li>
+            <li><a href="#">联系我们</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>帮助支持</h4>
+          <ul>
+            <li><a href="#">帮助中心</a></li>
+            <li><a href="#">VIP会员</a></li>
+            <li><a href="#">充值说明</a></li>
+            <li><a href="#">举报投诉</a></li>
+            <li><a href="#">用户协议</a></li>
+            <li><a href="#">隐私政策</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p data-i18n="footerCopyright">
+        © 2026 意念大学 - 每天必上的意念大学网站 版权所有 
+        <a href="#">蜀ICP备12020098号</a>
+        <a href="#">网络视听许可证</a>
+        <a href="#">广播电视节目制作经营许可证</a>
+        <a href="#">增值电信业务经营许可证</a>
+      </p>
+      <p style="margin-top:6px">
+        建议使用 Chrome / Edge 浏览器，分辨率 1280×800 或以上
+        <a href="#">站点地图</a>
+        <a href="#">友情链接</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== BACK TO TOP ==================== -->
+<div class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+<div class="cs-btn" onclick="showToast('正在连接客服...')">💬</div>
+
+<!-- ==================== LOGIN/REGISTER MODAL ==================== -->
+<div class="modal-overlay" id="loginModal" onclick="hideModal('loginModal',event)">
+  <div class="modal" onclick="event.stopPropagation()">
+<div class="modal-header">
+  <h3>欢迎来到意念大学 - 每天必上的学习网站</h3>
+  <span class="modal-close" onclick="hideModal('loginModal')">×</span>
+</div>
+    <div class="modal-body">
+      <div class="modal-tabs">
+        <div class="modal-tab active" onclick="switchModalTab(this,'loginForm')">账号登录</div>
+        <div class="modal-tab" onclick="switchModalTab(this,'registerForm')">免费注册</div>
+        <div class="modal-tab" onclick="switchModalTab(this,'phoneForm')">手机登录</div>
+      </div>
+      <!-- Login Form -->
+      <div id="loginForm">
+        <div class="form-group">
+          <label>邮箱/手机号</label>
+          <input type="text" placeholder="请输入邮箱或手机号">
+        </div>
+        <div class="form-group">
+          <label>密码</label>
+          <input type="password" placeholder="请输入密码">
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:16px">
+          <label style="display:flex;align-items:center;gap:6px;color:#666">
+            <input type="checkbox" checked> 7天内自动登录
+          </label>
+          <a href="#" style="color:var(--blue-primary)">忘记密码？</a>
+        </div>
+        <button class="btn-submit" onclick="doLogin()">立即登录</button>
+        <div class="login-third">
+          <p>第三方账号登录</p>
+          <div class="third-btns">
+            <div class="third-btn third-wechat" onclick="showToast('微信登录开发中...')">W</div>
+            <div class="third-btn third-qq" onclick="showToast('QQ登录开发中...')">Q</div>
+            <div class="third-btn third-weibo" onclick="showToast('微博登录开发中...')">博</div>
+          </div>
+        </div>
+      </div>
+      <!-- Register Form -->
+      <div id="registerForm" style="display:none">
+        <div class="form-group">
+          <label>手机号</label>
+          <div class="input-wrapper">
+            <input type="text" placeholder="请输入手机号">
+            <span class="send-code" onclick="sendCode()">获取验证码</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>验证码</label>
+          <input type="text" placeholder="请输入验证码">
+        </div>
+        <div class="form-group">
+          <label>设置密码</label>
+          <input type="password" placeholder="至少8位，包含字母和数字">
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="agreeCheck" checked>
+          <label for="agreeCheck">我已阅读并同意 <a href="#" style="color:var(--blue-primary)">用户协议</a> 和 <a href="#" style="color:var(--blue-primary)">隐私政策</a></label>
+        </div>
+        <button class="btn-submit" onclick="doRegister()">立即注册</button>
+      </div>
+      <!-- Phone Login Form -->
+      <div id="phoneForm" style="display:none">
+        <div class="form-group">
+          <label>手机号</label>
+          <div class="input-wrapper">
+            <input type="text" placeholder="请输入手机号">
+            <span class="send-code" onclick="sendCode()">获取验证码</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>验证码</label>
+          <input type="text" placeholder="请输入验证码">
+        </div>
+        <button class="btn-submit" onclick="doLogin()">验证码登录</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== COURSE DETAIL MODAL ==================== -->
+<div class="modal-overlay" id="courseModal" onclick="hideModal('courseModal',event)">
+  <div class="modal course-detail-modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3 id="courseModalTitle">课程详情</h3>
+      <span class="modal-close" onclick="hideModal('courseModal')">×</span>
+    </div>
+    <div id="courseModalContent"></div>
+  </div>
+</div>
+
+<!-- ==================== SEARCH RESULT OVERLAY ==================== -->
+<div class="modal-overlay" id="searchModal" onclick="hideModal('searchModal',event)">
+  <div class="modal" style="width:700px;max-height:80vh;overflow-y:auto" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3>搜索结果：<span id="searchKeyword"></span></h3>
+      <span class="modal-close" onclick="hideModal('searchModal')">×</span>
+    </div>
+    <div class="modal-body" style="padding:16px">
+      <div class="course-grid course-grid-4" id="searchResults"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script src="multilingual-enhancements.js"></script>
 <script>
-// ==================== i18n Translations ====================
-const translations = {
-  zh: {
-    loading: '加载中...',
-    welcome: '欢迎来到意念大学网！',
-    searchPlaceholder: '搜索教程，如：PS入门、AutoCAD、Python...',
-    search: '搜索',
-    hotSearch: '热搜：',
-    vipJoin: '开通VIP',
-    login: '登录',
-    register: '注册',
-    allCourses: '全部课程',
-    home: '首页',
-    allTutorials: '所有教程',
-   培训班: '远骋培训班',
-   校园活动: '校园活动',
-   企业招聘: '企业招聘',
-   讲师招聘: '应聘讲师',
-    appDownload: 'APP下载',
-    helpCenter: '帮助中心',
-  },
-  en: {
-    loading: 'Loading...',
-    welcome: 'Welcome to Mind University!',
-    searchPlaceholder: 'Search tutorials, e.g.: PS, AutoCAD, Python...',
-    search: 'Search',
-    hotSearch: 'Hot Search:',
-    vipJoin: 'Join VIP',
-    login: 'Login',
-    register: 'Register',
-    allCourses: 'All Courses',
-    home: 'Home',
-    allTutorials: 'All Tutorials',
-   培训班: 'Training',
-   校园活动: 'Events',
-   企业招聘: 'Careers',
-   讲师招聘: 'Instructors',
-    appDownload: 'Download App',
-    helpCenter: 'Help Center',
-  },
-  fr: {
-    loading: 'Chargement...',
-    welcome: 'Bienvenue à Mind University!',
-    searchPlaceholder: 'Rechercher des tutoriels...',
-    search: 'Rechercher',
-    hotSearch: 'Populaire:',
-    vipJoin: 'Devenir VIP',
-    login: 'Connexion',
-    register: 'S\'inscrire',
-    allCourses: 'Tous les cours',
-    home: 'Accueil',
-    allTutorials: 'Tous les tutoriels',
-   培训班: 'Formation',
-   校园活动: 'Événements',
-   企业招聘: 'Carrières',
-   讲师招聘: 'Instructeurs',
-    appDownload: 'Télécharger App',
-    helpCenter: 'Aide',
-  },
-  de: {
-    loading: 'Laden...',
-    welcome: 'Willkommen bei Mind University!',
-    searchPlaceholder: 'Tutorials suchen...',
-    search: 'Suchen',
-    hotSearch: 'Beliebt:',
-    vipJoin: 'VIP werden',
-    login: 'Anmelden',
-    register: 'Registrieren',
-    allCourses: 'Alle Kurse',
-    home: 'Startseite',
-    allTutorials: 'Alle Tutorials',
-   培训班: 'Ausbildung',
-   校园活动: 'Veranstaltungen',
-   企业招聘: 'Karriere',
-   讲师招聘: 'Dozenten',
-    appDownload: 'App herunterladen',
-    helpCenter: 'Hilfe',
-  },
-  ja: {
-    loading: '読み込み中...',
-    welcome: 'Mind Universityへようこそ！',
-    searchPlaceholder: 'チュートリアルを検索...',
-    search: '検索',
-    hotSearch: '人気:',
-    vipJoin: 'VIP加入',
-    login: 'ログイン',
-    register: '登録',
-    allCourses: 'すべてのコース',
-    home: 'ホーム',
-    allTutorials: 'すべてのチュートリアル',
-   培训班: 'トレーニング',
-   校园活动: 'イベント',
-   企业招聘: '採用情報',
-   讲师招聘: '講師募集',
-    appDownload: 'アプリをダウンロード',
-    helpCenter: 'ヘルプ',
-  },
-  ar: {
-    loading: 'جاري التحميل...',
-    welcome: 'مرحبا بكم في Mind University!',
-    searchPlaceholder: 'بحث عن دروس...',
-    search: 'بحث',
-    hotSearch: 'شائع:',
-    vipJoin: 'اشترك VIP',
-    login: 'تسجيل الدخول',
-    register: 'تسجيل',
-    allCourses: 'جميع الدورات',
-    home: 'الرئيسية',
-    allTutorials: 'جميع الدروس',
-   培训班: 'التدريب',
-   校园活动: 'الفعاليات',
-   企业招聘: 'الوظائف',
-   讲师招聘: 'مدربين',
-    appDownload: 'تحميل التطبيق',
-    helpCenter: 'مركز المساعدة',
+// ==================== Data ==================== 
+const categories = [
+  { name: '电脑办公', icon: '📊', color: '#4facfe', bg: '#e8f4fd', tags: ['Word', 'Excel', 'PPT', 'WPS', 'VBA', 'Access'], count: '23,456' },
+  { name: '平面设计', icon: '🎨', color: '#f093fb', bg: '#fdf0fd', tags: ['Photoshop', 'AI矢量', 'CDR', 'InDesign', 'Figma'], count: '18,234' },
+  { name: '室内设计', icon: '🏛️', color: '#43e97b', bg: '#f0fdf4', tags: ['3dsMax', 'SketchUp', 'CAD', 'V-Ray渲染', 'Lumion'], count: '15,782' },
+  { name: '机械设计', icon: '⚙️', color: '#fa709a', bg: '#fdf0f5', tags: ['UG/NX', 'SolidWorks', 'AutoCAD', 'CATIA', 'Creo'], count: '12,340' },
+  { name: '工业自动化', icon: '🤖', color: '#667eea', bg: '#f0f0fd', tags: ['PLC', '单片机', 'Arduino', '工业机器人', 'SCADA'], count: '8,932' },
+  { name: '影视动画', icon: '🎬', color: '#30cfd0', bg: '#f0fdfb', tags: ['Premiere', 'After Effects', 'C4D', '剪辑合成', 'MAYA'], count: '20,156' },
+  { name: '程序开发', icon: '💻', color: '#764ba2', bg: '#f5f0fd', tags: ['Python', 'Java', 'JavaScript', 'Vue', 'MySQL'], count: '28,876' },
+  { name: '人工智能', icon: '✨', color: '#f5576c', bg: '#fdf0f2', tags: ['Stable Diffusion', 'ChatGPT应用', 'AI绘图', 'Midjourney', '大模型'], count: '9,234' },
+  { name: '职业资格', icon: '📜', color: '#fda085', bg: '#fdf5f0', tags: ['会计实操', '税务师', '职称英语', '人力资源', '项目管理'], count: '11,567' },
+  { name: '兴趣成长', icon: '🎯', color: '#a18cd1', bg: '#f5f0fd', tags: ['书法', '国画', '素描', '钢琴', '吉他'], count: '7,823' },
+];
+
+const courses = [
+  // 电脑办公
+  { id: 1, title: 'Excel从入门到精通数据分析', cat: '电脑办公', icon: '📊', bg: 'bg-1', badge: '免费', views: '128.5万', level: '初级', teacher: '刘老师', lessons: 86, chapters: 12 },
+  { id: 2, title: 'Word高效办公完整教程2024', cat: '电脑办公', icon: '📝', bg: 'bg-9', badge: 'VIP', views: '89.3万', level: '初级', teacher: '王老师', lessons: 64, chapters: 8 },
+  { id: 3, title: 'PPT商务演示设计与制作', cat: '电脑办公', icon: '📋', bg: 'bg-11', badge: '新', views: '45.2万', level: '中级', teacher: '陈老师', lessons: 52, chapters: 7 },
+  { id: 4, title: 'WPS办公软件全套教程', cat: '电脑办公', icon: '💼', bg: 'bg-3', badge: '免费', views: '73.8万', level: '初级', teacher: '张老师', lessons: 78, chapters: 10 },
+  // 平面设计
+  { id: 5, title: 'Photoshop CC完全自学教程', cat: '平面设计', icon: '🎨', bg: 'bg-2', badge: '热', views: '234.7万', level: '初级', teacher: '高老师', lessons: 128, chapters: 15 },
+  { id: 6, title: 'Illustrator平面设计从零开始', cat: '平面设计', icon: '✏️', bg: 'bg-7', badge: 'VIP', views: '98.4万', level: '初级', teacher: '李老师', lessons: 96, chapters: 12 },
+  { id: 7, title: 'CorelDRAW X9图形设计教程', cat: '平面设计', icon: '🖌️', bg: 'bg-5', badge: '新', views: '56.1万', level: '中级', teacher: '周老师', lessons: 72, chapters: 9 },
+  { id: 8, title: 'Figma UI设计完整教程', cat: '平面设计', icon: '🎯', bg: 'bg-12', badge: '热', views: '44.8万', level: '中级', teacher: '赵老师', lessons: 58, chapters: 8 },
+  // 室内设计
+  { id: 9, title: '3dsMax室内效果图制作全程', cat: '室内设计', icon: '🏠', bg: 'bg-4', badge: '热', views: '176.3万', level: '中级', teacher: '刘老师', lessons: 142, chapters: 18 },
+  { id: 10, title: 'SketchUp草图大师入门到精通', cat: '室内设计', icon: '🏗️', bg: 'bg-6', badge: 'VIP', views: '87.6万', level: '初级', teacher: '吴老师', lessons: 88, chapters: 11 },
+  { id: 11, title: 'V-Ray渲染技术精品课程', cat: '室内设计', icon: '💡', bg: 'bg-8', badge: '新', views: '38.5万', level: '高级', teacher: '孙老师', lessons: 64, chapters: 8 },
+  { id: 12, title: 'CAD室内施工图绘制技巧', cat: '室内设计', icon: '📐', bg: 'bg-10', badge: '热', views: '112.9万', level: '初级', teacher: '郑老师', lessons: 96, chapters: 12 },
+  // 机械设计
+  { id: 13, title: 'UG NX产品建模完整教程', cat: '机械设计', icon: '⚙️', bg: 'bg-5', badge: 'VIP', views: '89.2万', level: '中级', teacher: '陈老师', lessons: 116, chapters: 14 },
+  { id: 14, title: 'SolidWorks机械设计实战', cat: '机械设计', icon: '🔧', bg: 'bg-2', badge: '热', views: '134.5万', level: '初级', teacher: '周老师', lessons: 108, chapters: 13 },
+  { id: 15, title: 'AutoCAD机械制图零基础', cat: '机械设计', icon: '📏', bg: 'bg-7', badge: '免费', views: '198.7万', level: '初级', teacher: '王老师', lessons: 82, chapters: 10 },
+  { id: 16, title: 'CATIA航空机械设计精讲', cat: '机械设计', icon: '✈️', bg: 'bg-9', badge: '新', views: '23.4万', level: '高级', teacher: '张老师', lessons: 96, chapters: 12 },
+  // 程序开发
+  { id: 17, title: 'Python零基础入门到实战', cat: '程序开发', icon: '🐍', bg: 'bg-6', badge: '热', views: '312.4万', level: '初级', teacher: '李老师', lessons: 168, chapters: 20 },
+  { id: 18, title: 'Java全栈开发完整学习路线', cat: '程序开发', icon: '☕', bg: 'bg-1', badge: 'VIP', views: '186.5万', level: '中级', teacher: '高老师', lessons: 214, chapters: 25 },
+  { id: 19, title: 'Vue3+TypeScript前端开发', cat: '程序开发', icon: '💚', bg: 'bg-4', badge: '新', views: '78.3万', level: '中级', teacher: '赵老师', lessons: 126, chapters: 16 },
+  { id: 20, title: 'MySQL数据库从入门到精通', cat: '程序开发', icon: '🗄️', bg: 'bg-3', badge: '热', views: '145.8万', level: '初级', teacher: '刘老师', lessons: 98, chapters: 12 },
+  { id: 21, title: 'React18新特性完整教程', cat: '程序开发', icon: '⚛️', bg: 'bg-2', badge: '新', views: '56.7万', level: '中级', teacher: '吴老师', lessons: 112, chapters: 14 },
+  { id: 22, title: 'Node.js后端开发实战', cat: '程序开发', icon: '🟢', bg: 'bg-5', badge: 'VIP', views: '67.4万', level: '中级', teacher: '孙老师', lessons: 94, chapters: 12 },
+  // 影视动画
+  { id: 23, title: 'Premiere Pro视频剪辑全程', cat: '影视动画', icon: '🎬', bg: 'bg-8', badge: '热', views: '156.3万', level: '初级', teacher: '周老师', lessons: 102, chapters: 13 },
+  { id: 24, title: 'After Effects动效设计精讲', cat: '影视动画', icon: '✨', bg: 'bg-12', badge: 'VIP', views: '87.9万', level: '中级', teacher: '郑老师', lessons: 118, chapters: 15 },
+  // 人工智能
+  { id: 25, title: 'Stable Diffusion AI绘图完整教程', cat: '人工智能', icon: '🤖', bg: 'bg-10', badge: '热', views: '198.6万', level: '初级', teacher: '陈老师', lessons: 88, chapters: 11 },
+  { id: 26, title: 'ChatGPT提示工程与应用实战', cat: '人工智能', icon: '💬', bg: 'bg-7', badge: '新', views: '156.2万', level: '初级', teacher: '李老师', lessons: 64, chapters: 8 },
+  { id: 27, title: 'Midjourney商业插图创作', cat: '人工智能', icon: '🖼️', bg: 'bg-11', badge: '新', views: '89.4万', level: '初级', teacher: '王老师', lessons: 52, chapters: 7 },
+  { id: 28, title: '深度学习与神经网络实战', cat: '人工智能', icon: '🧠', bg: 'bg-6', badge: 'VIP', views: '45.8万', level: '高级', teacher: '高老师', lessons: 142, chapters: 18 },
+];
+
+const teachers = [
+  { name: '高明远', title: 'PS/AI 首席讲师', avatar: '👨‍🎨', courses: 28, students: '45.6万' },
+  { name: '刘建设', title: 'CAD/3D 专家', avatar: '👨‍💼', courses: 35, students: '67.8万' },
+  { name: '李晓燕', title: 'Python/Java 导师', avatar: '👩‍💻', courses: 22, students: '89.2万' },
+  { name: '张志远', title: '影视后期 导师', avatar: '👨‍🎬', courses: 19, students: '34.5万' },
+  { name: '王美玲', title: 'Excel 数据专家', avatar: '👩‍📊', courses: 16, students: '56.3万' },
+  { name: '陈俊豪', title: 'SolidWorks 导师', avatar: '👨‍🔧', courses: 24, students: '43.1万' },
+];
+
+const news = [
+  { day: '28', month: '03月', title: '我要自学网2026春季大课全面开放报名', desc: '涵盖AI设计、Python编程、室内效果图等热门方向，最低5折优惠...' },
+  { day: '25', month: '03月', title: '全新AI课程上线：Sora视频生成实战教程', desc: '国内首家系统讲解Sora的教程平台，手把手带你玩转AI视频...' },
+  { day: '22', month: '03月', title: '讲师团队年度获奖：5位老师荣登行业TOP榜', desc: '根据学员评价、课程质量等多维指标评选，恭贺五位优秀讲师...' },
+  { day: '18', month: '03月', title: '移动端APP全新升级4.0，体验大幅提升', desc: '全新UI设计、离线下载学习、AI学习助手等功能全面上线...' },
+  { day: '15', month: '03月', title: '企业内训合作项目正式启动', desc: '与超过200家企业建立合作，提供定制化在线培训解决方案...' },
+];
+
+// ==================== Carousel ====================
+let currentSlide = 0;
+const slides = document.querySelectorAll('.carousel-slide');
+const dotsContainer = document.getElementById('carouselDots');
+
+function initCarousel() {
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goToSlide(i);
+    dotsContainer.appendChild(dot);
+  });
+  setInterval(() => nextSlide(), 4000);
+}
+
+function goToSlide(n) {
+  slides[currentSlide].classList.remove('active');
+  dotsContainer.children[currentSlide].classList.remove('active');
+  currentSlide = (n + slides.length) % slides.length;
+  slides[currentSlide].classList.add('active');
+  dotsContainer.children[currentSlide].classList.add('active');
+}
+function nextSlide() { goToSlide(currentSlide + 1); }
+function prevSlide() { goToSlide(currentSlide - 1); }
+
+// ==================== Category Grid ====================
+function renderCatGrid() {
+  const grid = document.getElementById('catGrid');
+  grid.innerHTML = categories.map(cat => `
+    <div class="cat-card" onclick="filterCat('${cat.name}')">
+      <div class="cat-header">
+        <div class="cat-icon-box" style="background:${cat.bg};color:${cat.color}">${cat.icon}</div>
+        <div>
+          <div class="cat-name">${cat.name}</div>
+          <div class="cat-count">共 ${cat.count} 套教程</div>
+        </div>
+      </div>
+      <div class="cat-tags">
+        ${cat.tags.map(t => `<span class="cat-tag" onclick="event.stopPropagation();quickSearch('${t}')">${t}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ==================== Course Card ====================
+function courseCard(c, small = false) {
+  const badgeClass = c.badge === '免费' ? 'free' : (c.badge === '新' ? 'new' : (c.badge === '热' ? 'hot' : ''));
+  return `
+    <div class="course-card" onclick="showCourseDetail(${c.id})">
+      <div class="course-thumb">
+        <div class="course-thumb-inner ${c.bg}">${c.icon}</div>
+        <div class="play-btn">▶</div>
+        <span class="course-badge ${badgeClass}">${c.badge}</span>
+      </div>
+      <div class="course-info">
+        <div class="course-title">${c.title}</div>
+        <div class="course-meta">
+          <span class="count">👁 ${c.views}</span>
+          <span class="level">${c.level}</span>
+        </div>
+        <div class="course-author">👨‍🏫 ${c.teacher}</div>
+      </div>
+    </div>
+  `;
+}
+
+// ==================== Render Courses ====================
+function renderCourses() {
+  // Hot/Featured - show 6 courses across categories
+  const featured = courses.filter(c => c.badge === '热' || c.views.includes('3') || parseFloat(c.views) > 100).slice(0, 6);
+  document.getElementById('hotCoursesGrid').innerHTML = featured.map(c => courseCard(c)).join('');
+  
+  // New courses
+  const newList = [...courses].sort((a,b) => b.id - a.id).slice(0, 8);
+  document.getElementById('newCoursesGrid').innerHTML = newList.map(c => courseCard(c)).join('');
+  
+  // Dev courses
+  const devCourses = courses.filter(c => c.cat === '程序开发').slice(0, 6);
+  document.getElementById('devCoursesGrid').innerHTML = devCourses.map(c => courseCard(c)).join('');
+  
+  // Design courses
+  const designCourses = courses.filter(c => c.cat === '平面设计' || c.cat === '室内设计').slice(0, 6);
+  document.getElementById('designCoursesGrid').innerHTML = designCourses.map(c => courseCard(c)).join('');
+  
+  // Hot rank
+  const hotRank = [...courses].sort((a,b) => parseFloat(b.views) - parseFloat(a.views)).slice(0, 8);
+  document.getElementById('hotRankList').innerHTML = hotRank.map((c, i) => `
+    <div class="side-item" onclick="showCourseDetail(${c.id})">
+      <div class="side-item-rank ${i<3?'r'+(i+1):''}">${i+1}</div>
+      <div class="hot-thumb ${c.bg}">${c.icon}</div>
+      <div class="side-item-info">
+        <div class="side-item-title">${c.title}</div>
+        <div class="side-item-meta">👁 ${c.views} · ${c.cat}</div>
+      </div>
+    </div>
+  `).join('');
+  
+  // Weekly hot side
+  const weeklyH = courses.filter(c => c.badge === '热').slice(0, 5);
+  document.getElementById('weeklyHot').innerHTML = weeklyH.map((c, i) => `
+    <div class="side-item" onclick="showCourseDetail(${c.id})">
+      <div class="side-item-rank ${i<3?'r'+(i+1):''}">${i+1}</div>
+      <div class="side-item-info">
+        <div class="side-item-title">${c.title}</div>
+        <div class="side-item-meta">👁 ${c.views}</div>
+      </div>
+    </div>
+  `).join('');
+  
+  // Latest side
+  const latestS = [...courses].sort((a,b) => b.id - a.id).slice(0, 5);
+  document.getElementById('latestSide').innerHTML = latestS.map((c, i) => `
+    <div class="side-item" onclick="showCourseDetail(${c.id})">
+      <div class="side-item-rank ${i<3?'r'+(i+1):''}">${i+1}</div>
+      <div class="side-item-info">
+        <div class="side-item-title">${c.title}</div>
+        <div class="side-item-meta">🆕 ${c.cat}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ==================== Render Teachers ====================
+function renderTeachers() {
+  document.getElementById('teacherGrid').innerHTML = teachers.map(t => `
+    <div class="teacher-card" onclick="showToast('讲师主页开发中...')">
+      <div class="teacher-avatar">${t.avatar}</div>
+      <div class="teacher-name">${t.name}</div>
+      <div class="teacher-title">${t.title}</div>
+      <div class="teacher-stats">
+        <div><span class="stat-num">${t.courses}</span>课程</div>
+        <div><span class="stat-num">${t.students}</span>学员</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ==================== Render News ====================
+function renderNews() {
+  document.getElementById('newsList').innerHTML = news.map(n => `
+    <div class="news-item" onclick="showToast('正在跳转到新闻详情...')">
+      <div class="news-date">
+        <div class="day">${n.day}</div>
+        <div class="month">${n.month}</div>
+      </div>
+      <div class="news-content">
+        <div class="news-title">${n.title}</div>
+        <div class="news-desc">${n.desc}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ==================== Course Detail ====================
+function showCourseDetail(id) {
+  const c = courses.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('courseModalTitle').textContent = c.title;
+  
+  // Generate chapters and lessons
+  const chapterHtml = Array.from({length: Math.min(c.chapters, 5)}, (_, ci) => {
+    const lessonsPerChap = Math.ceil(c.lessons / c.chapters);
+    const lessonItems = Array.from({length: Math.min(lessonsPerChap, 6)}, (_, li) => {
+      const isFree = li < 2;
+      return `
+        <div class="lesson-item" onclick="playLesson(${isFree})">
+          <span class="lesson-icon">▶</span>
+          第${li+1}节：${c.title.split('').slice(0, 8+li).join('')}...
+          ${isFree ? '<span class="lesson-free">免费试看</span>' : '<span class="lesson-lock">🔒</span>'}
+        </div>
+      `;
+    }).join('');
+    return `
+      <div class="chapter-item">
+        <div class="chapter-title">
+          第${ci+1}章：${['基础入门', '核心功能', '实战案例', '进阶技巧', '综合项目'][ci]}
+          <span style="color:#999;font-size:12px">共${lessonsPerChap}节</span>
+        </div>
+        <div class="lesson-list">${lessonItems}</div>
+      </div>
+    `;
+  }).join('');
+  
+  document.getElementById('courseModalContent').innerHTML = `
+    <div class="course-detail-header">
+      <div class="course-detail-thumb ${c.bg}">${c.icon}</div>
+      <div class="course-detail-info">
+        <h2>${c.title}</h2>
+        <div class="course-detail-meta">
+          <span class="meta-tag">📂 ${c.cat}</span>
+          <span class="meta-tag">🎓 ${c.level}</span>
+          <span class="meta-tag">👁 ${c.views}次观看</span>
+          <span class="meta-tag">📹 ${c.lessons}集</span>
+          <span class="meta-tag">👨‍🏫 ${c.teacher}</span>
+        </div>
+        <div class="course-detail-rating">
+          <span class="stars">★★★★★</span>
+          <span class="rating-num">4.9</span>
+          <span class="rating-count">（${Math.floor(Math.random()*5000+1000)}人评价）</span>
+        </div>
+        <div class="detail-btns">
+          <button class="btn-study" onclick="playLesson(true)">▶ 立即学习</button>
+          <button class="btn-collect" onclick="showToast('收藏成功！')">⭐ 收藏课程</button>
+          <button class="btn-collect" onclick="showToast('分享链接已复制！')">🔗 分享</button>
+        </div>
+      </div>
+    </div>
+    <div class="course-detail-body">
+      <div class="section-header" style="margin-bottom:12px">
+        <div class="section-title" style="font-size:15px">课程目录</div>
+        <span style="font-size:13px;color:#999">共 ${c.chapters} 章 · ${c.lessons} 集</span>
+      </div>
+      <div class="chapter-list">${chapterHtml}</div>
+    </div>
+  `;
+  showModal('courseModal');
+}
+
+function playLesson(isFree) {
+  if (isFree) {
+    showToast('视频播放中...（演示版）');
+  } else {
+    showToast('请先登录并开通VIP会员后观看！');
+    setTimeout(() => {
+      hideModal('courseModal');
+      showModal('loginModal');
+    }, 1500);
   }
-};
-
-// Current language
-let currentLang = localStorage.getItem('lang') || 'zh';
-
-// Get translation
-function t(key) {
-  return translations[currentLang][key] || translations['zh'][key] || key;
 }
 
-// Set language
-function setLang(lang) {
-  currentLang = lang;
-  localStorage.setItem('lang', lang);
-  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
-  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-  updatePage();
-}
-
-// Update page content
-function updatePage() {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    el.textContent = t(key);
+// ==================== Filter by Category ====================
+function filterCat(cat) {
+  // Update cat bar active state
+  const catBar = document.getElementById('catBar');
+  catBar.querySelectorAll('li').forEach(li => {
+    li.classList.remove('active');
+    if (li.querySelector('a').textContent.includes(cat) || cat === '全部') {
+      if (cat === '全部' && li === catBar.firstElementChild) li.classList.add('active');
+      else if (cat !== '全部' && li.querySelector('a').textContent.includes(cat)) li.classList.add('active');
+    }
   });
   
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.getAttribute('data-i18n-placeholder');
-    el.placeholder = t(key);
+  const results = cat === '全部' ? courses : courses.filter(c => c.cat === cat);
+  document.getElementById('searchKeyword').textContent = cat === '全部' ? '全部课程' : cat;
+  document.getElementById('searchResults').innerHTML = results.map(c => courseCard(c)).join('');
+  showModal('searchModal');
+}
+
+// ==================== Search ====================
+function doSearch(e) {
+  e.preventDefault();
+  const kw = document.getElementById('searchInput').value.trim();
+  if (!kw) return;
+  quickSearch(kw);
+}
+
+function quickSearch(kw) {
+  document.getElementById('searchInput').value = kw;
+  const results = courses.filter(c => 
+    c.title.toLowerCase().includes(kw.toLowerCase()) ||
+    c.cat.includes(kw) ||
+    c.teacher.includes(kw)
+  );
+  document.getElementById('searchKeyword').textContent = kw;
+  document.getElementById('searchResults').innerHTML = results.length > 0
+    ? results.map(c => courseCard(c)).join('')
+    : `<div style="grid-column:1/-1;text-align:center;padding:40px;color:#999">
+        😔 未找到"${kw}"相关课程，<a href="#" style="color:var(--blue-primary)" onclick="hideModal('searchModal')">浏览全部课程</a>
+      </div>`;
+  showModal('searchModal');
+}
+
+// ==================== Tab Switch ====================
+function switchTab(el, gridId, type) {
+  el.parentNode.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+  
+  let filtered;
+  switch(type) {
+    case 'featured': filtered = courses.filter(c => parseFloat(c.views) > 100).slice(0, 6); break;
+    case 'new': filtered = [...courses].sort((a,b) => b.id - a.id).slice(0, 6); break;
+    case 'hot': filtered = courses.filter(c => c.badge === '热').slice(0, 6); break;
+    case 'free': filtered = courses.filter(c => c.badge === '免费').slice(0, 6); break;
+    default: filtered = courses.slice(0, 6);
+  }
+  document.getElementById(gridId).innerHTML = filtered.map(c => courseCard(c)).join('');
+}
+
+// ==================== Modal ==================== 
+function showModal(id) {
+  document.getElementById(id).classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function hideModal(id, event) {
+  if (event && event.target !== document.getElementById(id)) return;
+  document.getElementById(id).classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// ==================== Login/Register Modal Tabs ====================
+function switchModalTab(el, formId) {
+  el.parentNode.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  ['loginForm', 'registerForm', 'phoneForm'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = id === formId ? 'block' : 'none';
   });
 }
 
-// ==================== Security: XSS Prevention ====================
-function escapeHtml(text) {
-  if (!text) return '';
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
+function doLogin() {
+  showToast('登录成功！欢迎回来 🎉');
+  hideModal('loginModal');
+}
+function doRegister() {
+  showToast('注册成功！已为您自动登录 🎉');
+  hideModal('loginModal');
+}
+function sendCode() {
+  showToast('验证码已发送到您的手机 📱');
 }
 
-function safeSetHtml(element, html) {
-  const div = document.createElement('div');
-  div.textContent = html;
-  element.innerHTML = '';
-  element.appendChild(div);
+// ==================== Toast ====================
+let toastTimer;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
 }
+
+// ==================== Scroll Effects ====================
+window.addEventListener('scroll', () => {
+  // Progress bar
+  const scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+  document.getElementById('progressBar').style.width = scrollPct + '%';
+  
+  // Back to top
+  document.getElementById('backTop').classList.toggle('show', window.scrollY > 500);
+  
+  // Reveal animations
+  document.querySelectorAll('.reveal').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 80) {
+      el.classList.add('visible');
+    }
+  });
+});
 
 // ==================== Init ====================
-document.addEventListener('DOMContentLoaded', () => {
-  // Set initial language
-  setLang(currentLang);
-  
-  // Hide loading when ready
-  setTimeout(() => {
-    document.getElementById('loading').style.display = 'none';
-  }, 500);
+initCarousel();
+renderCatGrid();
+renderCourses();
+renderTeachers();
+renderNews();
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    ['loginModal', 'courseModal', 'searchModal'].forEach(id => {
+      document.getElementById(id).classList.remove('show');
+    });
+    document.body.style.overflow = '';
+  }
 });
 </script>
 </body>
