@@ -871,6 +871,25 @@ img { display: block; max-width: 100%; }
 }
 .footer-qr-item span { font-size: 11px; color: #888; }
 .footer-links { flex: 1; display: flex; gap: 30px; }
+
+/* Tech Features */
+.tech-features { flex: 1.2; }
+.tech-features h4 { color: #fff; margin-bottom: 15px; }
+.tech-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.tech-item:last-child { border-bottom: none; }
+.tech-icon { font-size: 18px; flex-shrink: 0; }
+.tech-content strong { display: block; color: #fff; font-size: 13px; margin-bottom: 3px; }
+.tech-content p { font-size: 11px; color: #aaa; margin: 0; line-height: 1.4; }
+
+@media (max-width: 768px) {
+  .tech-features { width: 100%; margin-top: 20px; }
+}
 .footer-col h4 { color: #fff; font-size: 15px; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #444; }
 .footer-col ul li { margin-bottom: 10px; }
 .footer-col ul li a { font-size: 13px; color: #999; }
@@ -1805,6 +1824,38 @@ img { display: block; max-width: 100%; }
           <div class="footer-qr-item">
             <div class="qr-box">📲</div>
             <span>手机APP</span>
+          </div>
+        </div>
+      </div>
+      <!-- 技术特点 -->
+      <div class="footer-col tech-features">
+        <h4>🛡️ 项目开发原则</h4>
+        <div class="tech-item">
+          <span class="tech-icon">💻</span>
+          <div class="tech-content">
+            <strong>纯原生代码</strong>
+            <p>HTML/CSS/JavaScript · 无框架 · 零依赖</p>
+          </div>
+        </div>
+        <div class="tech-item">
+          <span class="tech-icon">🔐</span>
+          <div class="tech-content">
+            <strong>独立自主版权</strong>
+            <p>完全自主开发 · 无开源组件 · 知识产权独立</p>
+          </div>
+        </div>
+        <div class="tech-item">
+          <span class="tech-icon">🔒</span>
+          <div class="tech-content">
+            <strong>无安全漏洞</strong>
+            <p>无外部API调用 · 数据本地处理 · 防XSS/CSRF</p>
+          </div>
+        </div>
+        <div class="tech-item">
+          <span class="tech-icon">🛡️</span>
+          <div class="tech-content">
+            <strong>无隐私泄露风险</strong>
+            <p>完全离线可用 · 不收集用户数据 · 不与第三方通信</p>
           </div>
         </div>
       </div>
