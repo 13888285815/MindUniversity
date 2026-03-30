@@ -432,7 +432,7 @@ function addLanguageSwitcher() {
   const headerSwitcher = document.getElementById('headerLangSwitcher');
   if (headerSwitcher) {
     const select = headerSwitcher.querySelector('select');
-    if (select) select.value = currentLang;
+    if (select) select.value = currentLanguage;
   }
 }
 
