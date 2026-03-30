@@ -1180,161 +1180,6 @@ img { display: block; max-width: 100%; }
 .reveal { opacity: 0; transform: translateY(20px); transition: all 0.5s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* ==================== Language Switcher & Subscription Styles ==================== */
-.language-switcher select {
-  background: #555;
-  color: #fff;
-  border: none;
-  padding: 4px 8px;
-  border-radius: 3px;
-  margin-right: 15px;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.subscription-modal {
-  max-width: 1100px;
-}
-
-.subscription-desc {
-  text-align: center;
-  color: #666;
-  margin-bottom: 30px;
-  font-size: 14px;
-}
-
-.plans-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-
-.plan-card {
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 24px;
-  text-align: center;
-  position: relative;
-  transition: all 0.3s;
-}
-
-.plan-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-.plan-card.featured {
-  border: 2px solid var(--orange);
-  background: linear-gradient(to bottom, #fff 0%, #fffaf0 100%);
-}
-
-.plan-badge {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--orange);
-  color: #fff;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.plan-card h3 {
-  color: var(--text-dark);
-  margin-bottom: 15px;
-  font-size: 18px;
-}
-
-.plan-card .price {
-  font-size: 32px;
-  font-weight: bold;
-  color: var(--blue-primary);
-  margin-bottom: 5px;
-}
-
-.plan-card .period {
-  font-size: 14px;
-  color: #999;
-  font-weight: normal;
-}
-
-.plan-card .tokens {
-  background: var(--blue-bg);
-  padding: 8px;
-  border-radius: 4px;
-  margin: 15px 0;
-  font-size: 13px;
-  color: var(--blue-primary);
-  font-weight: 500;
-}
-
-.plan-card .features {
-  text-align: left;
-  list-style: none;
-  margin: 20px 0;
-}
-
-.plan-card .features li {
-  padding: 6px 0;
-  color: #666;
-  font-size: 13px;
-}
-
-.plan-btn {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  background: var(--blue-primary);
-  color: #fff;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.plan-btn:hover {
-  background: var(--blue-dark);
-}
-
-.plan-card.featured .plan-btn {
-  background: var(--orange);
-}
-
-.plan-card.featured .plan-btn:hover {
-  background: var(--orange-light);
-}
-
-.token-usage {
-  background: var(--blue-bg);
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 13px;
-  color: var(--blue-primary);
-  font-weight: 500;
-}
-
-/* RTL Support for Arabic */
-[dir="rtl"] .top-bar .container,
-[dir="rtl"] .header-inner {
-  flex-direction: row-reverse;
-}
-
-[dir="rtl"] .language-switcher select {
-  margin-right: 0;
-  margin-left: 15px;
-}
-
-[dir="rtl"] .plan-card .features {
-  text-align: right;
-}
-
-[dir="rtl"] .logo-icon {
-  margin-left: 8px;
-  margin-right: 0;
-}
 </style>
 </head>
 <body>
@@ -1345,14 +1190,11 @@ img { display: block; max-width: 100%; }
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
-<!-- Subscription Modal -->
-<div class="modal" id="subscriptionModal"></div>
-
 <!-- ==================== TOP BAR ==================== -->
 <div class="top-bar">
   <div class="container">
       <div class="top-bar-left">
-        <span data-i18n="welcome">欢迎来到意念大学！每天必上的学习网站！</span>
+        <span>欢迎来到意念大学！每天必上的学习网站！</span>
         <a href="#" class="hot">🔥 远骋培训班</a>
       <a href="#">校园活动</a>
       <a href="#">企业招聘</a>
@@ -1382,11 +1224,11 @@ img { display: block; max-width: 100%; }
       <!-- Search -->
       <div class="search-box">
         <form onsubmit="doSearch(event)">
-          <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="搜索教程，如：PS入门、AutoCAD、Python...">
-          <button type="submit">🔍 <span data-i18n="search">搜索</span></button>
+          <input type="text" id="searchInput" placeholder="搜索教程，如：PS入门、AutoCAD、Python...">
+          <button type="submit">🔍 搜索</button>
         </form>
         <div class="search-hot">
-          <span data-i18n="hotSearch">热搜：</span>
+          <span>热搜：</span>
           <a href="#" onclick="quickSearch('Photoshop')">Photoshop</a>
           <a href="#" onclick="quickSearch('AutoCAD')">AutoCAD</a>
           <a href="#" onclick="quickSearch('Python')">Python</a>
@@ -1396,10 +1238,9 @@ img { display: block; max-width: 100%; }
       </div>
       <!-- Right actions -->
       <div class="header-right">
-        <div class="token-usage" data-remaining="50000">🤖 API: 50K</div>
-        <div class="btn-vip" onclick="showSubscriptionModal()">👑 <span data-i18n="vip">开通VIP</span></div>
-        <button class="btn-login" onclick="showModal('loginModal')"><span data-i18n="login">登录</span></button>
-        <button class="btn-register" onclick="showModal('loginModal')"><span data-i18n="register">免费注册</span></button>
+        <div class="btn-vip" onclick="showModal('loginModal')">👑 开通VIP</div>
+        <button class="btn-login" onclick="showModal('loginModal')">登录</button>
+        <button class="btn-register" onclick="showModal('loginModal')">免费注册</button>
       </div>
     </div>
   </div>
@@ -1409,9 +1250,9 @@ img { display: block; max-width: 100%; }
 <nav class="main-nav">
   <div class="container">
     <ul>
-      <li class="home-btn active"><a href="#">🏠 <span data-i18n="home">首页</span></a></li>
+      <li class="home-btn active"><a href="#">🏠 首页</a></li>
       <li>
-        <a href="#"><span data-i18n="allCourses">所有教程</span> ▾</a>
+        <a href="#">所有教程 ▾</a>
         <ul class="dropdown">
           <li><a href="#" onclick="filterCat('电脑办公')">📊 电脑办公</a></li>
           <li><a href="#" onclick="filterCat('平面设计')">🎨 平面设计</a></li>
@@ -1422,10 +1263,10 @@ img { display: block; max-width: 100%; }
           <li><a href="#" onclick="filterCat('人工智能')">🤖 人工智能</a></li>
         </ul>
       </li>
-      <li><a href="#"><span data-i18n="training">远骋班</span> <span class="nav-hot">热</span></a></li>
-      <li><a href="#"><span data-i18n="app">手机APP</span></a></li>
-      <li><a href="#"><span data-i18n="activities">校园活动</span> <span class="nav-new">新</span></a></li>
-      <li><a href="#"><span data-i18n="community">问答社区</span></a></li>
+      <li><a href="#">远骋班 <span class="nav-hot">热</span></a></li>
+      <li><a href="#">手机APP</a></li>
+      <li><a href="#">校园活动 <span class="nav-new">新</span></a></li>
+      <li><a href="#">问答社区</a></li>
       <li><a href="#">企业招聘</a></li>
       <li><a href="#">讲师招募</a></li>
       <li><a href="#" style="margin-left:auto">充值 <span class="nav-badge">优惠</span></a></li>
@@ -1704,7 +1545,7 @@ img { display: block; max-width: 100%; }
           <div class="brand-icon">51</div>
           <div class="brand-name">意念大学</div>
         </div>
-        <p data-i18n="dailyVisit">意念大学 - 每天必上的意念大学网站，自2006年起专注于提供高质量的职业技能视频教程，已累积超过170,000个教程，服务全球华人学习者。</p>
+        <p>意念大学 - 每天必上的意念大学网站，自2006年起专注于提供高质量的职业技能视频教程，已累积超过170,000个教程，服务全球华人学习者。</p>
         <div class="footer-qr">
           <div class="footer-qr-item">
             <div class="qr-box">📱</div>
@@ -1765,7 +1606,7 @@ img { display: block; max-width: 100%; }
   </div>
   <div class="footer-bottom">
     <div class="container">
-      <p data-i18n="footerCopyright">
+      <p>
         © 2026 意念大学 - 每天必上的意念大学网站 版权所有 
         <a href="#">蜀ICP备12020098号</a>
         <a href="#">网络视听许可证</a>
@@ -1891,7 +1732,6 @@ img { display: block; max-width: 100%; }
 </div>
 
 <!-- ==================== JAVASCRIPT ==================== -->
-<script src="multilingual-enhancements.js"></script>
 <script>
 // ==================== Data ==================== 
 const categories = [
