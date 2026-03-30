@@ -40,13 +40,15 @@
 - 交互：轮播自动播放、搜索过滤、课程详情弹窗、登录注册弹窗、滚动进度条
 
 ## 意念大学 (Mind University) (2026-03-30)
-- 域名: minduniversity.yndxw.com (DNS 已配置, 待添加到 Vercel)
-- Vercel 项目: prj_21vjUy5DiU4oJbuYlck9AYHKxD4d
-- 原始 Vercel 域名: https://client-tau-lime-93.vercel.app
+- 域名: minduniversity.yndxw.com (DNS 已配置, Vercel 返回空白待排查)
+- GitHub Pages: https://13888285815.github.io/MindUniversity/MindUniver.html (正常)
+- 本地服务器: http://localhost:8888/MindUniver.html (已启动)
+- 原始 Vercel 域名: https://client-tau-lime-93.vercel.app (无法访问)
 - 多语言支持: 中日韩英法德阿拉伯 7 种语言, IP 自动检测
 - 订阅系统: Crunchbase 风格, Free/Starter/Pro/Enterprise 四档
-- 配置文件: vercel.json (已更新域名和 CORS)
-- 文档: docs/VERCEL_DOMAIN_CONFIG.md, docs/DEPLOYMENT_CHECKLIST.md
+- 品牌年份: 自 2007 年起 (已从 2006 更新)
+- 配置文件: vercel.json (简化为纯静态部署)
+- 文档: docs/VERCEL_DOMAIN_CONFIG.md, docs/DEPLOYMENT_CHECKLIST.md, docs/VERCEL_CONFIG_GUIDE.md, docs/VERCEL_NEW_PROJECT_GUIDE.md
 
 ## 用户偏好
 - zzx: 独立开发者/创业者, 技术栈 Node.js + Vue.js
