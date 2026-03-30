@@ -3,6 +3,11 @@
   "outputDirectory": "public",
   "installCommand": "npm ci",
   "framework": "vite",
+  "domains": [
+    {
+      "domain": "minduniversity.yndxw.com"
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/:path*",
@@ -48,7 +53,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://minduniversity.com"
+          "value": "https://minduniversity.yndxw.com,https://client-tau-lime-93.vercel.app"
         },
         {
           "key": "Access-Control-Allow-Methods",
