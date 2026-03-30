@@ -882,6 +882,66 @@ img { display: block; max-width: 100%; }
 .footer-bottom a { color: #888; margin: 0 8px; }
 .footer-bottom a:hover { color: var(--blue-light); }
 
+/* ==================== Footer Subscription ==================== */
+.footer-subscription { flex: 2; }
+.footer-subscription h4 { margin-bottom: 15px; }
+.subscription-tiers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.sub-tier {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  transition: all 0.3s;
+}
+.sub-tier:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.sub-tier .tier-name {
+  display: block;
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+.sub-tier .tier-price {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--blue-primary);
+  margin: 5px 0;
+}
+.sub-tier ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  font-size: 11px;
+  color: #666;
+}
+.sub-tier ul li { padding: 2px 0; }
+.sub-tier button {
+  background: var(--blue-primary);
+  color: #fff;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+.sub-tier button:hover { background: var(--blue-dark); }
+.sub-tier.free { background: #e8f5e9; }
+.sub-tier.starter { background: #e3f2fd; }
+.sub-tier.pro { background: #fff3e0; }
+.sub-tier.enterprise { background: #f3e5f5; }
+
+@media (max-width: 1200px) {
+  .subscription-tiers { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .subscription-tiers { grid-template-columns: 1fr; }
+}
+
 /* ==================== Back to Top ==================== */
 .back-top {
   position: fixed;
@@ -1397,7 +1457,7 @@ img { display: block; max-width: 100%; }
       <!-- Right actions -->
       <div class="header-right">
         <div class="token-usage" data-remaining="50000">🤖 API: 50K</div>
-        <div class="btn-vip" onclick="showSubscriptionModal()">👑 <span data-i18n="vip">开通VIP</span></div>
+        <div class="btn-vip" onclick="scrollToFooter()">👑 <span data-i18n="vip">开通VIP</span></div>
         <button class="btn-login" onclick="showModal('loginModal')"><span data-i18n="login">登录</span></button>
         <button class="btn-register" onclick="showModal('loginModal')"><span data-i18n="register">免费注册</span></button>
       </div>
@@ -1759,6 +1819,51 @@ img { display: block; max-width: 100%; }
             <li><a href="#">用户协议</a></li>
             <li><a href="#">隐私政策</a></li>
           </ul>
+        </div>
+        <div class="footer-col footer-subscription">
+          <h4>订阅方案</h4>
+          <div class="subscription-tiers">
+            <div class="sub-tier free">
+              <span class="tier-name">Free</span>
+              <span class="tier-price">免费</span>
+              <ul>
+                <li>每日50次AI查询</li>
+                <li>基础课程观看</li>
+                <li>社区讨论</li>
+              </ul>
+              <button onclick="showSubscription('free')">选择</button>
+            </div>
+            <div class="sub-tier starter">
+              <span class="tier-name">Starter</span>
+              <span class="tier-price">¥99/月</span>
+              <ul>
+                <li>每日500次AI查询</li>
+                <li>进阶课程</li>
+                <li>下载权限</li>
+              </ul>
+              <button onclick="showSubscription('starter')">选择</button>
+            </div>
+            <div class="sub-tier pro">
+              <span class="tier-name">Pro</span>
+              <span class="tier-price">¥299/月</span>
+              <ul>
+                <li>无限AI查询</li>
+                <li>全部课程</li>
+                <li>1对1导师</li>
+              </ul>
+              <button onclick="showSubscription('pro')">选择</button>
+            </div>
+            <div class="sub-tier enterprise">
+              <span class="tier-name">Enterprise</span>
+              <span class="tier-price">¥999/月</span>
+              <ul>
+                <li>团队管理</li>
+                <li>API调用</li>
+                <li>专属客服</li>
+              </ul>
+              <button onclick="showSubscription('enterprise')">选择</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

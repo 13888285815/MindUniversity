@@ -433,11 +433,26 @@ function addLanguageSwitcher() {
 }
 
 function addSubscriptionModal() {
-  let modal = document.getElementById('subscriptionModal');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.id = 'subscriptionModal';
-    modal.className = 'modal';
-    document.body.appendChild(modal);
+  // Subscription is now displayed in footer, no modal needed
+  // showSubscription function handles the tier selection
+}
+
+// Scroll to footer subscription section
+function showSubscription(tier) {
+  const footer = document.querySelector('.footer');
+  if (footer) {
+    footer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Highlight the selected tier
+    document.querySelectorAll('.sub-tier').forEach(el => el.style.outline = 'none');
+    const selected = document.querySelector(`.sub-tier.${tier}`);
+    if (selected) selected.style.outline = '3px solid var(--blue-primary)';
+  }
+}
+
+// Scroll to footer (used by header subscribe button)
+function scrollToFooter() {
+  const footer = document.querySelector('.footer');
+  if (footer) {
+    footer.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
