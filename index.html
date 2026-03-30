@@ -169,6 +169,9 @@ img { display: block; max-width: 100%; }
   align-items: center;
 }
 .main-nav li { position: relative; }
+.nav-toggle { display: none; color: #fff; font-size: 24px; cursor: pointer; padding: 10px; }
+.nav-list { display: flex; height: 44px; align-items: center; }
+.nav-list.active { display: flex !important; flex-wrap: wrap; }
 .main-nav > ul > li > a {
   display: flex;
   align-items: center;
@@ -940,6 +943,23 @@ img { display: block; max-width: 100%; }
 }
 @media (max-width: 768px) {
   .subscription-tiers { grid-template-columns: 1fr; }
+  .nav-toggle { display: block; }
+  .nav-list { 
+    display: none; 
+    position: absolute; 
+    top: 44px; 
+    left: 0; 
+    right: 0; 
+    background: var(--blue-dark); 
+    flex-direction: column; 
+    height: auto; 
+    padding: 10px 0;
+    z-index: 1000;
+  }
+  .nav-list.active { display: flex; }
+  .nav-list li { width: 100%; }
+  .nav-list li a { width: 100%; padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .dropdown { position: static; box-shadow: none; background: rgba(0,0,0,0.2); }
 }
 
 /* ==================== Back to Top ==================== */
@@ -1479,7 +1499,8 @@ img { display: block; max-width: 100%; }
 <!-- ==================== MAIN NAV ==================== -->
 <nav class="main-nav">
   <div class="container">
-    <ul>
+    <div class="nav-toggle" onclick="toggleNav()">☰</div>
+    <ul class="nav-list">
       <li class="home-btn active"><a href="#">🏠 <span data-i18n="home">首页</span></a></li>
       <li>
         <a href="#"><span data-i18n="allCourses">所有教程</span> ▾</a>
@@ -1499,7 +1520,7 @@ img { display: block; max-width: 100%; }
       <li><a href="#"><span data-i18n="community">问答社区</span></a></li>
       <li><a href="#">企业招聘</a></li>
       <li><a href="#">讲师招募</a></li>
-      <li><a href="#" style="margin-left:auto">充值 <span class="nav-badge">优惠</span></a></li>
+      <li><a href="#">充值 <span class="nav-badge">优惠</span></a></li>
     </ul>
   </div>
 </nav>
@@ -2398,6 +2419,21 @@ function doRegister() {
 function sendCode() {
   showToast('验证码已发送到您的手机 📱');
 }
+
+// ==================== Nav Toggle ====================
+function toggleNav() {
+  const navList = document.querySelector('.nav-list');
+  if (navList) navList.classList.toggle('active');
+}
+
+// Close nav when clicking outside
+document.addEventListener('click', (e) => {
+  const nav = document.querySelector('.main-nav');
+  const navList = document.querySelector('.nav-list');
+  if (nav && navList && !nav.contains(e.target)) {
+    navList.classList.remove('active');
+  }
+});
 
 // ==================== Toast ====================
 let toastTimer;
