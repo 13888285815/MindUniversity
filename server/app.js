@@ -21,23 +21,11 @@ const customerServiceRoutes = require('./routes/customerService');
 const app = express();
 
 // 安全中间件 - Helmet 增强配置
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'"],
-      fontSrc: ["'self'"],
-      objectSrc: ["'none'"],
-      mediaSrc: ["'self'"],
-      frameSrc: ["'none'"]
-    }
-  },
-  crossOriginEmbedderPolicy: true,
-  crossOriginOpenerPolicy: { policy: 'same-origin' },
-  crossOriginResourcePolicy: { policy: 'same-origin' },
+const helmetConfig = {
+  contentSecurityPolicy: false, // Disable CSP for API-only responses
+  crossOriginEmbedderPolicy: false, // Allow embedding
+  crossOriginOpenerPolicy: false,
+  crossOriginResourcePolicy: false, // Allow cross-origin resource sharing
   dnsPrefetchControl: { allow: false },
   frameguard: { action: 'deny' },
   hidePoweredBy: true,
@@ -52,7 +40,6 @@ app.use(helmet({
   permittedCrossDomainPolicies: { permittedPolicies: 'none' },
   referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
   xssFilter: true,
-  // Permissions-Policy: restrict browser features
   permissionsPolicy: {
     features: {
       camera: [],
@@ -66,19 +53,35 @@ app.use(helmet({
       vibrate: []
     }
   }
-}));
+};
 
-// CORS - 严格化配置
+// In Vercel serverless, disable helmet features that cause issues
+if (process.env.VERCEL) {
+  helmetConfig.frameguard = false;
+  helmetConfig.hsts = false;
+}
+
+app.use(helmet(helmetConfig));
+
+// CORS - 配置
 const corsOptions = {
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 };
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.VERCEL) {
+  // Vercel 环境中允许同域请求（前端和 API 在同一域名下）
+  corsOptions.origin = function(origin, callback) {
+    if (!origin || origin.includes('yndxw.com') || origin.includes('vercel.app')) {
+      callback(null, true);
+    } else {
+      callback(new Error('不允许的CORS来源'));
+    }
+  };
+} else if (process.env.NODE_ENV === 'production') {
   const allowedOrigins = (process.env.CORS_ORIGIN || '').split(',').map(s => s.trim()).filter(Boolean);
   corsOptions.origin = function(origin, callback) {
-    // 允许无 origin 的请求（如服务端调用）
     if (!origin) {
       return callback(null, true);
     }
@@ -90,7 +93,6 @@ if (process.env.NODE_ENV === 'production') {
     }
   };
 } else {
-  // 开发环境仅允许 localhost
   corsOptions.origin = function(origin, callback) {
     if (!origin || /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
       callback(null, true);

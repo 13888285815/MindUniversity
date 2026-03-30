@@ -27,6 +27,18 @@
 - 文档：docs/CUSTOMER_SERVICE.md
 - 后端路由：/api/customer-service/*
 
+## 本地开发环境 (2026-03-29)
+- MongoDB Atlas 直连 shard 节点 (DNS SRV 解析超时问题, 已用直连绕过)
+- Redis 未启动 (可选, 不影响核心功能)
+- 测试账号: test@example.com / Test1234, testuser2@example.com / Test1234
+- 密码规则: 至少8位, 必须含大小写字母+数字
+
+## 51zxw.net 克隆网站 (2026-03-30)
+- 文件位置: /Users/zzx/WorkBuddy/20260324102029/public/51zxw-clone.html
+- 单文件完整实现，包含所有功能：导航栏、轮播图、课程分类、课程列表、搜索、登录注册弹窗、课程详情
+- 数据：10大课程分类、28门示例课程、6位明星讲师、5条校园动态
+- 交互：轮播自动播放、搜索过滤、课程详情弹窗、登录注册弹窗、滚动进度条
+
 ## 用户偏好
 - zzx: 独立开发者/创业者, 技术栈 Node.js + Vue.js
 - 全功能需求不要阉割版

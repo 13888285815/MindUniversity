@@ -1,9 +1,7 @@
-// Vercel Serverless Function - API Gateway
-// Handles all /api/* requests through Express app
-const app = require('../server/app');
-
-// Ensure database connections are established
-const database = require('../server/config/database');
+// Vercel Serverless Function - API Gateway (inside client/api/)
+// Handles all /api/* requests through the Express app from server/
+const app = require('../../server/app');
+const database = require('../../server/config/database');
 
 let isConnected = false;
 
@@ -14,18 +12,15 @@ const connectDB = async () => {
       isConnected = true;
     } catch (e) {
       console.error('MongoDB connection failed:', e.message);
-      // Don't set isConnected so it will retry next invocation
     }
-    // Redis is optional on Vercel (no long-lived connections)
   }
 };
 
 module.exports = async (req, res) => {
-  // Set CORS origin for same-domain requests
+  // Set origin header for same-domain requests
   if (!req.headers.origin) {
     req.headers.origin = 'https://yndxw.com';
   }
-
   await connectDB();
   return app(req, res);
 };

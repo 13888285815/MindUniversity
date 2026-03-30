@@ -1,91 +1,659 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智慧证券 - AI驱动的一站式证券分析平台</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #0f0f23; color: #e2e8f0; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        header { background: rgba(15,15,35,0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; padding: 15px 0; border-bottom: 1px solid #2d2d44; }
-        .header-content { display: flex; align-items: center; justify-content: space-between; }
-        .brand { font-size: 24px; font-weight: 700; }
-        .brand span { background: linear-gradient(135deg, #e94560, #ff6b6b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav { display: flex; gap: 24px; }
-        .nav a { color: #a0aec0; text-decoration: none; font-size: 14px; transition: color 0.3s; }
-        .nav a:hover { color: #e94560; }
-        .hero { text-align: center; padding: 120px 20px 80px; background: radial-gradient(ellipse at top, #1a1a3e 0%, #0f0f23 70%); }
-        .hero h1 { font-size: 52px; font-weight: 800; line-height: 1.2; margin-bottom: 20px; }
-        .gradient { background: linear-gradient(135deg, #e94560, #ff6b6b, #ffa07a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { font-size: 18px; color: #a0aec0; max-width: 700px; margin: 0 auto 40px; line-height: 1.7; }
-        .btn { display: inline-block; padding: 14px 36px; border-radius: 25px; font-size: 16px; font-weight: 600; text-decoration: none; transition: all 0.3s; border: none; cursor: pointer; }
-        .btn-primary { background: linear-gradient(135deg, #e94560, #ff6b6b); color: white; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(233,69,96,0.3); }
-        .btn-outline { background: transparent; color: #e94560; border: 2px solid #e94560; margin-left: 12px; }
-        .features { padding: 80px 0; }
-        .section-title { text-align: center; font-size: 36px; font-weight: 700; margin-bottom: 50px; }
-        .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-        .feature-card { background: #1a1a2e; border: 1px solid #2d2d44; border-radius: 16px; padding: 32px; transition: all 0.3s; }
-        .feature-card:hover { transform: translateY(-5px); border-color: #e94560; box-shadow: 0 10px 30px rgba(233,69,96,0.15); }
-        .feature-card .icon { font-size: 42px; margin-bottom: 16px; }
-        .feature-card h3 { font-size: 18px; margin-bottom: 10px; }
-        .feature-card p { color: #a0aec0; font-size: 14px; line-height: 1.6; }
-        .stats { display: flex; justify-content: center; gap: 60px; padding: 60px 0; border-top: 1px solid #2d2d44; border-bottom: 1px solid #2d2d44; }
-        .stat { text-align: center; }
-        .stat-num { display: block; font-size: 36px; font-weight: 800; color: #e94560; }
-        .stat-label { color: #718096; font-size: 14px; }
-        footer { text-align: center; padding: 40px; color: #4a5568; }
-        footer a { color: #e94560; text-decoration: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="csrf-token" content="csrf_token_here">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: http:; font-src 'self' data: https:; connect-src 'self' https://api.github.com https://*.vercel.app">
+<meta name="description" content="Mind University - Professional Online Learning Platform">
+<meta name="keywords" content="Mind University, online learning, video tutorials, Python, AI, programming">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Mind University">
+<meta property="og:title" content="Mind University - Professional Online Learning Platform">
+<meta property="og:description" content="Quality video tutorials for programming, design, and more">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="Mind University">
+<link rel="canonical" href="https://minduniversity.com">
+<title>Mind University - Video Tutorials | Free Learning | 3D Tutorials | Design Tutorials | Animation Tutorials | Office Tutorials | Mechanical Design | Web Development - Mind University</title>
+<style>
+/* ==================== CSS Reset & Variables ==================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --blue-primary: #1964bf;
+  --blue-light: #a0c1e7;
+  --blue-dark: #0f4fa0;
+  --blue-bg: #eef4fb;
+  --orange: #ff6600;
+  --orange-light: #ff8800;
+  --red: #e63a2e;
+  --green: #28a745;
+  --text-dark: #333;
+  --text-mid: #555;
+  --text-light: #888;
+  --border: #e0e0e0;
+  --bg-white: #fff;
+  --bg-gray: #f5f5f5;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --radius: 4px;
+}
+html { font-size: 14px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  color: var(--text-dark); 
+  background: var(--bg-gray); 
+  min-width: 320px;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+a:hover { color: var(--blue-primary); }
+ul { list-style: none; }
+img { display: block; max-width: 100%; height: auto; }
+button, input, select, textarea { font-family: inherit; font-size: inherit; }
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+.clearfix::after { content: ''; display: table; clear: both; }
+
+/* ==================== Mobile First Responsive ==================== */
+@media (min-width: 576px) { html { font-size: 15px; } }
+@media (min-width: 768px) { html { font-size: 16px; } }
+@media (min-width: 992px) { html { font-size: 16px; } }
+@media (min-width: 1200px) { html { font-size: 16px; } }
+
+/* Mobile Navigation Toggle */
+.mobile-menu-btn { 
+  display: none; 
+  font-size: 24px; 
+  cursor: pointer; 
+  padding: 8px; 
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ==================== Top Bar ==================== */
+.top-bar {
+  background: #3a3a3a;
+  height: 32px;
+  line-height: 32px;
+  font-size: 12px;
+  color: #ccc;
+}
+.top-bar .container { display: flex; justify-content: space-between; align-items: center; }
+.top-bar a { color: #ccc; margin-left: 15px; }
+.top-bar a:hover { color: #fff; }
+.top-bar-left span { margin-right: 15px; }
+.top-bar-left .hot { color: #ff9900; }
+.lang-selector { 
+  display: inline-flex; 
+  gap: 8px; 
+  align-items: center;
+}
+.lang-selector select {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* ==================== Header ==================== */
+.header {
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  height: 72px;
+  gap: 20px;
+}
+.logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--blue-primary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+}
+.logo-text { line-height: 1.3; }
+.logo-text strong { font-size: 20px; color: var(--blue-primary); font-weight: 900; display: block; }
+.logo-text span { font-size: 11px; color: #999; }
+
+/* Search Box */
+.search-box {
+  flex: 1;
+  max-width: 480px;
+  position: relative;
+}
+.search-box form {
+  display: flex;
+  border: 2px solid var(--blue-primary);
+  border-radius: 24px;
+  overflow: hidden;
+}
+.search-box input {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+.search-box button {
+  background: var(--blue-primary);
+  color: #fff;
+  border: none;
+  padding: 0 20px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.search-box button:hover { background: var(--blue-dark); }
+.search-hot {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+  font-size: 12px;
+}
+.search-hot span { color: #999; }
+.search-hot a { color: #666; }
+.search-hot a:hover { color: var(--blue-primary); }
+
+/* Header Right */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.btn-login, .btn-register {
+  padding: 7px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-login { border: 1px solid var(--blue-primary); color: var(--blue-primary); background: #fff; }
+.btn-login:hover { background: var(--blue-bg); }
+.btn-register { background: var(--blue-primary); color: #fff; border: none; }
+.btn-register:hover { background: var(--blue-dark); }
+.btn-vip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  background: linear-gradient(135deg, #f6d365, #fda085);
+  color: #7a3500;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-vip:hover { opacity: 0.9; }
+
+/* ==================== Main Nav ==================== */
+.main-nav {
+  background: var(--blue-primary);
+  position: relative;
+}
+.main-nav ul {
+  display: flex;
+  height: 44px;
+  align-items: center;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.main-nav ul::-webkit-scrollbar { display: none; }
+.main-nav li { position: relative; flex-shrink: 0; }
+.main-nav > ul > li > a {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 18px;
+  color: #fff;
+  font-size: 15px;
+  gap: 4px;
+  transition: background 0.2s;
+}
+.main-nav > ul > li > a:hover,
+.main-nav > ul > li.active > a {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+.main-nav > ul > li.home-btn > a { font-size: 18px; }
+.nav-hot { font-size: 10px; background: #ff4400; color: #fff; padding: 1px 4px; border-radius: 3px; margin-left: 3px; }
+.nav-new { font-size: 10px; background: #28a745; color: #fff; padding: 1px 4px; border-radius: 3px; margin-left: 3px; }
+.nav-badge { font-size: 10px; background: #ff9900; color: #fff; padding: 1px 4px; border-radius: 3px; margin-left: 3px; }
+
+/* Dropdown */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 44px;
+  left: 0;
+  background: #fff;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-top: 2px solid var(--blue-primary);
+  z-index: 999;
+}
+.main-nav li:hover .dropdown { display: block; }
+.dropdown li a {
+  display: block;
+  padding: 10px 18px;
+  color: var(--text-dark);
+  font-size: 13px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.dropdown li a:hover { background: var(--blue-bg); color: var(--blue-primary); }
+
+/* Mobile Navigation */
+@media (max-width: 992px) {
+  .mobile-menu-btn { display: block; }
+  .main-nav { display: none; }
+  .main-nav.mobile-active { 
+    display: block; 
+    position: fixed;
+    top: 104px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    overflow-y: auto;
+    z-index: 998;
+  }
+  .main-nav.mobile-active ul {
+    flex-direction: column;
+    height: auto;
+    padding: 10px 0;
+  }
+  .main-nav.mobile-active > ul > li > a {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .main-nav.mobile-active li:hover .dropdown { 
+    display: block; 
+    position: static;
+    box-shadow: none;
+    background: #f8f8f8;
+  }
+}
+
+/* ==================== Category Bar ==================== */
+.category-bar {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+.category-bar ul {
+  display: flex;
+  height: 46px;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.category-bar ul::-webkit-scrollbar { display: none; }
+.category-bar li a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  height: 36px;
+  border-radius: 18px;
+  font-size: 13px;
+  color: #555;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.category-bar li a .cat-icon { font-size: 16px; }
+.category-bar li a:hover,
+.category-bar li.active a {
+  background: var(--blue-primary);
+  color: #fff;
+}
+
+/* ==================== Course Card ==================== */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+@media (min-width: 576px) {
+  .course-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+}
+@media (min-width: 768px) {
+  .course-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+}
+@media (min-width: 992px) {
+  .course-grid { grid-template-columns: repeat(6, 1fr); }
+}
+.course-grid-5 { grid-template-columns: repeat(4, 1fr); }
+.course-grid-4 { grid-template-columns: repeat(3, 1fr); }
+@media (min-width: 768px) {
+  .course-grid-5 { grid-template-columns: repeat(5, 1fr); }
+  .course-grid-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+.course-card {
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+.course-thumb {
+  position: relative;
+  padding-top: 60%;
+  overflow: hidden;
+}
+.course-thumb-inner {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+.course-thumb:hover .play-btn { opacity: 1; }
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+  font-size: 18px;
+  color: var(--blue-primary);
+}
+.course-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+.course-badge.free { background: var(--green); }
+.course-badge.new { background: var(--blue-primary); }
+.course-badge.hot { background: var(--red); }
+.course-info { padding: 10px 12px 12px; }
+.course-title {
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1.5;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--text-dark);
+}
+.course-card:hover .course-title { color: var(--blue-primary); }
+.course-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #999;
+}
+.course-meta .count { color: #f60; }
+.course-meta .level { 
+  padding: 1px 6px;
+  border-radius: 2px;
+  background: #f0f5ff;
+  color: var(--blue-primary);
+  font-size: 11px;
+}
+.course-author { font-size: 12px; color: #999; margin-top: 4px; }
+
+/* ==================== Back to Top ==================== */
+.back-top {
+  position: fixed;
+  right: 20px;
+  bottom: 80px;
+  width: 44px;
+  height: 44px;
+  background: var(--blue-primary);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s;
+  z-index: 999;
+}
+.back-top.show { opacity: 1; transform: translateY(0); }
+.back-top:hover { background: var(--blue-dark); }
+
+/* ==================== Loading ==================== */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  font-size: 16px;
+  color: #999;
+}
+</style>
 </head>
 <body>
-    <header>
-        <div class="container header-content">
-            <div class="brand">📈 <span>智慧证券</span></div>
-            <nav class="nav">
-                <a href="#">首页</a><a href="#">行情中心</a><a href="#">AI分析</a>
-                <a href="#">API文档</a><a href="/login">登录</a><a href="/register">注册</a>
-            </nav>
-        </div>
-    </header>
+<div id="app">
+  <!-- Loading State -->
+  <div id="loading" class="loading">Loading... 加载中...</div>
+</div>
 
-    <section class="hero">
-        <div class="container">
-            <h1>AI 驱动的 <span class="gradient">智能证券分析</span></h1>
-            <p>融合银河证券智慧星的专业行情能力与同花顺的极致用户体验，结合订阅体系和 OpenAI 兼容的 API Token 计费模式。</p>
-            <div>
-                <a href="/register" class="btn btn-primary">免费开始</a>
-                <a href="#features" class="btn btn-outline">了解更多</a>
-            </div>
-        </div>
-    </section>
+<script>
+// ==================== i18n Translations ====================
+const translations = {
+  zh: {
+    loading: '加载中...',
+    welcome: '欢迎来到意念大学网！',
+    searchPlaceholder: '搜索教程，如：PS入门、AutoCAD、Python...',
+    search: '搜索',
+    hotSearch: '热搜：',
+    vipJoin: '开通VIP',
+    login: '登录',
+    register: '注册',
+    allCourses: '全部课程',
+    home: '首页',
+    allTutorials: '所有教程',
+   培训班: '远骋培训班',
+   校园活动: '校园活动',
+   企业招聘: '企业招聘',
+   讲师招聘: '应聘讲师',
+    appDownload: 'APP下载',
+    helpCenter: '帮助中心',
+  },
+  en: {
+    loading: 'Loading...',
+    welcome: 'Welcome to Mind University!',
+    searchPlaceholder: 'Search tutorials, e.g.: PS, AutoCAD, Python...',
+    search: 'Search',
+    hotSearch: 'Hot Search:',
+    vipJoin: 'Join VIP',
+    login: 'Login',
+    register: 'Register',
+    allCourses: 'All Courses',
+    home: 'Home',
+    allTutorials: 'All Tutorials',
+   培训班: 'Training',
+   校园活动: 'Events',
+   企业招聘: 'Careers',
+   讲师招聘: 'Instructors',
+    appDownload: 'Download App',
+    helpCenter: 'Help Center',
+  },
+  fr: {
+    loading: 'Chargement...',
+    welcome: 'Bienvenue à Mind University!',
+    searchPlaceholder: 'Rechercher des tutoriels...',
+    search: 'Rechercher',
+    hotSearch: 'Populaire:',
+    vipJoin: 'Devenir VIP',
+    login: 'Connexion',
+    register: 'S\'inscrire',
+    allCourses: 'Tous les cours',
+    home: 'Accueil',
+    allTutorials: 'Tous les tutoriels',
+   培训班: 'Formation',
+   校园活动: 'Événements',
+   企业招聘: 'Carrières',
+   讲师招聘: 'Instructeurs',
+    appDownload: 'Télécharger App',
+    helpCenter: 'Aide',
+  },
+  de: {
+    loading: 'Laden...',
+    welcome: 'Willkommen bei Mind University!',
+    searchPlaceholder: 'Tutorials suchen...',
+    search: 'Suchen',
+    hotSearch: 'Beliebt:',
+    vipJoin: 'VIP werden',
+    login: 'Anmelden',
+    register: 'Registrieren',
+    allCourses: 'Alle Kurse',
+    home: 'Startseite',
+    allTutorials: 'Alle Tutorials',
+   培训班: 'Ausbildung',
+   校园活动: 'Veranstaltungen',
+   企业招聘: 'Karriere',
+   讲师招聘: 'Dozenten',
+    appDownload: 'App herunterladen',
+    helpCenter: 'Hilfe',
+  },
+  ja: {
+    loading: '読み込み中...',
+    welcome: 'Mind Universityへようこそ！',
+    searchPlaceholder: 'チュートリアルを検索...',
+    search: '検索',
+    hotSearch: '人気:',
+    vipJoin: 'VIP加入',
+    login: 'ログイン',
+    register: '登録',
+    allCourses: 'すべてのコース',
+    home: 'ホーム',
+    allTutorials: 'すべてのチュートリアル',
+   培训班: 'トレーニング',
+   校园活动: 'イベント',
+   企业招聘: '採用情報',
+   讲师招聘: '講師募集',
+    appDownload: 'アプリをダウンロード',
+    helpCenter: 'ヘルプ',
+  },
+  ar: {
+    loading: 'جاري التحميل...',
+    welcome: 'مرحبا بكم في Mind University!',
+    searchPlaceholder: 'بحث عن دروس...',
+    search: 'بحث',
+    hotSearch: 'شائع:',
+    vipJoin: 'اشترك VIP',
+    login: 'تسجيل الدخول',
+    register: 'تسجيل',
+    allCourses: 'جميع الدورات',
+    home: 'الرئيسية',
+    allTutorials: 'جميع الدروس',
+   培训班: 'التدريب',
+   校园活动: 'الفعاليات',
+   企业招聘: 'الوظائف',
+   讲师招聘: 'مدربين',
+    appDownload: 'تحميل التطبيق',
+    helpCenter: 'مركز المساعدة',
+  }
+};
 
-    <section class="stats">
-        <div class="stat"><span class="stat-num">5000+</span><span class="stat-label">覆盖标的</span></div>
-        <div class="stat"><span class="stat-num">实时</span><span class="stat-label">行情推送</span></div>
-        <div class="stat"><span class="stat-num">AI</span><span class="stat-label">深度分析</span></div>
-        <div class="stat"><span class="stat-num">4层</span><span class="stat-label">订阅计划</span></div>
-    </section>
+// Current language
+let currentLang = localStorage.getItem('lang') || 'zh';
 
-    <section class="features" id="features">
-        <div class="container">
-            <h2 class="section-title">核心功能</h2>
-            <div class="feature-grid">
-                <div class="feature-card"><div class="icon">📊</div><h3>专业K线行情</h3><p>日K/周K/月K/分钟级K线，五档盘口，分时图，实时推送</p></div>
-                <div class="feature-card"><div class="icon">🤖</div><h3>AI智能分析</h3><p>大模型驱动，技术分析+基本面评估，买卖信号，目标价止损</p></div>
-                <div class="feature-card"><div class="icon">⭐</div><h3>自选股管理</h3><p>灵活分组标签管理，目标价止损设置，多维度排序</p></div>
-                <div class="feature-card"><div class="icon">🔔</div><h3>智能预警</h3><p>价格突破/涨跌幅/成交量多维度实时预警，站内+邮件通知</p></div>
-                <div class="feature-card"><div class="icon">🔑</div><h3>API & 计费</h3><p>OpenAI兼容API，精确Token计费，RESTful接口，丰富SDK</p></div>
-                <div class="feature-card"><div class="icon">💎</div><h3>分层订阅</h3><p>Free/Starter/Pro/Enterprise四层体系，灵活按需升级</p></div>
-            </div>
-        </div>
-    </section>
+// Get translation
+function t(key) {
+  return translations[currentLang][key] || translations['zh'][key] || key;
+}
 
-    <footer>
-        <div class="container">
-            <p>Copyright © 2026 云南意念科技有限责任公司 滇ICP备10000001号-1 | 网站版本 v2026.03.26</p>
-        </div>
-    </footer>
+// Set language
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  updatePage();
+}
+
+// Update page content
+function updatePage() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+  
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    el.placeholder = t(key);
+  });
+}
+
+// ==================== Security: XSS Prevention ====================
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function safeSetHtml(element, html) {
+  const div = document.createElement('div');
+  div.textContent = html;
+  element.innerHTML = '';
+  element.appendChild(div);
+}
+
+// ==================== Init ====================
+document.addEventListener('DOMContentLoaded', () => {
+  // Set initial language
+  setLang(currentLang);
+  
+  // Hide loading when ready
+  setTimeout(() => {
+    document.getElementById('loading').style.display = 'none';
+  }, 500);
+});
+</script>
 </body>
 </html>

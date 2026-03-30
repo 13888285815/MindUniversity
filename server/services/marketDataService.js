@@ -176,7 +176,8 @@ class MarketDataService {
           await stock.save();
           
           // 通过 Socket.io 推送
-          const io = require('../../server').app?.get('io');
+          const app = require('../app');
+          const io = app.get('io');
           if (io) {
             io.to(`stock:${stock.symbol}`).emit('quote:update', {
               symbol: stock.symbol,

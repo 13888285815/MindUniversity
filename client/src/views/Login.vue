@@ -75,14 +75,15 @@
           </el-button>
         </el-form>
 
-        <el-divider class="divider">或使用以下方式</el-divider>
+        <el-divider class="divider">更多登录方式</el-divider>
 
         <div class="social-login">
-          <el-button class="social-button" @click="socialLogin('wechat')">
+          <el-button class="social-button" disabled>
             <svg class="social-icon" viewBox="0 0 24 24">
               <path fill="#07C160" d="M8.5 13.5c-4.14 0-7.5-2.69-7.5-6s3.36-6 7.5-6 7.5 2.69 7.5 6-3.36 6-7.5 6zm0-10c-2.48 0-4.5 1.79-4.5 4s2.02 4 4.5 4 4.5-1.79 4.5-4-2.02-4-4.5-4zm7 14c-3.31 0-6-2.24-6-5s2.69-5 6-5 6 2.24 6 5-2.69 5-6 5zm0-8c-1.93 0-3.5 1.34-3.5 3s1.57 3 3.5 3 3.5-1.34 3.5-3-1.57-3-3.5-3z"/>
             </svg>
             微信登录
+            <el-tag size="small" type="info" effect="plain" class="coming-soon-tag">即将上线</el-tag>
           </el-button>
         </div>
 
@@ -126,13 +127,18 @@ const rules = {
 }
 
 const handleLogin = async () => {
+  // 先做前端表单校验
   try {
-    const valid = await loginFormRef.value.validate()
-    if (!valid) return
+    await loginFormRef.value.validate()
+  } catch {
+    // 表单校验未通过，Element Plus 会自动显示字段错误
+    return
+  }
 
-    loading.value = true
+  loading.value = true
+  try {
     await userStore.login(form.email, form.password)
-    
+
     if (rememberMe.value) {
       localStorage.setItem('rememberEmail', form.email)
     } else {
@@ -140,20 +146,19 @@ const handleLogin = async () => {
     }
 
     ElMessage.success('登录成功，欢迎回来！')
-    
+
     // 跳转到之前的页面或首页
     const redirect = router.currentRoute.value.query.redirect || '/dashboard'
     router.push(redirect)
   } catch (error) {
-    const message = error.response?.data?.message || error.message || '登录失败，请检查您的账号密码'
+    // 区分不同错误来源
+    const serverMsg = error.response?.data?.message
+    const validationErrors = error.response?.data?.errors
+    const message = serverMsg || (validationErrors ? validationErrors.join('；') : null) || error.message || '登录失败，请检查您的账号密码'
     ElMessage.error(message)
   } finally {
     loading.value = false
   }
-}
-
-const socialLogin = (provider) => {
-  ElMessage.info(`${provider === 'wechat' ? '微信' : ''}登录功能即将上线`)
 }
 
 // 自动填充记住的邮箱
@@ -445,20 +450,20 @@ onMounted(() => {
   height: 44px;
   background: rgba(22, 33, 62, 0.6);
   border: 1px solid rgba(45, 45, 68, 0.6);
-  color: #e2e8f0;
+  color: #a0aec0;
   font-size: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: all 0.3s;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
-.social-button:hover {
-  background: rgba(7, 193, 96, 0.1);
-  border-color: #07c160;
-  color: #07c160;
-  transform: translateY(-2px);
+.coming-soon-tag {
+  margin-left: 4px;
+  font-size: 11px;
+  vertical-align: middle;
 }
 
 .social-icon {

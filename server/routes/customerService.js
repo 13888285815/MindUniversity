@@ -7,7 +7,7 @@ const auth = require('../middleware/auth');
  * POST /api/customer-service/chat
  * 智能客服对话
  */
-router.post('/chat', auth, async (req, res) => {
+router.post('/chat', auth.authenticateJWT, async (req, res) => {
   try {
     const { message, history = [] } = req.body;
 

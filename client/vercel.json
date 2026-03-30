@@ -1,4 +1,5 @@
 {
+  "includeFiles": ["../server/**", "../api/**"],
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -17,7 +18,6 @@
     }
   ],
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    { "source": "/((?!assets/|favicon|robots|sitemap|api/).*)", "destination": "/index.html" }
   ]
 }
