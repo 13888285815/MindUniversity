@@ -428,8 +428,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function addLanguageSwitcher() {
-  // Language switcher is disabled - removed from top bar
-  // Language can be changed via footer links or other UI elements
+  // Sync header language switcher with current language
+  const headerSwitcher = document.getElementById('headerLangSwitcher');
+  if (headerSwitcher) {
+    const select = headerSwitcher.querySelector('select');
+    if (select) select.value = currentLang;
+  }
 }
 
 function addSubscriptionModal() {
