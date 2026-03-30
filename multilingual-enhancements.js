@@ -428,24 +428,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function addLanguageSwitcher() {
-  const topBarRight = document.querySelector('.top-bar-right');
-  if (!topBarRight) return;
-
-  const switcher = document.createElement('div');
-  switcher.className = 'language-switcher';
-  switcher.innerHTML = `
-    <select onchange="changeLanguage(this.value)">
-      <option value="zh-CN">中文</option>
-      <option value="en">English</option>
-      <option value="ja">日本語</option>
-      <option value="ko">한국어</option>
-      <option value="fr">Français</option>
-      <option value="de">Deutsch</option>
-      <option value="ar">العربية</option>
-    </select>
-  `;
-  
-  topBarRight.insertBefore(switcher, topBarRight.firstChild);
+  // Language switcher is now in header-right, skip auto-add to top-bar
+  // Just sync the select value with current language
+  const headerSwitcher = document.getElementById('headerLangSwitcher');
+  if (headerSwitcher) {
+    const select = headerSwitcher.querySelector('select');
+    if (select) select.value = currentLang;
+  }
 }
 
 function addSubscriptionModal() {
